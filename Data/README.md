@@ -10,7 +10,7 @@ The process is broken down into five main stages:
 4.  **Filter**: Cleans the dataset based on quality metrics.
 5.  **De-duplicate**: Removes near-identical ADRs.
 
-```mermaid
+```
     A[Start: Raw Repository Info] --> B(1. Aggregate Metadata);
     B --> C{data.csv};
     C --> D(2. Scrape ADRs);
