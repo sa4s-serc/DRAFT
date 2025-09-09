@@ -89,3 +89,21 @@ The final step removes redundant or near-identical ADRs from the dataset.
 * **Output**:
     * `ADR-data/adrs.jsonl`: The final, clean, and de-duplicated dataset. ✅
     * `ADR-data/removed_duplicates.jsonl`: A log file containing the paths of the removed ADRs and which ADR they were a duplicate of.
+
+---
+
+## Final Data Preparation: Dataset Partitioning
+
+This final preparation step partitions the clean dataset for use in machine learning workflows.
+
+* **Input**: `ADR-data/adrs.jsonl`
+
+* **Process**:
+    * Randomly shuffles the entire collection to ensure that the resulting subsets are unbiased.
+    * The data is split into train-validation-test set with proportion **70-10-20**
+
+
+* **Output**: Three JSONL files ready for model training and evaluation ✅
+    * `ADR-data/train.jsonl`
+    * `ADR-data/val.jsonl`
+    * `ADR-data/test.jsonl`

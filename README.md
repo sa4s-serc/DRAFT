@@ -11,5 +11,6 @@ The process is broken down into five main stages:
 3.  **Dataset Creation**: Parses the raw files into a structured format.
 4.  **Filter**: Cleans the dataset based on quality metrics.
 5.  **De-duplicate**: Removes near-identical ADRs.
+6.  **Test-Train Split:** Split data into train-validation-test set with proportion 70-10-20
 
 Look into the Data directory for details.
