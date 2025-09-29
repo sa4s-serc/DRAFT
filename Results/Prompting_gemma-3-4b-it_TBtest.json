@@ -1,0 +1,32 @@
+{
+  "rouge": {
+    "rouge1": 0.22039017263655797,
+    "rouge2": 0.033419231666468846,
+    "rougeL": 0.10317214011110085,
+    "rougeLsum": 0.20806994693480668
+  },
+  "bleu": {
+    "bleu": 0.01314937796646003,
+    "precisions": [
+      0.1611556187942714,
+      0.02702528627431551,
+      0.0046510474466357095,
+      0.0014758910894161602
+    ],
+    "brevity_penalty": 1.0,
+    "length_ratio": 2.4651302525750083,
+    "translation_length": 808225,
+    "reference_length": 327863
+  },
+  "meteor": {
+    "meteor": 0.2221324159389272
+  },
+  "bertscore": {
+    "precision": 0.8077900996153382,
+    "recall": 0.821025243435783,
+    "f1": 0.8141962077425814,
+    "hashcode": "roberta-large_L17_no-idf_version=0.3.12(hug_trans=4.57.0.dev0)"
+  },
+  "AverageTime": 32.41527715606251,
+  "AverageGeneratedTokens": 980.8689655172413
+}

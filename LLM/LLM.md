@@ -11,8 +11,11 @@ For Generating LLMs we are Taking LLMs from **LM Arena text** rankings [https://
 
 The selected models are:
 - Gemini 2.5
+<!-- - kimi-k2-0711-preview -->
+- deepseek-v3.1
+<!-- - qwen3-235b-a22b-instruct-2507 -->
 - qwen3-30b-a3b-instruct-2507
-- gemma-3-27b-it
+<!-- - gemma-3-27b-it -->
 - gemma-3-4b-it
 <!-- gemma-2-2b-it -->
 <!-- gemma-3n-e4b-it -->
