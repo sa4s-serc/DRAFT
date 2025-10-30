@@ -10,12 +10,14 @@ The rankings are there in MTEB.csv
 For Generating LLMs we are Taking LLMs from **LM Arena text** rankings [https://lmarena.ai/leaderboard/text] as of 8 Sep 2025, as given in screencapture-lmarena-ai-leaderboard-text-2025-09-08-15_27_44.png
 
 The selected models are:
-- Gemini 2.5
+- gpt-5-high
 <!-- - kimi-k2-0711-preview -->
-- deepseek-v3.1
+- gemini-2.5-flash
 <!-- - qwen3-235b-a22b-instruct-2507 -->
 - qwen3-30b-a3b-instruct-2507
+- add llama/deepseek
 <!-- - gemma-3-27b-it -->
 - gemma-3-4b-it
+- add mistral/deepseek
 <!-- gemma-2-2b-it -->
 <!-- gemma-3n-e4b-it -->

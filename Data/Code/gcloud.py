@@ -63,7 +63,7 @@ def format_example_tb(example, test=False):
 
     messages = {
         "system_instruction": {
-            "role": "model", 
+            "role": "system", 
             "parts": [
                 {"text": "You are an expert software architect responsible for maintaining and thoroughly documenting all architectural decisions. You are writing an Architectural Decision Record for a software. Write the ADR corresponding to the ADR Title provided by the User. Provide only the ADR content in about 10-800 words. Do not add any additional responses—only the ADR content."}
             ]
@@ -71,6 +71,62 @@ def format_example_tb(example, test=False):
         "contents": [
             {"role": "user", "parts": [{"text": f"# Title: {title}"}]},
             {"role": "model", "parts": [{"text": body}]}
+        ]
+    }
+    if test:
+        return {"request": messages}
+    return messages
+
+
+def format_example_cd_draft(example, test=False):
+    retrieved_contexts = [doc["Context"] for doc in example["Retrieved"]]
+    retrieved_decisions = [doc["Decision"] for doc in example["Retrieved"]]
+    context = example["Anchor"]["Context"]
+    decision = example["Anchor"]["Decision"]
+
+    messages = {
+        "systems_instruction": {
+            "role": "system",
+            "parts": [
+                {"text": "You are an expert software architect responsible for maintaining and thoroughly documenting all architectural decisions. You are writing an Architectural Decision Record for a software. Below are a few examples of Context and the corresponding Decision. Following the examples, provide only the ## Decision for the final ## Context provided by the user. Provide only the Decision in about 2-400 words. Do not add any explanations, introductions, or additional responses."}
+            ]
+        },
+        "contents": [
+            {"role": "user", "parts": [{"text": f"## Context: {retrieved_contexts[0]}"}]},
+            {"role": "model", "parts": [{"text": f"## Decision: {retrieved_decisions[0]}"}]},
+            {"role": "user", "parts": [{"text": f"## Context: {retrieved_contexts[1]}"}]},
+            {"role": "model", "parts": [{"text": f"## Decision: {retrieved_decisions[1]}"}]},
+            {"role": "user", "parts": [{"text": f"## Context: {context}"}]},
+            {"role": "model", "parts": [{"text": f"## Decision: {decision}"}]}
+        ]
+    }
+    if test:
+        return {"request": messages}
+    return messages
+
+def format_example_tb_draft(example, test=False):
+    retrieved_title = [doc["Title"] for doc in example["Retrieved"]]
+    retrieved_body = [doc["Body"] for doc in example["Retrieved"]]
+    title = example["Anchor"]["Title"]
+    body = example["Anchor"]["Body"]
+    
+    title = example["Anchor"]["Title"]
+    body = example["Anchor"]["Body"]
+
+    messages = {
+        "systems_instruction": {
+            "role": "system",
+            "parts": [
+                {"text": "You are an expert software architect responsible for maintaining and thoroughly documenting all architectural decisions. You are writing an Architectural Decision Record for a software. Write the ADR corresponding to the ADR Title provided by the User. Provide only the ADR content in about 10-800 words. Do not add any additional responses—only the ADR content."}
+            ]
+        },
+        "contents": [
+            {"role": "user", "parts": [{"text": f"# Title: {retrieved_title[0]}"}]},
+            {"role": "assistant", "parts": [{"text": retrieved_body[0]}]},
+            {"role": "user", "parts": [{"text": f"# Title: {retrieved_title[1]}"}]},
+            {"role": "assistant", "parts": [{"text": retrieved_body[1]}]},
+            {"role": "user", "parts": [{"text": f"# Title: {title}"}]},
+            {"role": "assistant", "parts": [{"text": body}]},
         ]
     }
     if test:
