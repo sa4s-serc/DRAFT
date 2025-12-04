@@ -52,8 +52,8 @@ Data Preparation
 """
 # Load dataset
 data_files = {
-    "train": "Retrieval/qwen3-embedding-8B/CDtrain.jsonl",
-    "validation": "Retrieval/qwen3-embedding-8B/CDval.jsonl",
+    "train": "Retrieval/qwen3-embedding-8B/TBtrain.jsonl",
+    "validation": "Retrieval/qwen3-embedding-8B/TBval.jsonl",
 }
 dataset = load_dataset("json", data_files=data_files)
 
@@ -66,22 +66,23 @@ dataset = load_dataset("json", data_files=data_files)
 
 
 def format_example(example):
-    retrieved_contexts = [doc["Context"] for doc in example["Retrieved"]]
-    retrieved_decisions = [doc["Decision"] for doc in example["Retrieved"]]
-    context = example["Anchor"]["Context"]
-    decision = example["Anchor"]["Decision"]
+    retrieved_title = [doc["Title"] for doc in example["Retrieved"]]
+    retrieved_body = [doc["Body"] for doc in example["Retrieved"]]
+    title = example["Anchor"]["Title"]
+    body = example["Anchor"]["Body"]
+    
+    title = example["Anchor"]["Title"]
+    body = example["Anchor"]["Body"]
 
+    # Turn into chat-like input
     messages = [
-        {
-            "role": "system",
-            "content": "You are an expert software architect responsible for maintaining and thoroughly documenting all architectural decisions. You are writing an Architectural Decision Record for a software. Below are a few examples of Context and the corresponding Decision. Following the examples, provide only the ## Decision for the final ## Context provided by the user. Provide only the Decision in about 2-400 words. Do not add any explanations, introductions, or additional responses.",
-        },
-        {"role": "user", "content": f"## Context: {retrieved_contexts[0]}"},
-        {"role": "assistant", "content": f"## Decision: {retrieved_decisions[0]}"},
-        {"role": "user", "content": f"## Context: {retrieved_contexts[1]}"},
-        {"role": "assistant", "content": f"## Decision: {retrieved_decisions[1]}"},
-        {"role": "user", "content": f"## Context: {context}"},
-        {"role": "assistant", "content": f"## Decision: {decision}"},
+        {"role": "system", "content": "You are an expert software architect responsible for maintaining and thoroughly documenting all architectural decisions. You are writing an Architectural Decision Record for a software. Write the ADR corresponding to the ADR Title provided by the User. Provide only the ADR content in about 10-800 words. Do not add any additional responses—only the ADR content."},
+        {"role": "user", "content": f"# Title: {retrieved_title[0]}"},
+        {"role": "assistant", "content": retrieved_body[0]},
+        {"role": "user", "content": f"# Title: {retrieved_title[1]}"},
+        {"role": "assistant", "content": retrieved_body[1]},
+        {"role": "user", "content": f"# Title: {title}"},
+        {"role": "assistant", "content": body}
     ]
     text = tokenizer.apply_chat_template(messages, tokenize=False)
     return {"text": text}
@@ -153,7 +154,7 @@ trainer = Trainer(
 
 
 ## Loss logging setup
-loss_log_path = "DRAFT/Output/loss_log_qwen3-30b-a3b-instruct-2507_CD.jsonl"
+loss_log_path = "DRAFT/Output/loss_log_qwen3-30b-a3b-instruct-2507_TB.jsonl"
 
 
 class CustomCallback(TrainerCallback):

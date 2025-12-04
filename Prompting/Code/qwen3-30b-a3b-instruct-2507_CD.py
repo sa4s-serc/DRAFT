@@ -1,8 +1,33 @@
+from unsloth import FastLanguageModel
+from dotenv import load_dotenv
+import os
+import torch
 import json
+import time
+from tqdm.auto import tqdm
+
+load_dotenv()
+HUGGINGFACE_TOKEN = os.getenv("HUGGINGFACE")
+cache_dir = "/research/ug/ug2k21dual/csd/adyansh.kakran/DRAFT/cache"
 
 """
-Define helper functions
+Load model and tokenizer
 """
+# Check for GPU availability
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+print(f"Using device: {device}")
+
+model_name = "Qwen/Qwen3-30B-A3B-Instruct-2507"
+file_prefix = model_name.split("/")[-1]
+model, tokenizer = FastLanguageModel.from_pretrained(
+    model_name,
+    cache_dir=cache_dir,
+    token=HUGGINGFACE_TOKEN,
+    max_seq_length=1024,
+    dtype=torch.bfloat16,  # Unsloth handles dtype optimization
+)
+FastLanguageModel.for_inference(model)
+
 def load_jsonl(file_path):
     """Load a JSONL file and return list of dicts."""
     data = []
@@ -10,8 +35,7 @@ def load_jsonl(file_path):
         for line in f:
             if line.strip():
                 data.append(json.loads(line))
-            
-        
+
     return data
 
 def save_jsonl(data, file_path):
@@ -19,8 +43,8 @@ def save_jsonl(data, file_path):
     with open(file_path, "a", encoding="utf-8") as f:
         for item in data:
             f.write(json.dumps(item, ensure_ascii=False) + "\n")
-
-    f.flush()
+        
+    
 
 def generate_response(model, tokenizer, messages, device, max_new_tokens=500):
     """Generate model response given messages."""
@@ -56,3 +80,45 @@ def context_formator(context):
         }
     ]
     return messages
+
+
+
+
+"""
+Main processing loop
+"""
+def main():
+    input_file = "Retrieval/qwen3-embedding-8B/CDtest.jsonl"
+    output_file = f"Prompting/Results/{file_prefix}-{input_file.split('/')[-1].split('.')[0]}-results.jsonl"
+    entries = load_jsonl(input_file)
+
+    results = []
+
+    # Iterate over entries
+    for i, entry in tqdm(enumerate(entries), total=len(entries)): # limit to first 3 for demo
+        primary_key = extract_primary_key(entry)
+        context = extract_context(entry)
+        messages = context_formator(context)
+
+        start_time = time.time()
+        response, gen_tokens = generate_response(model, tokenizer, messages, device)
+        elapsed = time.time() - start_time
+
+        result = {
+        "PrimaryKey": primary_key,
+        "Decision": response,
+        "GeneratedTokens": gen_tokens,
+        "Time": elapsed
+        }
+        results.append(result)
+
+        if (i + 1) % 100 == 0:
+            print(f"Processed {i + 1} entries")
+
+    # Save all results to output JSONL
+    save_jsonl(results, output_file)
+    print(f"Results saved to {output_file}")
+
+
+if __name__ == "__main__":
+    main()

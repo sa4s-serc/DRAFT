@@ -1,0 +1,1 @@
+{"PrimaryKey": 2082, "Decision": "## Decision: The app infrastructure will use Terraform, which will define any resources that our software depends on.", "GeneratedTokens": 21, "Time": 3.5555520057678223}

@@ -4,15 +4,16 @@ from dotenv import load_dotenv
 import os
 from google import genai
 from google.genai import types
+from tqdm.auto import tqdm
 
 load_dotenv()
 GCP_PROJECT_ID = os.getenv("GCP_PROJECT_ID")
 LOCATION = os.getenv("LOCATION")
-VERTEXAI_API_KEY = os.getenv("VERTEXAI_API_KEY")
-MODEL_ID = "467045051688550400"
+VERTEXAI_API_KEY: str | None = os.getenv("VERTEXAI_API_KEY")
+MODEL_ID = "69760714247503872"
 TUNED_MODEL_NAME = f"projects/{GCP_PROJECT_ID}/locations/{LOCATION}/endpoints/{MODEL_ID}"
 
-SYSTEM_INSTRUCTION = "You are an expert software architect responsible for maintaining and thoroughly documenting all architectural decisions. You are writing an Architectural Decision Record for a software. Give a ## Decision corresponding to the ## Context provided by the User. Provide only the Decision in about 2-400 words. Do not add any explanations, introductions, or additional responses."
+SYSTEM_INSTRUCTION = "You are an expert software architect responsible for maintaining and thoroughly documenting all architectural decisions. You are writing an Architectural Decision Record for a software. Below are a few examples of Context and the corresponding Decision. Following the examples, provide only the ## Decision for the final ## Context provided by the user. Provide only the Decision in about 2-400 words. Do not add any explanations, introductions, or additional responses."
 
 try:
     genai_client = genai.Client(
@@ -72,16 +73,22 @@ def generate_response(user_prompt_contents, client_obj, model_name):
     """
     config = types.GenerateContentConfig(
         max_output_tokens=1024,
-        temperature=0.1
+        # temperature=0.1
     )
 
     start_time = time.time()
-
-    response = client_obj.models.generate_content(
-        model=model_name,
-        contents=user_prompt_contents,
-        config=config,
-    )
+    
+    # print("user_prompt_contents:", user_prompt_contents)
+    
+    while True:
+        response = client_obj.models.generate_content(
+            model=model_name,
+            contents=user_prompt_contents,
+            config=config,
+        )
+        if response.text is not None:
+            break
+    # print(response)
 
     end_time = time.time()
     elapsed = end_time - start_time
@@ -100,12 +107,25 @@ def extract_primary_key(entry):
     """Extract primary key from one JSONL entry."""
     return entry["Anchor"]["PrimaryKey"]
 
-def context_formator(context):
+def extract_retrieved_context(entry):
+    """Extract retrieved context string from one JSONL entry."""
+    contexts = [doc["Context"] for doc in entry["Retrieved"]]
+    return contexts
+
+def extract_retrieved_decision(entry):
+    """Extract retrieved decision string from one JSONL entry."""
+    decisions = [doc["Decision"] for doc in entry["Retrieved"]]
+    return decisions
+
+
+def context_formator(retrieved_contexts, retrieved_decisions, context):
     """
     Formats the context into the list of types.Content objects
     required by the genai client.
     """
-    full_prompt = f"{SYSTEM_INSTRUCTION}\n\n## Context: {context}"
+    rag_context = "\n\n".join([f"##Context: {c}\n\n##Decision: {d}" for c, d in zip(retrieved_contexts, retrieved_decisions)])
+    
+    full_prompt = f"{SYSTEM_INSTRUCTION}\n\n{rag_context}\n\n## Context: {context}"
     
     messages = [
         {
@@ -118,23 +138,25 @@ def context_formator(context):
 """
 Load test data and run inference
 """
-input_file = "Retrieval/CDtest.jsonl"
-output_file = "Finetune/Results/gemini-2.5-flash_CDtest.jsonl"
+input_file = "Retrieval/gemini/CDtest.jsonl"
+output_file = "DRAFT/Results/gemini-2.5-flash_CDtest.jsonl"
 entries = load_jsonl(input_file)
 
 results = []
 
-for i, entry in enumerate(entries[:5]):
+for i, entry in tqdm(enumerate(entries), total=len(entries)):
     primary_key = extract_primary_key(entry)
     context = extract_context(entry)
-    user_prompt = context_formator(context)
+    retrieved_contexts = extract_retrieved_context(entry)
+    retrieved_decisions = extract_retrieved_decision(entry)
+    messages = context_formator(retrieved_contexts, retrieved_decisions, context)
 
     try:
         decision, gen_tokens, elapsed = generate_response(
-            user_prompt, genai_client, TUNED_MODEL_NAME
+            messages, genai_client, TUNED_MODEL_NAME
         )
 
-        print(f"Processed entry {i}: PrimaryKey={primary_key}")
+        # print(f"Processed entry {i}: PrimaryKey={primary_key}")
 
         # Store result
         result = {

@@ -8,11 +8,11 @@ from google.genai import types
 load_dotenv()
 GCP_PROJECT_ID = os.getenv("GCP_PROJECT_ID")
 LOCATION = os.getenv("LOCATION")
-VERTEXAI_API_KEY = os.getenv("VERTEXAI_API_KEY")
-MODEL_ID = "467045051688550400"
+VERTEXAI_API_KEY: str | None = os.getenv("VERTEXAI_API_KEY")
+MODEL_ID = "5467606342627753984"
 TUNED_MODEL_NAME = f"projects/{GCP_PROJECT_ID}/locations/{LOCATION}/endpoints/{MODEL_ID}"
 
-SYSTEM_INSTRUCTION = "You are an expert software architect responsible for maintaining and thoroughly documenting all architectural decisions. You are writing an Architectural Decision Record for a software. Give a ## Decision corresponding to the ## Context provided by the User. Provide only the Decision in about 2-400 words. Do not add any explanations, introductions, or additional responses."
+SYSTEM_INSTRUCTION = "You are an expert software architect responsible for maintaining and thoroughly documenting all architectural decisions. You are writing an Architectural Decision Record for a software. Write the ADR corresponding to the ADR Title provided by the User. Below are a few examples of Title and the corresponding ADR. Provide only the ADR content in about 10-800 words. Do not add any additional responses—only the ADR content."
 
 try:
     genai_client = genai.Client(
@@ -91,21 +91,33 @@ def generate_response(user_prompt_contents, client_obj, model_name):
 
     return decision, gen_tokens, elapsed
 
-def extract_context(entry):
-    """Extract context string from one JSONL entry."""
-    return entry["Anchor"]["Context"]
+def extract_title(entry):
+    """Extract title from one JSONL entry."""
+    return entry["Anchor"]["Title"]
 
+def extract_retrieved_title(entry):
+    """Extract retrieved title from one JSONL entry."""
+    titles = [doc["Title"] for doc in entry["Retrieved"]]
+    return titles
+
+def extract_retrieved_body(entry):
+    """Extract retrieved body from one JSONL entry."""
+    bodies = [doc["Body"] for doc in entry["Retrieved"]]
+    return bodies
 
 def extract_primary_key(entry):
     """Extract primary key from one JSONL entry."""
     return entry["Anchor"]["PrimaryKey"]
 
-def context_formator(context):
+
+def title_formator(retrieved_titles, retrieved_bodies, title):
     """
     Formats the context into the list of types.Content objects
     required by the genai client.
     """
-    full_prompt = f"{SYSTEM_INSTRUCTION}\n\n## Context: {context}"
+    rag_context = "\n\n".join([f"# {t}\n{b}" for t, b in zip(retrieved_titles, retrieved_bodies)])
+
+    full_prompt = f"{SYSTEM_INSTRUCTION}\n\n{rag_context}\n\n# {title}"
     
     messages = [
         {
@@ -118,20 +130,22 @@ def context_formator(context):
 """
 Load test data and run inference
 """
-input_file = "Retrieval/CDtest.jsonl"
-output_file = "Finetune/Results/gemini-2.5-flash_CDtest.jsonl"
+input_file = "Retrieval/gemini/TBtest.jsonl"
+output_file = "DRAFT/Results/gemini-2.5-flash_TBtest.jsonl"
 entries = load_jsonl(input_file)
 
 results = []
 
 for i, entry in enumerate(entries[:5]):
     primary_key = extract_primary_key(entry)
-    context = extract_context(entry)
-    user_prompt = context_formator(context)
+    title = extract_title(entry)
+    retrieved_title = extract_retrieved_title(entry)
+    retrieved_body = extract_retrieved_body(entry)
+    messages = title_formator(retrieved_title, retrieved_body, title)
 
     try:
         decision, gen_tokens, elapsed = generate_response(
-            user_prompt, genai_client, TUNED_MODEL_NAME
+            messages, genai_client, TUNED_MODEL_NAME
         )
 
         print(f"Processed entry {i}: PrimaryKey={primary_key}")

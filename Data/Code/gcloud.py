@@ -42,15 +42,17 @@ def format_example_cd(example, test=False):
 
     messages = {
         "system_instruction": {
-            "role": "model", 
+            "role": "model",
             "parts": [
-                {"text": "You are an expert software architect responsible for maintaining and thoroughly documenting all architectural decisions. You are writing an Architectural Decision Record for a software. Give a ## Decision corresponding to the ## Context provided by the User. Provide only the Decision in about 2-400 words. Do not add any explanations, introductions, or additional responses."}
-            ]
+                {
+                    "text": "You are an expert software architect responsible for maintaining and thoroughly documenting all architectural decisions. You are writing an Architectural Decision Record for a software. Give a ## Decision corresponding to the ## Context provided by the User. Provide only the Decision in about 2-400 words. Do not add any explanations, introductions, or additional responses."
+                }
+            ],
         },
         "contents": [
             {"role": "user", "parts": [{"text": f"## Context: {context}"}]},
-            {"role": "model", "parts": [{"text": f"## Decision: {decision}"}]}
-        ]
+            {"role": "model", "parts": [{"text": f"## Decision: {decision}"}]},
+        ],
     }
     if test:
         return {"request": messages}
@@ -63,15 +65,17 @@ def format_example_tb(example, test=False):
 
     messages = {
         "system_instruction": {
-            "role": "system", 
+            "role": "system",
             "parts": [
-                {"text": "You are an expert software architect responsible for maintaining and thoroughly documenting all architectural decisions. You are writing an Architectural Decision Record for a software. Write the ADR corresponding to the ADR Title provided by the User. Provide only the ADR content in about 10-800 words. Do not add any additional responses—only the ADR content."}
-            ]
+                {
+                    "text": "You are an expert software architect responsible for maintaining and thoroughly documenting all architectural decisions. You are writing an Architectural Decision Record for a software. Write the ADR corresponding to the ADR Title provided by the User. Provide only the ADR content in about 10-800 words. Do not add any additional responses—only the ADR content."
+                }
+            ],
         },
         "contents": [
             {"role": "user", "parts": [{"text": f"# Title: {title}"}]},
-            {"role": "model", "parts": [{"text": body}]}
-        ]
+            {"role": "model", "parts": [{"text": body}]},
+        ],
     }
     if test:
         return {"request": messages}
@@ -88,28 +92,43 @@ def format_example_cd_draft(example, test=False):
         "systems_instruction": {
             "role": "system",
             "parts": [
-                {"text": "You are an expert software architect responsible for maintaining and thoroughly documenting all architectural decisions. You are writing an Architectural Decision Record for a software. Below are a few examples of Context and the corresponding Decision. Following the examples, provide only the ## Decision for the final ## Context provided by the user. Provide only the Decision in about 2-400 words. Do not add any explanations, introductions, or additional responses."}
-            ]
+                {
+                    "text": "You are an expert software architect responsible for maintaining and thoroughly documenting all architectural decisions. You are writing an Architectural Decision Record for a software. Below are a few examples of Context and the corresponding Decision. Following the examples, provide only the ## Decision for the final ## Context provided by the user. Provide only the Decision in about 2-400 words. Do not add any explanations, introductions, or additional responses."
+                }
+            ],
         },
         "contents": [
-            {"role": "user", "parts": [{"text": f"## Context: {retrieved_contexts[0]}"}]},
-            {"role": "model", "parts": [{"text": f"## Decision: {retrieved_decisions[0]}"}]},
-            {"role": "user", "parts": [{"text": f"## Context: {retrieved_contexts[1]}"}]},
-            {"role": "model", "parts": [{"text": f"## Decision: {retrieved_decisions[1]}"}]},
+            {
+                "role": "user",
+                "parts": [{"text": f"## Context: {retrieved_contexts[0]}"}],
+            },
+            {
+                "role": "model",
+                "parts": [{"text": f"## Decision: {retrieved_decisions[0]}"}],
+            },
+            {
+                "role": "user",
+                "parts": [{"text": f"## Context: {retrieved_contexts[1]}"}],
+            },
+            {
+                "role": "model",
+                "parts": [{"text": f"## Decision: {retrieved_decisions[1]}"}],
+            },
             {"role": "user", "parts": [{"text": f"## Context: {context}"}]},
-            {"role": "model", "parts": [{"text": f"## Decision: {decision}"}]}
-        ]
+            {"role": "model", "parts": [{"text": f"## Decision: {decision}"}]},
+        ],
     }
     if test:
         return {"request": messages}
     return messages
+
 
 def format_example_tb_draft(example, test=False):
     retrieved_title = [doc["Title"] for doc in example["Retrieved"]]
     retrieved_body = [doc["Body"] for doc in example["Retrieved"]]
     title = example["Anchor"]["Title"]
     body = example["Anchor"]["Body"]
-    
+
     title = example["Anchor"]["Title"]
     body = example["Anchor"]["Body"]
 
@@ -117,8 +136,10 @@ def format_example_tb_draft(example, test=False):
         "systems_instruction": {
             "role": "system",
             "parts": [
-                {"text": "You are an expert software architect responsible for maintaining and thoroughly documenting all architectural decisions. You are writing an Architectural Decision Record for a software. Write the ADR corresponding to the ADR Title provided by the User. Provide only the ADR content in about 10-800 words. Do not add any additional responses—only the ADR content."}
-            ]
+                {
+                    "text": "You are an expert software architect responsible for maintaining and thoroughly documenting all architectural decisions. You are writing an Architectural Decision Record for a software. Write the ADR corresponding to the ADR Title provided by the User. Provide only the ADR content in about 10-800 words. Do not add any additional responses—only the ADR content."
+                }
+            ],
         },
         "contents": [
             {"role": "user", "parts": [{"text": f"# Title: {retrieved_title[0]}"}]},
@@ -127,26 +148,36 @@ def format_example_tb_draft(example, test=False):
             {"role": "assistant", "parts": [{"text": retrieved_body[1]}]},
             {"role": "user", "parts": [{"text": f"# Title: {title}"}]},
             {"role": "assistant", "parts": [{"text": body}]},
-        ]
+        ],
     }
     if test:
         return {"request": messages}
     return messages
 
 
-cds = ["Retrieval/CDtrain.jsonl",
-       "Retrieval/CDval.jsonl", "Retrieval/CDtest.jsonl"]
-tbs = ["Retrieval/TBtrain.jsonl",
-       "Retrieval/TBval.jsonl", "Retrieval/TBtest.jsonl"]
+cds = [
+    "Retrieval/qwen3-embedding-8B/CDtrain.jsonl",
+    "Retrieval/qwen3-embedding-8B/CDval.jsonl",
+    "Retrieval/qwen3-embedding-8B/CDtest.jsonl",
+]
+tbs = [
+    "Retrieval/qwen3-embedding-8B/TBtrain.jsonl",
+    "Retrieval/qwen3-embedding-8B/TBval.jsonl",
+    "Retrieval/qwen3-embedding-8B/TBtest.jsonl",
+]
 
 for cd_file in cds:
     data = load_jsonl(cd_file)
-    formatted_data = [format_example_cd(example, test="test" in cd_file) for example in data]
-    output_file = os.path.join("Retrieval/google", os.path.basename(cd_file))
-    save_jsonl(formatted_data[:5], output_file, overwrite=True)
+    formatted_data = [
+        format_example_cd(example, test="test" in cd_file) for example in data
+    ]
+    output_file = os.path.join("Retrieval/gcp", os.path.basename(cd_file))
+    save_jsonl(formatted_data, output_file, overwrite=True)
 
 for tb_file in tbs:
     data = load_jsonl(tb_file)
-    formatted_data = [format_example_tb(example, test="test" in tb_file) for example in data]
-    output_file = os.path.join("Retrieval/google", os.path.basename(tb_file))
-    save_jsonl(formatted_data[:5], output_file, overwrite=True)
+    formatted_data = [
+        format_example_tb(example, test="test" in tb_file) for example in data
+    ]
+    output_file = os.path.join("Retrieval/gcp", os.path.basename(tb_file))
+    save_jsonl(formatted_data, output_file, overwrite=True)
