@@ -108,7 +108,7 @@ def main():
 
         result = {
         "PrimaryKey": primary_key,
-        "Decision": response,
+        "Body": response,
         "GeneratedTokens": gen_tokens,
         "Time": elapsed
         }

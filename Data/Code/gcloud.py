@@ -89,7 +89,7 @@ def format_example_cd_draft(example, test=False):
     decision = example["Anchor"]["Decision"]
 
     messages = {
-        "systems_instruction": {
+        "system_instruction": {
             "role": "system",
             "parts": [
                 {
@@ -133,7 +133,7 @@ def format_example_tb_draft(example, test=False):
     body = example["Anchor"]["Body"]
 
     messages = {
-        "systems_instruction": {
+        "system_instruction": {
             "role": "system",
             "parts": [
                 {
@@ -156,14 +156,14 @@ def format_example_tb_draft(example, test=False):
 
 
 cds = [
-    "Retrieval/qwen3-embedding-8B/CDtrain.jsonl",
-    "Retrieval/qwen3-embedding-8B/CDval.jsonl",
-    "Retrieval/qwen3-embedding-8B/CDtest.jsonl",
+    "Retrieval/gemini/CDtrain.jsonl",
+    "Retrieval/gemini/CDval.jsonl",
+    "Retrieval/gemini/CDtest.jsonl",
 ]
 tbs = [
-    "Retrieval/qwen3-embedding-8B/TBtrain.jsonl",
-    "Retrieval/qwen3-embedding-8B/TBval.jsonl",
-    "Retrieval/qwen3-embedding-8B/TBtest.jsonl",
+    "Retrieval/gemini/TBtrain.jsonl",
+    "Retrieval/gemini/TBval.jsonl",
+    "Retrieval/gemini/TBtest.jsonl",
 ]
 
 for cd_file in cds:
@@ -171,13 +171,26 @@ for cd_file in cds:
     formatted_data = [
         format_example_cd(example, test="test" in cd_file) for example in data
     ]
+    output_file = os.path.join("Retrieval/gcp-ft", os.path.basename(cd_file))
+    save_jsonl(formatted_data, output_file, overwrite=True)
+    
+    formatted_data = [
+        format_example_cd_draft(example, test="test" in cd_file) for example in data
+    ]
     output_file = os.path.join("Retrieval/gcp", os.path.basename(cd_file))
     save_jsonl(formatted_data, output_file, overwrite=True)
 
 for tb_file in tbs:
     data = load_jsonl(tb_file)
+    
     formatted_data = [
         format_example_tb(example, test="test" in tb_file) for example in data
+    ]
+    output_file = os.path.join("Retrieval/gcp-ft", os.path.basename(tb_file))
+    save_jsonl(formatted_data, output_file, overwrite=True)
+    
+    formatted_data = [
+        format_example_tb_draft(example, test="test" in tb_file) for example in data
     ]
     output_file = os.path.join("Retrieval/gcp", os.path.basename(tb_file))
     save_jsonl(formatted_data, output_file, overwrite=True)

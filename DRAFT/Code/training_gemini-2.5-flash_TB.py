@@ -9,10 +9,10 @@ GCP_PROJECT_ID = os.getenv("GCP_PROJECT_ID")
 LOCATION = os.getenv("LOCATION")
 BUCKET_NAME = os.getenv("BUCKET_NAME")
 BASE_MODEL = "gemini-2.5-flash"
-TUNED_MODEL_DISPLAY_NAME=f"{BASE_MODEL}-TB-tuned"
+TUNED_MODEL_DISPLAY_NAME=f"{BASE_MODEL}-TB-tuned-draft"
 
-TRAINING_URI = f"gs://{BUCKET_NAME}/datasets/TBtrain.jsonl"
-VALIDATION_URI = f"gs://{BUCKET_NAME}/datasets/TBval.jsonl"
+TRAINING_URI = f"gs://{BUCKET_NAME}/datasets-draft/TBtrain.jsonl"
+VALIDATION_URI = f"gs://{BUCKET_NAME}/datasets-draft/TBval.jsonl"
 
 print(f"Starting Fine-Tuning Job for {BASE_MODEL}...")
 

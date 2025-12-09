@@ -130,7 +130,7 @@ for i, entry in tqdm(enumerate(entries), total=len(entries)): # limit to first 3
 
     result = {
     "PrimaryKey": primary_key,
-    "Body": response,
+    "Decision": response,
     "GeneratedTokens": gen_tokens,
     "Time": elapsed
     }

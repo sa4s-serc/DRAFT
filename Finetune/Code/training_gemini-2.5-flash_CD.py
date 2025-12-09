@@ -12,8 +12,8 @@ BUCKET_NAME = os.getenv("BUCKET_NAME")
 BASE_MODEL = "gemini-2.5-flash"
 TUNED_MODEL_DISPLAY_NAME=f"{BASE_MODEL}-CD-finetuned"
 
-TRAINING_URI = f"gs://{BUCKET_NAME}/datasets/CDtrain.jsonl"
-VALIDATION_URI = f"gs://{BUCKET_NAME}/datasets/CDval.jsonl"
+TRAINING_URI = f"gs://{BUCKET_NAME}/datasets-ft/CDtrain.jsonl"
+VALIDATION_URI = f"gs://{BUCKET_NAME}/datasets-ft/CDval.jsonl"
 
 print(f"Starting Fine-Tuning Job for {BASE_MODEL}...")
 

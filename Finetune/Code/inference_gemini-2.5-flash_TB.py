@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 import os
 from google import genai
 from google.genai import types
+from tqdm import tqdm
 
 load_dotenv()
 GCP_PROJECT_ID = os.getenv("GCP_PROJECT_ID")
@@ -38,21 +39,60 @@ def save_jsonl(data, file_path, overwrite=False):
             f.write(json.dumps(item, ensure_ascii=False) + "\n")
 
 def generate_response(user_prompt_contents, client_obj, model_name):
+    """
+    Generates a response using the genai.Client object.
+    """
+    safety_settings = [
+        types.SafetySetting(category="HARM_CATEGORY_HATE_SPEECH", threshold="BLOCK_NONE"),
+        types.SafetySetting(category="HARM_CATEGORY_DANGEROUS_CONTENT", threshold="BLOCK_NONE"),
+        types.SafetySetting(category="HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold="BLOCK_NONE"),
+        types.SafetySetting(category="HARM_CATEGORY_HARASSMENT", threshold="BLOCK_NONE"),
+    ]
+
     config = types.GenerateContentConfig(
         max_output_tokens=1024,
-        temperature=0.1
+        safety_settings=safety_settings,
+        system_instruction=SYSTEM_INSTRUCTION,
+        temperature=1
     )
+
     start_time = time.time()
-    response = client_obj.models.generate_content(
-        model=model_name,
-        contents=user_prompt_contents,
-        config=config,
-    )
+    
+    # 2. Remove the infinite loop. If it blocks once, it will block again.
+    try:
+        response = client_obj.models.generate_content(
+            model=model_name,
+            contents=user_prompt_contents, # Now a simple string
+            config=config,
+        )
+        
+        # 3. Check if candidates exist before accessing text
+        if not response.candidates:
+            
+            # Check Prompt Feedback (Did the INPUT trigger a block?)
+            if response.prompt_feedback:
+                reason = f"PROMPT_BLOCKED: {response.prompt_feedback.block_reason}"
+            
+            # Check Usage Metadata (Did it run but get wiped?)
+            elif response.usage_metadata and response.usage_metadata.total_token_count > 0:
+                reason = "RECITATION_OR_OTHER (Response wiped by filter)"
+            
+            else:
+                reason = "UNKNOWN_FAILURE (Empty response)"
+
+            print(f"\n[!] Blocked Entry {i} (Key: {primary_key}) -> {reason}")
+
+        body = response.text.strip()
+        # Use total_token_count as fallback if candidates_token_count is missing
+        gen_tokens = response.usage_metadata.candidates_token_count or 0
+        
+    except Exception as e:
+        print(f"API Error: {e}")
+        return f"API_ERROR: {str(e)}", 0, 0
+
     end_time = time.time()
     elapsed = end_time - start_time
-    
-    body = response.text.strip()
-    gen_tokens = response.usage_metadata.candidates_token_count
+
     return body, gen_tokens, elapsed
 
 def extract_title(entry):
@@ -76,7 +116,22 @@ output_file = "Finetune/Results/gemini-2.5-flash_TBtest.jsonl"
 entries = load_jsonl(input_file)
 results = []
 
-for i, entry in enumerate(entries):
+if os.path.exists(output_file):
+    existing_results = load_jsonl(output_file)
+    results = existing_results.copy()
+    for res in existing_results:
+        if res["GeneratedTokens"] == 0:
+            entry = next((e for e in entries if extract_primary_key(e) == res["PrimaryKey"]), None)
+            if entry:
+                results.remove(res)
+            else:
+                print(f"Warning: Could not find entry for PrimaryKey {res['PrimaryKey']} to reprocess.")
+    processed_keys = {res["PrimaryKey"] for res in results}
+    entries = [entry for entry in entries if extract_primary_key(entry) not in processed_keys]
+    print(f"Resuming from existing results. {len(entries)} entries left to process.")
+
+
+for i, entry in tqdm(enumerate(entries), total=len(entries)):
     primary_key = extract_primary_key(entry)
     title = extract_title(entry)
     user_prompt = title_formator(title)
@@ -94,6 +149,14 @@ for i, entry in enumerate(entries):
         results.append(result)
     except Exception as e:
         print(f"Error processing entry {i}: {e}")
+        results.append(
+            {
+                "PrimaryKey": primary_key,
+                "Decision": f"ERROR: {e}",
+                "GeneratedTokens": 0,
+                "Time": 0,
+            }
+        )
 
 save_jsonl(results, output_file, overwrite=True)
 print(f"Results saved to {output_file}")

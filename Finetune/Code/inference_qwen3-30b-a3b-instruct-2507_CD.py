@@ -114,7 +114,7 @@ for i, entry in tqdm(enumerate(entries), total=len(entries)):
 
     result = {
     "PrimaryKey": primary_key,
-    "Body": response,
+    "Decision": response,
     "GeneratedTokens": gen_tokens,
     "Time": elapsed
     }

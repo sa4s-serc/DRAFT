@@ -12,8 +12,8 @@ BASE_MODEL = "gemini-2.5-flash"
 TUNED_MODEL_DISPLAY_NAME=f"{BASE_MODEL}-TB-finetuned"
 
 # Using TB datasets
-TRAINING_URI = f"gs://{BUCKET_NAME}/datasets/TBtrain.jsonl"
-VALIDATION_URI = f"gs://{BUCKET_NAME}/datasets/TBval.jsonl"
+TRAINING_URI = f"gs://{BUCKET_NAME}/datasets-ft/TBtrain.jsonl"
+VALIDATION_URI = f"gs://{BUCKET_NAME}/datasets-ft/TBval.jsonl"
 
 print(f"Starting Fine-Tuning Job for {BASE_MODEL} (Title-Body)...")
 
