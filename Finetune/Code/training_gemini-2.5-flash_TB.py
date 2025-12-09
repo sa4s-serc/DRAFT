@@ -1,6 +1,5 @@
 from dotenv import load_dotenv
 import os
-import json
 import vertexai
 from vertexai.preview.tuning import sft
 
@@ -10,12 +9,13 @@ GCP_PROJECT_ID = os.getenv("GCP_PROJECT_ID")
 LOCATION = os.getenv("LOCATION")
 BUCKET_NAME = os.getenv("BUCKET_NAME")
 BASE_MODEL = "gemini-2.5-flash"
-TUNED_MODEL_DISPLAY_NAME=f"{BASE_MODEL}-CD-finetuned"
+TUNED_MODEL_DISPLAY_NAME=f"{BASE_MODEL}-TB-finetuned"
 
-TRAINING_URI = f"gs://{BUCKET_NAME}/datasets/CDtrain.jsonl"
-VALIDATION_URI = f"gs://{BUCKET_NAME}/datasets/CDval.jsonl"
+# Using TB datasets
+TRAINING_URI = f"gs://{BUCKET_NAME}/datasets/TBtrain.jsonl"
+VALIDATION_URI = f"gs://{BUCKET_NAME}/datasets/TBval.jsonl"
 
-print(f"Starting Fine-Tuning Job for {BASE_MODEL}...")
+print(f"Starting Fine-Tuning Job for {BASE_MODEL} (Title-Body)...")
 
 vertexai.init(project=GCP_PROJECT_ID, location=LOCATION)
 
@@ -23,7 +23,6 @@ tuning_job = sft.train(
     source_model=BASE_MODEL,
     train_dataset=TRAINING_URI,
     validation_dataset=VALIDATION_URI,
-    # tuning_job_display_name=f"{TUNED_MODEL_DISPLAY_NAME}-job",
     tuned_model_display_name=TUNED_MODEL_DISPLAY_NAME,
     epochs=5,
 )
@@ -39,4 +38,3 @@ if TUNED_MODEL_NAME:
 else:
     print("\nFine-tuning is running asynchronously; the tuned model name is not yet available.")
     print(f"Track the job here: {tuning_job.resource_name}")
-    print("Poll the Vertex AI API or check the Cloud Console to get the tuned model resource name once the job completes.")

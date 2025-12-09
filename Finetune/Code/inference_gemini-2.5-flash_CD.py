@@ -124,7 +124,7 @@ entries = load_jsonl(input_file)
 
 results = []
 
-for i, entry in enumerate(entries[:5]):
+for i, entry in enumerate(entries):
     primary_key = extract_primary_key(entry)
     context = extract_context(entry)
     user_prompt = context_formator(context)
