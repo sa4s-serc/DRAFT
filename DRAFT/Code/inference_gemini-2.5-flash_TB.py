@@ -10,7 +10,7 @@ load_dotenv()
 GCP_PROJECT_ID = os.getenv("GCP_PROJECT_ID")
 LOCATION = os.getenv("LOCATION")
 VERTEXAI_API_KEY: str | None = os.getenv("VERTEXAI_API_KEY")
-MODEL_ID = "100265564848521216"
+MODEL_ID = "4359967124899233792"
 TUNED_MODEL_NAME = f"projects/{GCP_PROJECT_ID}/locations/{LOCATION}/endpoints/{MODEL_ID}"
 
 SYSTEM_INSTRUCTION = "You are an expert software architect responsible for maintaining and thoroughly documenting all architectural decisions. You are writing an Architectural Decision Record for a software. Write the ADR corresponding to the ADR Title provided by the User. Below are a few examples of Title and the corresponding ADR. Provide only the ADR content in about 10-800 words. Do not add any additional responses—only the ADR content."
@@ -199,7 +199,7 @@ for i, entry in tqdm(enumerate(entries), total=len(entries)):
         # Store result
         result = {
             "PrimaryKey": primary_key,
-            "Decision": decision,
+            "Body": decision,
             "GeneratedTokens": gen_tokens,
             "Time": elapsed,
         }
@@ -210,7 +210,7 @@ for i, entry in tqdm(enumerate(entries), total=len(entries)):
         results.append(
             {
                 "PrimaryKey": primary_key,
-                "Decision": f"ERROR: {e}",
+                "Body": f"ERROR: {e}",
                 "GeneratedTokens": 0,
                 "Time": 0,
             }

@@ -143,11 +143,11 @@ def format_example_tb_draft(example, test=False):
         },
         "contents": [
             {"role": "user", "parts": [{"text": f"# Title: {retrieved_title[0]}"}]},
-            {"role": "assistant", "parts": [{"text": retrieved_body[0]}]},
+            {"role": "model", "parts": [{"text": retrieved_body[0]}]},
             {"role": "user", "parts": [{"text": f"# Title: {retrieved_title[1]}"}]},
-            {"role": "assistant", "parts": [{"text": retrieved_body[1]}]},
+            {"role": "model", "parts": [{"text": retrieved_body[1]}]},
             {"role": "user", "parts": [{"text": f"# Title: {title}"}]},
-            {"role": "assistant", "parts": [{"text": body}]},
+            {"role": "model", "parts": [{"text": body}]},
         ],
     }
     if test:

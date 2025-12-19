@@ -8,6 +8,8 @@ import nltk
 from evaluate import load
 from pathlib import Path
 
+from sympy import true
+
 BASE_DIR = os.getcwd()
 CACHE_DIR = "../cache"
 OUTPUT_DIR = os.path.join(BASE_DIR, "Results")
@@ -165,6 +167,8 @@ def process_file(filepath, metrics):
 
     # Calculate Scores
     try:
+        print(true_df.head())
+        print(pred_df.head())
         results = calculate_scores(
             metrics, 
             true_df, 

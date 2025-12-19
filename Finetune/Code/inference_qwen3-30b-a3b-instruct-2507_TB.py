@@ -13,7 +13,7 @@ output_dir = "DRAFT/Output/"
 load_dotenv()
 HUGGINGFACE_TOKEN = os.getenv("HUGGINGFACE")
 
-checkpoint_path = os.getenv("CHECKPOINT_PATH", "DRAFT/Output/checkpoint-380")
+checkpoint_path = os.getenv("CHECKPOINT_PATH", "Finetune/Output/checkpoint-760")
 if not os.path.exists(checkpoint_path):
     raise FileNotFoundError(f"Checkpoint not found at {checkpoint_path}")
 
