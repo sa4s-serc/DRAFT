@@ -6,7 +6,8 @@ from datasets import load_dataset
 from dotenv import load_dotenv
 from copy import deepcopy
 
-model_name = "google/gemma-3-4b-it"
+# model_name = "google/gemma-3-4b-it"
+model_name = "google/gemma-2-2b-it"
 cache_dir = "../cache"
 output_dir = "DRAFT/Output/"
 
@@ -29,7 +30,10 @@ model = AutoModelForCausalLM.from_pretrained(
 Data Preparation
 """
 # Load dataset
-data_files = {"train": "Retrieval/CDtrain.jsonl", "validation": "Retrieval/CDval.jsonl"}
+data_files = {
+    "train": "Retrieval/qwen3-embedding-8B/CDtrain.jsonl",
+    "validation": "Retrieval/qwen3-embedding-8B/CDval.jsonl",
+}
 dataset = load_dataset("json", data_files=data_files)
 
 # Smaller dataset for testing
@@ -41,10 +45,12 @@ def format_example(example):
     retrieved_decisions = [doc["Decision"] for doc in example["Retrieved"]]
     context = example["Anchor"]["Context"]
     decision = example["Anchor"]["Decision"]
+    
+    SYSTEM_PROMPT = "You are an expert software architect responsible for maintaining and thoroughly documenting all architectural decisions. You are writing an Architectural Decision Record for a software. Below are a few examples of Context and the corresponding Decision. Following the examples, provide only the ## Decision for the final ## Context provided by the user. Provide only the Decision in about 2-400 words. Do not add any explanations, introductions, or additional responses."
 
     messages = [
-        {"role": "system", "content": "You are an expert software architect responsible for maintaining and thoroughly documenting all architectural decisions. You are writing an Architectural Decision Record for a software. Below are a few examples of Context and the corresponding Decision. Following the examples, provide only the ## Decision for the final ## Context provided by the user. Provide only the Decision in about 2-400 words. Do not add any explanations, introductions, or additional responses."},
-        {"role": "user", "content": f"## Context: {retrieved_contexts[0]}"},
+        # {"role": "system", "content": SYSTEM_PROMPT},
+        {"role": "user", "content": f"{SYSTEM_PROMPT}\n\n## Context: {retrieved_contexts[0]}"},
         {"role": "assistant", "content": f"## Decision: {retrieved_decisions[0]}"},
         {"role": "user", "content": f"## Context: {retrieved_contexts[1]}"},
         {"role": "assistant", "content": f"## Decision: {retrieved_decisions[1]}"},
@@ -117,7 +123,7 @@ trainer = Trainer(
 
 
 ## Loss logging setup
-loss_log_path = "DRAFT/Output/loss_log_gemma-3-4b-it_CD.jsonl"
+loss_log_path = "DRAFT/Output/loss_log_gemma-2-2b-it_CD.jsonl"
 
 class CustomCallback(TrainerCallback):
     

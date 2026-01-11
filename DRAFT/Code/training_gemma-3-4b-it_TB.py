@@ -6,7 +6,8 @@ from datasets import load_dataset
 from dotenv import load_dotenv
 from copy import deepcopy
 
-model_name = "google/gemma-3-4b-it"
+# model_name = "google/gemma-3-4b-it"
+model_name = "google/gemma-2-2b-it"
 cache_dir = "../cache"
 output_dir = "DRAFT/Output/"
 
@@ -121,7 +122,7 @@ trainer = Trainer(
 
 
 ## Loss logging setup
-loss_log_path = "DRAFT/Output/loss_log_gemma-3-4b-it_TB.jsonl"
+loss_log_path = "DRAFT/Output/loss_log_gemma-2-2b-it_TB.jsonl"
 
 class CustomCallback(TrainerCallback):
     

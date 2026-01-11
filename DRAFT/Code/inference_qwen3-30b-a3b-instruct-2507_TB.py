@@ -8,12 +8,12 @@ import os
 
 model_name = "Qwen/Qwen3-30B-A3B-Instruct-2507"
 cache_dir = "/research/ug/ug2k21dual/csd/adyansh.kakran/DRAFT/cache"
-output_dir = "Finetune/Output/"
+output_dir = "DRAFT/Output/"
 
 load_dotenv()
 HUGGINGFACE_TOKEN = os.getenv("HUGGINGFACE")
 
-checkpoint_path = os.getenv("CHECKPOINT_PATH", "Finetune/Output/checkpoint-380")
+checkpoint_path = os.getenv("CHECKPOINT_PATH", "DRAFT/Output/checkpoint-380")
 if not os.path.exists(checkpoint_path):
     raise FileNotFoundError(f"Checkpoint not found at {checkpoint_path}")
 
@@ -108,7 +108,7 @@ def title_formator(retrieved_title, retrieved_body, title):
 Load test data and run inference
 """
 input_file = "Retrieval/qwen3-embedding-8B/TBtest.jsonl"
-output_file = "Finetune/Results/qwen3-30b-a3b-instruct-TBtest.jsonl"
+output_file = "DRAFT/Results/qwen3-30b-a3b-instruct-TBtest.jsonl"
 entries = load_jsonl(input_file)
 
 results = []

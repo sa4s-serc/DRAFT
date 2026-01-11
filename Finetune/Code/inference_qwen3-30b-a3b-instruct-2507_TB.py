@@ -94,7 +94,7 @@ def title_formator(title):
 Load test data and run inference
 """
 input_file = "Retrieval/qwen3-embedding-8B/TBtest.jsonl"
-output_file = "DRAFT/Results/qwen3-30b-a3b-instruct-TBtest.jsonl"
+output_file = "Finetune/Results/qwen3-30b-a3b-instruct-TBtest.jsonl"
 entries = load_jsonl(input_file)
 
 results = []
