@@ -1,0 +1,458 @@
+{
+  "DRAFT_gemini-2.5-flash_CDtest": {
+    "approach": "DRAFT",
+    "model": "gemini-2.5-flash",
+    "dataset": "CDtest",
+    "time": {
+      "mean": 1.7337726741001525,
+      "std": 1.237768022071107,
+      "median": 1.3426041603088374,
+      "min": 0.558060884475708,
+      "max": 8.437946081161499
+    },
+    "GeneratedTokens": {
+      "mean": 135.316091954023,
+      "std": 182.930435930637,
+      "median": 69.0,
+      "min": 0,
+      "max": 1024
+    }
+  },
+  "DRAFT_gemini-2.5-flash_TBtest": {
+    "approach": "DRAFT",
+    "model": "gemini-2.5-flash",
+    "dataset": "TBtest",
+    "time": {
+      "mean": 6.919371438300472,
+      "std": 2.1877334011150245,
+      "median": 7.41981041431427,
+      "min": 0.9241888523101801,
+      "max": 25.333797693252563
+    },
+    "GeneratedTokens": {
+      "mean": 264.24367816091956,
+      "std": 226.7211280333115,
+      "median": 213.0,
+      "min": 7,
+      "max": 1024
+    }
+  },
+  "DRAFT_gemma-3-4b-it_CDtest": {
+    "approach": "DRAFT",
+    "model": "gemma-3-4b-it",
+    "dataset": "CDtest",
+    "time": {
+      "mean": 5.176518282122996,
+      "std": 5.300567938512101,
+      "median": 2.9943377971649165,
+      "min": 0.24178600311279203,
+      "max": 19.596283197402954
+    },
+    "GeneratedTokens": {
+      "mean": 139.52298850574712,
+      "std": 141.8274735981646,
+      "median": 83.0,
+      "min": 6,
+      "max": 500
+    }
+  },
+  "DRAFT_gemma-3-4b-it_TBtest": {
+    "approach": "DRAFT",
+    "model": "gemma-3-4b-it",
+    "dataset": "TBtest",
+    "time": {
+      "mean": 11.509272602782852,
+      "std": 7.922881147666656,
+      "median": 9.243573904037476,
+      "min": 1.216928482055664,
+      "max": 38.3162784576416
+    },
+    "GeneratedTokens": {
+      "mean": 313.3,
+      "std": 210.88110596151927,
+      "median": 252.0,
+      "min": 34,
+      "max": 1000
+    }
+  },
+  "DRAFT_qwen3-30b-a3b-instruct_CDtest": {
+    "approach": "DRAFT",
+    "model": "qwen3-30b-a3b-instruct",
+    "dataset": "CDtest",
+    "time": {
+      "mean": 28.9723979281283,
+      "std": 47.28824353543864,
+      "median": 17.511120676994324,
+      "min": 9.32855749130249,
+      "max": 401.0007770061493
+    },
+    "GeneratedTokens": {
+      "mean": 60.53908045977011,
+      "std": 122.43814892490381,
+      "median": 31.0,
+      "min": 10,
+      "max": 1000
+    }
+  },
+  "DRAFT_qwen3-30b-a3b-instruct_TBtest": {
+    "approach": "DRAFT",
+    "model": "qwen3-30b-a3b-instruct",
+    "dataset": "TBtest",
+    "time": {
+      "mean": 75.51112571557363,
+      "std": 75.37323261235572,
+      "median": 51.909902572631836,
+      "min": 20.610764265060425,
+      "max": 391.8292918205261
+    },
+    "GeneratedTokens": {
+      "mean": 182.15977011494252,
+      "std": 197.54066977786553,
+      "median": 121.0,
+      "min": 38,
+      "max": 1000
+    }
+  },
+  "Finetune_gemini-2.5-flash_CDtest": {
+    "approach": "Finetune",
+    "model": "gemini-2.5-flash",
+    "dataset": "CDtest",
+    "time": {
+      "mean": 1.3051499761384109,
+      "std": 1.1682530932570223,
+      "median": 0.8817367553710931,
+      "min": 0.564597368240356,
+      "max": 6.9404144287109375
+    },
+    "GeneratedTokens": {
+      "mean": 121.54252873563219,
+      "std": 261.4830895667756,
+      "median": 29.0,
+      "min": 4,
+      "max": 1024
+    }
+  },
+  "Finetune_gemini-2.5-flash_TBtest": {
+    "approach": "Finetune",
+    "model": "gemini-2.5-flash",
+    "dataset": "TBtest",
+    "time": {
+      "mean": 6.12987407980294,
+      "std": 2.016924822673871,
+      "median": 6.881120204925537,
+      "min": 0.9015429019927971,
+      "max": 10.455528020858765
+    },
+    "GeneratedTokens": {
+      "mean": 305.7747126436782,
+      "std": 265.7460822992452,
+      "median": 253.5,
+      "min": 8,
+      "max": 1024
+    }
+  },
+  "Finetune_gemma-3-4b-it_TBtest": {
+    "approach": "Finetune",
+    "model": "gemma-3-4b-it",
+    "dataset": "TBtest",
+    "time": {
+      "mean": 15.142129349160468,
+      "std": 9.387377592449594,
+      "median": 12.189019322395325,
+      "min": 2.028653860092163,
+      "max": 34.526740074157715
+    },
+    "GeneratedTokens": {
+      "mean": 453.25632183908044,
+      "std": 280.14943373967475,
+      "median": 366.0,
+      "min": 61,
+      "max": 1000
+    }
+  },
+  "Finetune_gemma-3-4b-it_CDtest": {
+    "approach": "Finetune",
+    "model": "gemma-3-4b-it",
+    "dataset": "CDtest",
+    "time": {
+      "mean": 4.2900533443209765,
+      "std": 4.424807800200727,
+      "median": 2.5070815086364746,
+      "min": 0.16980981826782202,
+      "max": 17.449979066848755
+    },
+    "GeneratedTokens": {
+      "mean": 127.67471264367816,
+      "std": 131.641110537397,
+      "median": 75.0,
+      "min": 5,
+      "max": 500
+    }
+  },
+  "Finetune_qwen3-30b-a3b-instruct_CDtest": {
+    "approach": "Finetune",
+    "model": "qwen3-30b-a3b-instruct",
+    "dataset": "CDtest",
+    "time": {
+      "mean": 39.465974714290134,
+      "std": 76.93528063481754,
+      "median": 18.234192490577698,
+      "min": 8.786852598190308,
+      "max": 415.7771940231323
+    },
+    "GeneratedTokens": {
+      "mean": 86.66896551724138,
+      "std": 193.61472979273702,
+      "median": 33.0,
+      "min": 10,
+      "max": 1000
+    }
+  },
+  "Finetune_qwen3-30b-a3b-instruct_TBtest": {
+    "approach": "Finetune",
+    "model": "qwen3-30b-a3b-instruct",
+    "dataset": "TBtest",
+    "time": {
+      "mean": 110.14255253884984,
+      "std": 118.50419008015581,
+      "median": 59.718029499053955,
+      "min": 20.84219479560852,
+      "max": 418.46577072143555
+    },
+    "GeneratedTokens": {
+      "mean": 264.24252873563216,
+      "std": 295.7459018573289,
+      "median": 138.0,
+      "min": 42,
+      "max": 1000
+    }
+  },
+  "Prompting_Qwen3-30B-A3B-Instruct-2507_CDtest": {
+    "approach": "Prompting",
+    "model": "Qwen3-30B-A3B-Instruct-2507",
+    "dataset": "CDtest",
+    "time": {
+      "mean": 74.81863308309138,
+      "std": 16.037818678125937,
+      "median": 73.22438204288483,
+      "min": 25.513407707214355,
+      "max": 137.60202169418335
+    },
+    "GeneratedTokens": {
+      "mean": 274.5540229885057,
+      "std": 60.19092141362246,
+      "median": 267.0,
+      "min": 92,
+      "max": 500
+    }
+  },
+  "Prompting_Qwen3-30B-A3B-Instruct-2507_TBtest": {
+    "approach": "Prompting",
+    "model": "Qwen3-30B-A3B-Instruct-2507",
+    "dataset": "TBtest",
+    "time": {
+      "mean": 155.20399252546244,
+      "std": 26.241092357951242,
+      "median": 180.12405002117157,
+      "min": 124.67208886146545,
+      "max": 190.63303518295288
+    },
+    "GeneratedTokens": {
+      "mean": 500.0,
+      "std": 0.0,
+      "median": 500.0,
+      "min": 500,
+      "max": 500
+    }
+  },
+  "Prompting_gemini-2.5-flash_CDtest": {
+    "approach": "Prompting",
+    "model": "gemini-2.5-flash",
+    "dataset": "CDtest",
+    "time": {
+      "mean": 6.273873023877199,
+      "std": 1.3757013106755118,
+      "median": 6.514025092124939,
+      "min": 1.6956462860107422,
+      "max": 9.777211666107178
+    },
+    "GeneratedTokens": {
+      "mean": 147.40574712643678,
+      "std": 81.58037521001381,
+      "median": 157.0,
+      "min": 19,
+      "max": 402
+    }
+  },
+  "Prompting_gemini-2.5-flash_TBtest": {
+    "approach": "Prompting",
+    "model": "gemini-2.5-flash",
+    "dataset": "TBtest",
+    "time": {
+      "mean": 7.553594255721432,
+      "std": 1.7707366158277489,
+      "median": 7.466838598251343,
+      "min": 5.7140326499938965,
+      "max": 57.24639081954956
+    },
+    "GeneratedTokens": {
+      "mean": 155.083908045977,
+      "std": 140.73188145021112,
+      "median": 90.0,
+      "min": 36,
+      "max": 743
+    }
+  },
+  "Prompting_gemma-3-4b-it_CDtest": {
+    "approach": "Prompting",
+    "model": "gemma-3-4b-it",
+    "dataset": "CDtest",
+    "time": {
+      "mean": 26.0846562243056,
+      "std": 4.679689367268979,
+      "median": 26.89200794696808,
+      "min": 4.977109909057617,
+      "max": 34.23790669441223
+    },
+    "GeneratedTokens": {
+      "mean": 395.3758620689655,
+      "std": 62.3155976379895,
+      "median": 404.5,
+      "min": 66,
+      "max": 500
+    }
+  },
+  "Prompting_gemma-3-4b-it_TBtest": {
+    "approach": "Prompting",
+    "model": "gemma-3-4b-it",
+    "dataset": "TBtest",
+    "time": {
+      "mean": 32.41527715606251,
+      "std": 1.4244652998738605,
+      "median": 33.07127523422241,
+      "min": 24.566713094711304,
+      "max": 34.045788288116455
+    },
+    "GeneratedTokens": {
+      "mean": 980.8689655172413,
+      "std": 39.186624706532704,
+      "median": 1000.0,
+      "min": 754,
+      "max": 1000
+    }
+  },
+  "RAFG_Qwen3-30B-A3B-Instruct-2507_CDtest": {
+    "approach": "RAFG",
+    "model": "Qwen3-30B-A3B-Instruct-2507",
+    "dataset": "CDtest",
+    "time": {
+      "mean": 59.931357399074514,
+      "std": 23.29484273868188,
+      "median": 56.69613826274872,
+      "min": 4.629145622253418,
+      "max": 170.28978943824768
+    },
+    "GeneratedTokens": {
+      "mean": 171.3816091954023,
+      "std": 66.74289250934912,
+      "median": 162.0,
+      "min": 8,
+      "max": 492
+    }
+  },
+  "RAFG_Qwen3-30B-A3B-Instruct-2507_TBtest": {
+    "approach": "RAFG",
+    "model": "Qwen3-30B-A3B-Instruct-2507",
+    "dataset": "TBtest",
+    "time": {
+      "mean": 177.10884796696146,
+      "std": 13.83789905510382,
+      "median": 181.02790236473083,
+      "min": 126.36188340187073,
+      "max": 182.12346243858337
+    },
+    "GeneratedTokens": {
+      "mean": 500.0,
+      "std": 0.0,
+      "median": 500.0,
+      "min": 500,
+      "max": 500
+    }
+  },
+  "RAFG_gemini-2.5-flash_CDtest": {
+    "approach": "RAFG",
+    "model": "gemini-2.5-flash",
+    "dataset": "CDtest",
+    "time": {
+      "mean": 6.034057732834213,
+      "std": 1.6980590077096793,
+      "median": 6.516791939735413,
+      "min": 0.623354911804199,
+      "max": 9.36618709564209
+    },
+    "GeneratedTokens": {
+      "mean": 151.47471264367817,
+      "std": 103.47673611941255,
+      "median": 151.0,
+      "min": 6,
+      "max": 1023
+    }
+  },
+  "RAFG_gemini-2.5-flash_TBtest": {
+    "approach": "RAFG",
+    "model": "gemini-2.5-flash",
+    "dataset": "TBtest",
+    "time": {
+      "mean": 7.33437776702574,
+      "std": 0.8937348245830992,
+      "median": 7.446463704109192,
+      "min": 3.038288831710815,
+      "max": 13.501728057861328
+    },
+    "GeneratedTokens": {
+      "mean": 312.31954022988504,
+      "std": 230.12189987202208,
+      "median": 330.5,
+      "min": 12,
+      "max": 923
+    }
+  },
+  "RAFG_gemma-3-4b-it_CDtest": {
+    "approach": "RAFG",
+    "model": "gemma-3-4b-it",
+    "dataset": "CDtest",
+    "time": {
+      "mean": 3.8839438356202223,
+      "std": 3.4211970666989213,
+      "median": 2.78166103363037,
+      "min": 0.41245412826538,
+      "max": 25.42386770248413
+    },
+    "GeneratedTokens": {
+      "mean": 78.67241379310344,
+      "std": 68.74831633407389,
+      "median": 58.0,
+      "min": 9,
+      "max": 500
+    }
+  },
+  "RAFG_gemma-3-4b-it_TBtest": {
+    "approach": "RAFG",
+    "model": "gemma-3-4b-it",
+    "dataset": "TBtest",
+    "time": {
+      "mean": 25.477059738937466,
+      "std": 5.9930656059606715,
+      "median": 25.02729308605194,
+      "min": 6.828533887863159,
+      "max": 48.15304398536682
+    },
+    "GeneratedTokens": {
+      "mean": 679.9551724137931,
+      "std": 128.14952452075443,
+      "median": 681.5,
+      "min": 182,
+      "max": 1000
+    }
+  }
+}

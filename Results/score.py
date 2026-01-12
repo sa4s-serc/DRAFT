@@ -12,7 +12,7 @@ from sympy import true
 
 BASE_DIR = os.getcwd()
 CACHE_DIR = "../cache"
-OUTPUT_DIR = os.path.join(BASE_DIR, "Results")
+OUTPUT_DIR = os.path.join(BASE_DIR, "Result/scores")
 
 GT_CONFIGS = {
     "CDtest": {
