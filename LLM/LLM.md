@@ -2,8 +2,11 @@
 
 ## Embedding Model
 
-For retrieval we used the open source embedding model 'Qwen3-Embedding-8B' Which ranks top in **MTEB Retrieval** rankings [https://huggingface.co/spaces/mteb/leaderboard].
-The rankings are there in MTEB.csv
+To implement the retrieval components for the RAFG and DRAFT approaches, we selected embedding models that align with our generative models:
+- Open-Source: We used **Qwen3-Embedding-8B**, which ranks at the top of the **MTEB Retrieval leaderboard [https://huggingface.co/spaces/mteb/leaderboard], to pair with our open-source generative model. The rankings of METB as of 8 Sep 2025 are there in MTEB.csv.
+- Proprietary: For the **Gemini-2.5-Flash** model, we used the corresponding **gemini-embedding-001** model from the same provider to ensure ecosystem compatibility.
+
+
 
 ## Generating model
 
@@ -11,13 +14,6 @@ For Generating LLMs we are Taking LLMs from **LM Arena text** rankings [https://
 
 The selected models are:
 - gpt-5-high
-<!-- - kimi-k2-0711-preview -->
 - gemini-2.5-flash
-<!-- - qwen3-235b-a22b-instruct-2507 -->
 - qwen3-30b-a3b-instruct-2507
-- add llama/deepseek
-<!-- - gemma-3-27b-it -->
 - gemma-3-4b-it
-- add mistral/deepseek
-<!-- gemma-2-2b-it -->
-<!-- gemma-3n-e4b-it -->
