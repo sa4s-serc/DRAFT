@@ -1,0 +1,212 @@
+{
+  "Retrieval/qwen3-embedding-8B/TBtrain.jsonl": {
+    "total_records": 3040,
+    "rafg": {
+      "mean": 814.177302631579,
+      "max": 3434,
+      "min": 110,
+      "median": 704
+    },
+    "prompting": {
+      "mean": 7.90625,
+      "max": 32,
+      "min": 1,
+      "median": 7
+    }
+  },
+  "Retrieval/qwen3-embedding-8B/TBtest.jsonl": {
+    "total_records": 870,
+    "rafg": {
+      "mean": 810.7057471264368,
+      "max": 3191,
+      "min": 183,
+      "median": 725
+    },
+    "prompting": {
+      "mean": 7.541379310344827,
+      "max": 23,
+      "min": 1,
+      "median": 7
+    }
+  },
+  "Retrieval/qwen3-embedding-8B/CDtest.jsonl": {
+    "total_records": 870,
+    "rafg": {
+      "mean": 558.7563218390804,
+      "max": 2179,
+      "min": 82,
+      "median": 462
+    },
+    "prompting": {
+      "mean": 121.59425287356322,
+      "max": 726,
+      "min": 11,
+      "median": 75
+    }
+  },
+  "Retrieval/qwen3-embedding-8B/CDval.jsonl": {
+    "total_records": 434,
+    "rafg": {
+      "mean": 575.1405529953917,
+      "max": 1828,
+      "min": 104,
+      "median": 462
+    },
+    "prompting": {
+      "mean": 129.27188940092165,
+      "max": 893,
+      "min": 12,
+      "median": 81
+    }
+  },
+  "Retrieval/qwen3-embedding-8B/TBval.jsonl": {
+    "total_records": 434,
+    "rafg": {
+      "mean": 905.9009216589861,
+      "max": 2451,
+      "min": 208,
+      "median": 800
+    },
+    "prompting": {
+      "mean": 7.631336405529954,
+      "max": 23,
+      "min": 1,
+      "median": 7
+    }
+  },
+  "Retrieval/qwen3-embedding-8B/CDtrain.jsonl": {
+    "total_records": 3040,
+    "rafg": {
+      "mean": 573.5355263157895,
+      "max": 2442,
+      "min": 65,
+      "median": 481
+    },
+    "prompting": {
+      "mean": 129.29736842105262,
+      "max": 1512,
+      "min": 10,
+      "median": 84
+    }
+  },
+  "Retrieval/openai/TBtest.jsonl": {
+    "total_records": 870,
+    "rafg": {
+      "mean": 801.2701149425287,
+      "max": 3053,
+      "min": 146,
+      "median": 710
+    },
+    "prompting": {
+      "mean": 7.541379310344827,
+      "max": 23,
+      "min": 1,
+      "median": 7
+    }
+  },
+  "Retrieval/openai/CDtest.jsonl": {
+    "total_records": 870,
+    "rafg": {
+      "mean": 643.1517241379311,
+      "max": 2457,
+      "min": 76,
+      "median": 571
+    },
+    "prompting": {
+      "mean": 121.59425287356322,
+      "max": 726,
+      "min": 11,
+      "median": 75
+    }
+  },
+  "Retrieval/gemini/TBtrain.jsonl": {
+    "total_records": 3040,
+    "rafg": {
+      "mean": 773.7746710526316,
+      "max": 3049,
+      "min": 76,
+      "median": 665
+    },
+    "prompting": {
+      "mean": 7.90625,
+      "max": 32,
+      "min": 1,
+      "median": 7
+    }
+  },
+  "Retrieval/gemini/TBtest.jsonl": {
+    "total_records": 870,
+    "rafg": {
+      "mean": 759.3022988505747,
+      "max": 3094,
+      "min": 160,
+      "median": 660
+    },
+    "prompting": {
+      "mean": 7.541379310344827,
+      "max": 23,
+      "min": 1,
+      "median": 7
+    }
+  },
+  "Retrieval/gemini/CDtest.jsonl": {
+    "total_records": 870,
+    "rafg": {
+      "mean": 527.2816091954023,
+      "max": 1800,
+      "min": 67,
+      "median": 421
+    },
+    "prompting": {
+      "mean": 121.59425287356322,
+      "max": 726,
+      "min": 11,
+      "median": 75
+    }
+  },
+  "Retrieval/gemini/CDval.jsonl": {
+    "total_records": 434,
+    "rafg": {
+      "mean": 524.9331797235023,
+      "max": 1828,
+      "min": 90,
+      "median": 437
+    },
+    "prompting": {
+      "mean": 129.27188940092165,
+      "max": 893,
+      "min": 12,
+      "median": 81
+    }
+  },
+  "Retrieval/gemini/TBval.jsonl": {
+    "total_records": 434,
+    "rafg": {
+      "mean": 823.1889400921659,
+      "max": 2773,
+      "min": 197,
+      "median": 728
+    },
+    "prompting": {
+      "mean": 7.631336405529954,
+      "max": 23,
+      "min": 1,
+      "median": 7
+    }
+  },
+  "Retrieval/gemini/CDtrain.jsonl": {
+    "total_records": 3040,
+    "rafg": {
+      "mean": 561.6463815789474,
+      "max": 2734,
+      "min": 45,
+      "median": 463
+    },
+    "prompting": {
+      "mean": 129.29736842105262,
+      "max": 1512,
+      "min": 10,
+      "median": 84
+    }
+  }
+}
