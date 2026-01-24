@@ -12,7 +12,7 @@ from sympy import true
 
 BASE_DIR = os.getcwd()
 CACHE_DIR = "../cache"
-OUTPUT_DIR = os.path.join(BASE_DIR, "Result/scores")
+OUTPUT_DIR = os.path.join(BASE_DIR, "Results/scores")
 
 GT_CONFIGS = {
     "CDtest": {
@@ -114,6 +114,8 @@ def get_retrieval_path(base_dir, dataset, model_name):
     
     if "gemini" in model_lower:
         embedding_subdir = "gemini"
+    elif "gpt" in model_lower:
+        embedding_subdir = "openai"
     elif "qwen" in model_lower or "gemma" in model_lower:
         embedding_subdir = "qwen3-embedding-8B"
     else:
