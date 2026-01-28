@@ -4,17 +4,17 @@
     "model": "gemini-2.5-flash",
     "dataset": "CDtest",
     "time": {
-      "mean": 1.7337726741001525,
-      "std": 1.237768022071107,
-      "median": 1.3426041603088374,
+      "mean": 1.7229995389298172,
+      "std": 1.2247828591378866,
+      "median": 1.339040756225586,
       "min": 0.558060884475708,
       "max": 8.437946081161499
     },
     "GeneratedTokens": {
-      "mean": 135.316091954023,
-      "std": 182.930435930637,
-      "median": 69.0,
-      "min": 0,
+      "mean": 135.7843137254902,
+      "std": 183.07325943945497,
+      "median": 70.0,
+      "min": 4,
       "max": 1024
     }
   },
@@ -341,6 +341,44 @@
       "max": 1000
     }
   },
+  "Prompting_gpt_5_CDtest": {
+    "approach": "Prompting",
+    "model": "gpt_5",
+    "dataset": "CDtest",
+    "time": {
+      "mean": 17.19445708721193,
+      "std": 21.575505471363762,
+      "median": 15.387004613876343,
+      "min": 6.363154888153076,
+      "max": 615.0541803836823
+    },
+    "GeneratedTokens": {
+      "mean": 671.5307599517491,
+      "std": 134.8601909154271,
+      "median": 667.0,
+      "min": 242,
+      "max": 1018
+    }
+  },
+  "Prompting_gpt_5_TBtest": {
+    "approach": "Prompting",
+    "model": "gpt_5",
+    "dataset": "TBtest",
+    "time": {
+      "mean": 17.25301172143047,
+      "std": 4.540285390670695,
+      "median": 16.531344532966614,
+      "min": 9.583231687545776,
+      "max": 55.5495228767395
+    },
+    "GeneratedTokens": {
+      "mean": 726.8616504854369,
+      "std": 120.5030375186516,
+      "median": 717.5,
+      "min": 439,
+      "max": 1007
+    }
+  },
   "RAFG_Qwen3-30B-A3B-Instruct-2507_CDtest": {
     "approach": "RAFG",
     "model": "Qwen3-30B-A3B-Instruct-2507",
@@ -453,6 +491,44 @@
       "median": 681.5,
       "min": 182,
       "max": 1000
+    }
+  },
+  "RAFG_gpt_5_CDtest": {
+    "approach": "RAFG",
+    "model": "gpt_5",
+    "dataset": "CDtest",
+    "time": {
+      "mean": 14.737408256811253,
+      "std": 5.319961310419079,
+      "median": 13.986376166343689,
+      "min": 3.9852020740509033,
+      "max": 54.66458034515381
+    },
+    "GeneratedTokens": {
+      "mean": 605.2235294117647,
+      "std": 154.83865811360351,
+      "median": 599.0,
+      "min": 120,
+      "max": 1011
+    }
+  },
+  "RAFG_gpt_5_TBtest": {
+    "approach": "RAFG",
+    "model": "gpt_5",
+    "dataset": "TBtest",
+    "time": {
+      "mean": 15.435610624811918,
+      "std": 6.43782953604821,
+      "median": 14.02643597126007,
+      "min": 5.121310949325561,
+      "max": 57.91254019737244
+    },
+    "GeneratedTokens": {
+      "mean": 694.652278177458,
+      "std": 135.4752036541293,
+      "median": 694.5,
+      "min": 260,
+      "max": 1007
     }
   }
 }

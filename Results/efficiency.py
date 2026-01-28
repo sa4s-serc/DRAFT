@@ -8,6 +8,18 @@ from pathlib import Path
 
 BASE_DIR = os.getcwd()
 OUTPUT_DIR = os.path.join(BASE_DIR, "Results")
+GT_CONFIGS = {
+    "CDtest": {
+        "filename": "CDtest.jsonl",
+        "true_col": "Decision",
+        "pred_col": "Decision"
+    },
+    "TBtest": {
+        "filename": "TBtest.jsonl",
+        "true_col": "Body",
+        "pred_col": "Body"
+    }
+}
 
 def infer_metadata(filepath):
     """
@@ -46,6 +58,29 @@ def infer_metadata(filepath):
 
     return approach, model, dataset
 
+
+def get_retrieval_path(base_dir, dataset, model_name):
+    """
+    Determines the correct Ground Truth path based on the model name.
+    """
+    # Logic for embedding model folder selection
+    model_lower = model_name.lower()
+    
+    if "gemini" in model_lower:
+        embedding_subdir = "gemini"
+    elif "gpt" in model_lower:
+        embedding_subdir = "openai"
+    elif "qwen" in model_lower or "gemma" in model_lower:
+        embedding_subdir = "qwen3-embedding-8B"
+    else:
+        # Default fallback if model name doesn't match known patterns
+        print(f"  [WARN] Unknown model type '{model_name}', defaulting to 'qwen3-embedding-8B' path.")
+        embedding_subdir = "qwen3-embedding-8B"
+
+    filename = GT_CONFIGS[dataset]['filename']
+    return os.path.join(base_dir, "Retrieval", embedding_subdir, filename)
+
+
 def process_file(efficiency, filepath):
     print(f"\nProcessing: {filepath}")
     
@@ -61,6 +96,11 @@ def process_file(efficiency, filepath):
     except Exception as e:
         print(f"  [ERROR] Failed to read files: {e}")
         return
+    
+    gt_config = GT_CONFIGS[dataset]
+    
+    # remove all rows in pred_df where the prediction is null or empty
+    pred_df = pred_df[pred_df[gt_config['pred_col']].notnull() & (pred_df[gt_config['pred_col']].astype(str).str.strip() != "")]
 
     try:
         eff = {

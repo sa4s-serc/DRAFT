@@ -166,6 +166,10 @@ def process_file(filepath, metrics):
     except Exception as e:
         print(f"  [ERROR] Failed to read files: {e}")
         return
+    
+    # remove all rows in pred_df and true_df where the prediction is null or empty
+    pred_df = pred_df[pred_df[gt_config['pred_col']].notnull() & (pred_df[gt_config['pred_col']].astype(str).str.strip() != "")]
+    true_df = true_df.loc[pred_df.index]
 
     # Calculate Scores
     try:
