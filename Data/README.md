@@ -107,3 +107,14 @@ This final preparation step partitions the clean dataset for use in machine lear
     * `ADR-data/train.jsonl`
     * `ADR-data/val.jsonl`
     * `ADR-data/test.jsonl`
+
+---
+
+### Dataset statistics:
+
+| Component | Median Length |
+|---|---|
+| Context | 56 tokens (~45 words) |
+| Decision | 73 tokens |
+| Title | 8 tokens |
+| Body | 275 tokens |
