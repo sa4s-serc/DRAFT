@@ -1,0 +1,631 @@
+dataset,model,metric,family,test,comparison,n_blocks,n_groups,statistic,p_value,effect_size,p_holm,approach
+CDtest,gemini-2.5-flash,bert_f1,approach-within-model,friedman,omnibus,867,4,112.51384083045014,3.15705874603646e-24,0.04325791650536338,,
+CDtest,gemini-2.5-flash,bert_f1,approach-within-model,wilcoxon_posthoc,DRAFT vs Finetune,867,2,128639.0,1.0415068207251407e-15,0.3146764479463841,5.207534103625704e-15,
+CDtest,gemini-2.5-flash,bert_f1,approach-within-model,wilcoxon_posthoc,DRAFT vs Prompting,867,2,116666.5,3.3262834879844464e-22,0.37989199474856356,1.995770092790668e-21,
+CDtest,gemini-2.5-flash,bert_f1,approach-within-model,wilcoxon_posthoc,DRAFT vs RAFG,867,2,147773.0,4.4338256976076794e-08,0.21455413284858535,1.330147709282304e-07,
+CDtest,gemini-2.5-flash,bert_f1,approach-within-model,wilcoxon_posthoc,Finetune vs Prompting,867,2,176412.0,0.1118696713119563,-0.06233157399582224,0.1118696713119563,
+CDtest,gemini-2.5-flash,bert_f1,approach-within-model,wilcoxon_posthoc,Finetune vs RAFG,867,2,149426.0,1.5331763174936868e-07,-0.20576807573124126,3.0663526349873736e-07,
+CDtest,gemini-2.5-flash,bert_f1,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,867,2,137151.0,4.753826049038796e-12,-0.2710123897756446,1.9015304196155183e-11,
+CDtest,gemma-3-4b-it,bert_f1,approach-within-model,friedman,omnibus,870,4,1050.2293103448264,2.283483907740761e-227,0.40238670894437795,,
+CDtest,gemma-3-4b-it,bert_f1,approach-within-model,wilcoxon_posthoc,DRAFT vs Finetune,870,2,168151.0,0.00571136214778254,-0.10829758236863178,0.00571136214778254,
+CDtest,gemma-3-4b-it,bert_f1,approach-within-model,wilcoxon_posthoc,DRAFT vs Prompting,870,2,32666.0,3.0382181348713073e-99,0.8275677316336092,1.215287253948523e-98,
+CDtest,gemma-3-4b-it,bert_f1,approach-within-model,wilcoxon_posthoc,DRAFT vs RAFG,870,2,100681.0,7.898938277213515e-33,-0.46731743449334023,2.3696814831640544e-32,
+CDtest,gemma-3-4b-it,bert_f1,approach-within-model,wilcoxon_posthoc,Finetune vs Prompting,870,2,28934.0,6.235739478399001e-104,0.847267640576956,3.1178697391995003e-103,
+CDtest,gemma-3-4b-it,bert_f1,approach-within-model,wilcoxon_posthoc,Finetune vs RAFG,870,2,120442.5,1.321916148134694e-20,-0.36422661229660713,2.643832296269388e-20,
+CDtest,gemma-3-4b-it,bert_f1,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,870,2,5322.0,3.895445579352313e-136,-0.9719070430341661,2.337267347611388e-135,
+CDtest,gpt-5,bert_f1,approach-within-model,wilcoxon,Prompting vs RAFG,819,2,103419.0,1.722668029082869e-21,-0.3840257303671938,,
+CDtest,gpt-5,bert_f1,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,819,2,103419.0,1.722668029082869e-21,-0.3840257303671938,1.722668029082869e-21,
+CDtest,qwen3-30b-a3b-instruct-2507,bert_f1,approach-within-model,friedman,omnibus,870,4,887.6372413793088,4.251756004201183e-192,0.3400908970801949,,
+CDtest,qwen3-30b-a3b-instruct-2507,bert_f1,approach-within-model,wilcoxon_posthoc,DRAFT vs Finetune,870,2,176656.0,0.16518492816479327,0.05450652965103832,0.16518492816479327,
+CDtest,qwen3-30b-a3b-instruct-2507,bert_f1,approach-within-model,wilcoxon_posthoc,DRAFT vs Prompting,870,2,33138.0,1.1686174631848743e-98,0.8250762104596382,7.011704779109246e-98,
+CDtest,qwen3-30b-a3b-instruct-2507,bert_f1,approach-within-model,wilcoxon_posthoc,DRAFT vs RAFG,870,2,59714.0,1.5020064715310816e-68,0.6847908996133392,4.506019414593245e-68,
+CDtest,qwen3-30b-a3b-instruct-2507,bert_f1,approach-within-model,wilcoxon_posthoc,Finetune vs Prompting,870,2,38874.0,1.089461575867294e-91,0.7947978938200245,5.44730787933647e-91,
+CDtest,qwen3-30b-a3b-instruct-2507,bert_f1,approach-within-model,wilcoxon_posthoc,Finetune vs RAFG,870,2,70780.0,1.1836673239196646e-57,0.6263773968354513,2.3673346478393292e-57,
+CDtest,qwen3-30b-a3b-instruct-2507,bert_f1,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,870,2,47350.0,7.265925467436097e-82,-0.7500560856196471,2.906370186974439e-81,
+TBtest,gemini-2.5-flash,bert_f1,approach-within-model,friedman,omnibus,870,4,353.1665517241363,3.07618234770327e-76,0.1353128550667189,,
+TBtest,gemini-2.5-flash,bert_f1,approach-within-model,wilcoxon_posthoc,DRAFT vs Finetune,870,2,103899.0,1.3359075371073136e-30,0.45029165509305186,5.343630148429254e-30,
+TBtest,gemini-2.5-flash,bert_f1,approach-within-model,wilcoxon_posthoc,DRAFT vs Prompting,870,2,64798.0,2.0069908427800795e-63,0.6579542605276008,1.2041945056680478e-62,
+TBtest,gemini-2.5-flash,bert_f1,approach-within-model,wilcoxon_posthoc,DRAFT vs RAFG,870,2,65478.5,1.552556854254213e-62,0.6535666574077749,7.762784271271066e-62,
+TBtest,gemini-2.5-flash,bert_f1,approach-within-model,wilcoxon_posthoc,Finetune vs Prompting,870,2,139862.0,2.2748708077757488e-11,0.2617179355213323,5.544414907308852e-11,
+TBtest,gemini-2.5-flash,bert_f1,approach-within-model,wilcoxon_posthoc,Finetune vs RAFG,870,2,139637.0,1.8481383024362838e-11,0.26290563099621256,5.544414907308852e-11,
+TBtest,gemini-2.5-flash,bert_f1,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,870,2,172049.0,0.0189805024994602,0.09181413885479763,0.0189805024994602,
+TBtest,gemma-3-4b-it,bert_f1,approach-within-model,friedman,omnibus,870,4,656.4510344827577,5.816615369685002e-142,0.25151380631523285,,
+TBtest,gemma-3-4b-it,bert_f1,approach-within-model,wilcoxon_posthoc,DRAFT vs Finetune,870,2,163108.0,0.0003825358828432862,0.1390105177032609,0.0003825358828432862,
+TBtest,gemma-3-4b-it,bert_f1,approach-within-model,wilcoxon_posthoc,DRAFT vs Prompting,870,2,41670.0,2.190202515157992e-88,0.7800387980521795,1.3141215090947952e-87,
+TBtest,gemma-3-4b-it,bert_f1,approach-within-model,wilcoxon_posthoc,DRAFT vs RAFG,870,2,96584.0,5.4906431673498984e-36,0.49016720112963036,1.6471929502049697e-35,
+TBtest,gemma-3-4b-it,bert_f1,approach-within-model,wilcoxon_posthoc,Finetune vs Prompting,870,2,51316.0,1.8350785054273702e-77,0.7291209733824248,7.340314021709481e-77,
+TBtest,gemma-3-4b-it,bert_f1,approach-within-model,wilcoxon_posthoc,Finetune vs RAFG,870,2,115377.0,1.6916678983470168e-23,0.39096559642107764,3.3833357966940336e-23,
+TBtest,gemma-3-4b-it,bert_f1,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,870,2,45346.0,3.8874560881865615e-84,-0.7606344933159138,1.9437280440932807e-83,
+TBtest,gpt-5,bert_f1,approach-within-model,wilcoxon,Prompting vs RAFG,794,2,100879.5,1.298485347146396e-18,-0.3607433106791502,,
+TBtest,gpt-5,bert_f1,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,794,2,100879.5,1.298485347146396e-18,-0.3607433106791502,1.298485347146396e-18,
+TBtest,qwen3-30b-a3b-instruct-2507,bert_f1,approach-within-model,friedman,omnibus,870,4,681.171034482757,2.539765185953973e-147,0.26098507068304866,,
+TBtest,qwen3-30b-a3b-instruct-2507,bert_f1,approach-within-model,wilcoxon_posthoc,DRAFT vs Finetune,870,2,163888.0,0.0005675960844638417,0.1348931733903427,0.0011351921689276834,
+TBtest,qwen3-30b-a3b-instruct-2507,bert_f1,approach-within-model,wilcoxon_posthoc,DRAFT vs Prompting,870,2,39321.0,3.7106325047526744e-91,0.7924383388099291,2.2263795028516048e-90,
+TBtest,qwen3-30b-a3b-instruct-2507,bert_f1,approach-within-model,wilcoxon_posthoc,DRAFT vs RAFG,870,2,40735.0,1.7486628553135347e-89,0.7849743325811261,8.743314276567673e-89,
+TBtest,qwen3-30b-a3b-instruct-2507,bert_f1,approach-within-model,wilcoxon_posthoc,Finetune vs Prompting,870,2,66794.0,1.816984745060338e-61,0.6474180820037743,7.267938980241352e-61,
+TBtest,qwen3-30b-a3b-instruct-2507,bert_f1,approach-within-model,wilcoxon_posthoc,Finetune vs RAFG,870,2,68403.0,6.515155108917601e-60,0.6389247396967418,1.9545465326752803e-59,
+TBtest,qwen3-30b-a3b-instruct-2507,bert_f1,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,870,2,186485.0,0.6900177683026104,-0.015611597186481386,0.6900177683026104,
+CDtest,,bert_f1,model-within-approach,friedman,omnibus,867,3,224.51730103806221,1.7647676482653534e-49,0.12947941236335767,,DRAFT
+CDtest,,bert_f1,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,867,2,134675.0,5.928983811579078e-13,0.28251969175117403,5.928983811579078e-13,DRAFT
+CDtest,,bert_f1,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,867,2,108775.0,5.3241531362248535e-27,-0.42183704601385147,1.0648306272449707e-26,DRAFT
+CDtest,,bert_f1,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,867,2,76513.5,9.69352085876649e-52,-0.5933139859359303,2.908056257629947e-51,DRAFT
+CDtest,,bert_f1,model-within-approach,friedman,omnibus,870,3,199.19022988505822,5.576878153927962e-44,0.11447714361210243,,Finetune
+CDtest,,bert_f1,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,870,2,150197.0,1.2016580927852816e-07,-0.2071631233751666,1.2016580927852816e-07,Finetune
+CDtest,,bert_f1,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,870,2,88368.0,2.5647255939332594e-42,-0.5335365612257017,7.694176781799778e-42,Finetune
+CDtest,,bert_f1,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,870,2,95466.0,3.3191373285149175e-36,-0.49257729657327826,6.638274657029835e-36,Finetune
+CDtest,,bert_f1,model-within-approach,friedman,omnibus,829,4,1303.4728588661037,2.5959056264454176e-282,0.5241145391500216,,Prompting
+CDtest,,bert_f1,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,829,2,17599.0,4.869545979778424e-111,0.8976906419405002,2.434772989889212e-110,Prompting
+CDtest,,bert_f1,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gpt-5,829,2,24109.0,4.916248961345692e-102,0.8598456552385658,1.9664995845382768e-101,Prompting
+CDtest,,bert_f1,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,829,2,76089.0,5.546613945327044e-44,0.5576670978243493,5.546613945327044e-44,Prompting
+CDtest,,bert_f1,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs gpt-5,829,2,72489.0,3.2788477214314116e-47,-0.5785952010696586,6.557695442862823e-47,Prompting
+CDtest,,bert_f1,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,829,2,14666.0,3.1958641173957826e-115,-0.9147412327234148,1.9175184704374697e-114,Prompting
+CDtest,,bert_f1,model-within-approach,wilcoxon_posthoc,gpt-5 vs qwen3-30b-a3b-instruct-2507,829,2,28925.0,1.2713558730827452e-95,-0.831848503785952,3.814067619248236e-95,Prompting
+CDtest,,bert_f1,model-within-approach,friedman,omnibus,850,4,1136.8898823529416,3.6114328407019806e-246,0.4458391695501732,,RAFG
+CDtest,,bert_f1,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,850,2,91956.0,2.2126707210624166e-35,-0.4914992742102717,4.425341442124833e-35,RAFG
+CDtest,,bert_f1,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gpt-5,850,2,19628.0,2.9713372770898773e-112,0.8914605654247598,1.188534910835951e-111,RAFG
+CDtest,,bert_f1,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,850,2,149471.0,1.1832688040018263e-05,0.17345130296536945,1.1832688040018263e-05,RAFG
+CDtest,,bert_f1,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs gpt-5,850,2,9899.0,5.761042201203183e-126,0.9452602474597359,3.4566253207219094e-125,RAFG
+CDtest,,bert_f1,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,850,2,53499.0,9.349198337604266e-71,0.7041598119858989,2.8047595012812797e-70,RAFG
+CDtest,,bert_f1,model-within-approach,wilcoxon_posthoc,gpt-5 vs qwen3-30b-a3b-instruct-2507,850,2,18476.0,7.781232011273669e-114,-0.8978309255547107,3.890616005636834e-113,RAFG
+TBtest,,bert_f1,model-within-approach,friedman,omnibus,870,3,146.73793103448224,1.3685577643310156e-32,0.08433214427269095,,DRAFT
+TBtest,,bert_f1,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,870,2,169529.5,0.007237024602073498,-0.10511368885017881,0.007237024602073498,DRAFT
+TBtest,,bert_f1,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,870,2,103844.0,7.8067211139020644e-31,-0.45184422714016126,2.3420163341706195e-30,DRAFT
+TBtest,,bert_f1,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,870,2,110658.0,2.252416544842452e-26,-0.41587552951423257,4.504833089684904e-26,DRAFT
+TBtest,,bert_f1,model-within-approach,friedman,omnibus,870,3,186.25057471264336,3.599163496700547e-41,0.10704056017968008,,Finetune
+TBtest,,bert_f1,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,870,2,112022.0,1.591333128279476e-25,-0.4086754556131808,3.182666256558952e-25,Finetune
+TBtest,,bert_f1,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,870,2,90979.0,3.0085200027122643e-40,-0.5197540150705359,9.025560008136792e-40,Finetune
+TBtest,,bert_f1,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,870,2,133708.0,5.594963517264517e-14,-0.2942027264209457,5.594963517264517e-14,Finetune
+TBtest,,bert_f1,model-within-approach,friedman,omnibus,824,4,744.2461165048553,5.338139595116984e-161,0.3010704354793104,,Prompting
+TBtest,,bert_f1,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,824,2,158377.0,0.09039986614991542,0.06809649897028537,0.09039986614991542,Prompting
+TBtest,,bert_f1,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gpt-5,824,2,58152.5,3.803536146655374e-60,0.657825831126802,1.5214144586621497e-59,Prompting
+TBtest,,bert_f1,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,824,2,154746.0,0.026109355989731815,-0.08946160635481024,0.05221871197946363,Prompting
+TBtest,,bert_f1,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs gpt-5,824,2,25410.0,2.814393450723318e-99,0.8504854368932039,1.4071967253616591e-98,Prompting
+TBtest,,bert_f1,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,824,2,112983.0,7.726414220945284e-17,-0.33519858781994705,2.317924266283585e-16,Prompting
+TBtest,,bert_f1,model-within-approach,wilcoxon_posthoc,gpt-5 vs qwen3-30b-a3b-instruct-2507,824,2,14828.0,4.749474306871138e-114,-0.9127508090614886,2.8496845841226826e-113,Prompting
+TBtest,,bert_f1,model-within-approach,friedman,omnibus,834,4,802.0762589928054,1.5344108933943234e-173,0.32057404436163284,,RAFG
+TBtest,,bert_f1,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,834,2,89002.0,2.20311093690278e-34,-0.4887807119573802,6.60933281070834e-34,RAFG
+TBtest,,bert_f1,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gpt-5,834,2,113017.0,1.6776881056394937e-18,0.3508407645141372,3.3553762112789873e-18,RAFG
+TBtest,,bert_f1,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,834,2,129351.0,1.2767313264782731e-10,-0.2570197734028346,1.2767313264782731e-10,RAFG
+TBtest,,bert_f1,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs gpt-5,834,2,11834.0,2.988129250411936e-120,0.9320265942934275,1.7928775502471616e-119,RAFG
+TBtest,,bert_f1,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,834,2,79441.0,3.9020428572117866e-42,0.5436982150806301,1.5608171428847147e-41,RAFG
+TBtest,,bert_f1,model-within-approach,wilcoxon_posthoc,gpt-5 vs qwen3-30b-a3b-instruct-2507,834,2,28725.0,6.645199754133513e-97,-0.8350062464998061,3.3225998770667564e-96,RAFG
+CDtest,gemini-2.5-flash,rouge1,approach-within-model,friedman,omnibus,867,4,227.4055363321786,5.032144761301595e-49,0.0874300408812682,,
+CDtest,gemini-2.5-flash,rouge1,approach-within-model,wilcoxon_posthoc,DRAFT vs Finetune,867,2,86067.5,1.161994895952478e-41,0.5328904700266749,6.971969375714867e-41,
+CDtest,gemini-2.5-flash,rouge1,approach-within-model,wilcoxon_posthoc,DRAFT vs Prompting,867,2,135548.0,1.4282391750945032e-11,0.26605842380269107,4.28471752528351e-11,
+CDtest,gemini-2.5-flash,rouge1,approach-within-model,wilcoxon_posthoc,DRAFT vs RAFG,867,2,157078.5,0.0001821237787390207,0.14749627555215447,0.0001821237787390207,
+CDtest,gemini-2.5-flash,rouge1,approach-within-model,wilcoxon_posthoc,Finetune vs Prompting,867,2,112194.0,3.998523206319438e-24,-0.3981266898416377,1.599409282527775e-23,
+CDtest,gemini-2.5-flash,rouge1,approach-within-model,wilcoxon_posthoc,Finetune vs RAFG,867,2,97373.5,3.398118000118958e-34,-0.4788401841147506,1.6990590000594792e-33,
+CDtest,gemini-2.5-flash,rouge1,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,867,2,153200.5,2.3898229336529487e-05,-0.16660274769959718,4.7796458673058974e-05,
+CDtest,gemma-3-4b-it,rouge1,approach-within-model,friedman,omnibus,870,4,229.27206896551616,1.9870117056879316e-49,0.08784370458448895,,
+CDtest,gemma-3-4b-it,rouge1,approach-within-model,wilcoxon_posthoc,DRAFT vs Finetune,870,2,170243.5,0.12448227501001023,-0.060792881062323806,0.24896455002002046,
+CDtest,gemma-3-4b-it,rouge1,approach-within-model,wilcoxon_posthoc,DRAFT vs Prompting,870,2,101630.0,5.769834081945763e-32,0.46105752149035123,2.307933632778305e-31,
+CDtest,gemma-3-4b-it,rouge1,approach-within-model,wilcoxon_posthoc,DRAFT vs RAFG,870,2,165374.5,0.010912488126123762,-0.10037725790351228,0.03273746437837129,
+CDtest,gemma-3-4b-it,rouge1,approach-within-model,wilcoxon_posthoc,Finetune vs Prompting,870,2,99112.5,6.052729454306095e-34,0.4756160469822626,3.0263647271530474e-33,
+CDtest,gemma-3-4b-it,rouge1,approach-within-model,wilcoxon_posthoc,Finetune vs RAFG,870,2,179902.5,0.4744434623403358,-0.028158171947167975,0.4744434623403358,
+CDtest,gemma-3-4b-it,rouge1,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,870,2,98160.0,1.9790849223509034e-34,-0.47945888329718467,1.1874509534105421e-33,
+CDtest,gpt-5,rouge1,approach-within-model,wilcoxon,Prompting vs RAFG,819,2,116537.0,6.883842687312697e-14,-0.3024931692966994,,
+CDtest,gpt-5,rouge1,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,819,2,116537.0,6.883842687312697e-14,-0.3024931692966994,6.883842687312697e-14,
+CDtest,qwen3-30b-a3b-instruct-2507,rouge1,approach-within-model,friedman,omnibus,870,4,87.3713793103434,8.036347755574277e-19,0.033475624256836554,,
+CDtest,qwen3-30b-a3b-instruct-2507,rouge1,approach-within-model,wilcoxon_posthoc,DRAFT vs Finetune,870,2,174236.0,0.7808509972827804,-0.011090300244054713,0.7808509972827804,
+CDtest,qwen3-30b-a3b-instruct-2507,rouge1,approach-within-model,wilcoxon_posthoc,DRAFT vs Prompting,870,2,141384.0,3.1554257122447986e-10,0.24677753182511966,1.2621702848979194e-09,
+CDtest,qwen3-30b-a3b-instruct-2507,rouge1,approach-within-model,wilcoxon_posthoc,DRAFT vs RAFG,870,2,171835.0,0.035714509866373284,0.08243335246766076,0.07142901973274657,
+CDtest,qwen3-30b-a3b-instruct-2507,rouge1,approach-within-model,wilcoxon_posthoc,Finetune vs Prompting,870,2,136619.0,2.851269923711411e-12,0.2738400863191576,1.4256349618557056e-11,
+CDtest,qwen3-30b-a3b-instruct-2507,rouge1,approach-within-model,wilcoxon_posthoc,Finetune vs RAFG,870,2,165759.0,0.004818266124041161,0.11077314278357152,0.014454798372123483,
+CDtest,qwen3-30b-a3b-instruct-2507,rouge1,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,870,2,89354.0,6.651339335302101e-41,-0.5250639155092777,3.99080360118126e-40,
+TBtest,gemini-2.5-flash,rouge1,approach-within-model,friedman,omnibus,870,4,218.18241379310166,4.961554394168862e-47,0.08359479455674393,,
+TBtest,gemini-2.5-flash,rouge1,approach-within-model,wilcoxon_posthoc,DRAFT vs Finetune,870,2,136716.0,2.2439615405600712e-12,0.2749969507829859,6.731884621680214e-12,
+TBtest,gemini-2.5-flash,rouge1,approach-within-model,wilcoxon_posthoc,DRAFT vs Prompting,870,2,84565.0,5.2825005296967334e-45,0.5515529794827467,3.16950031781804e-44,
+TBtest,gemini-2.5-flash,rouge1,approach-within-model,wilcoxon_posthoc,DRAFT vs RAFG,870,2,96944.0,1.6131006179965444e-35,0.48708913667447057,8.065503089982722e-35,
+TBtest,gemini-2.5-flash,rouge1,approach-within-model,wilcoxon_posthoc,Finetune vs Prompting,870,2,127189.0,6.699893213944355e-17,0.3270690316521831,2.679957285577742e-16,
+TBtest,gemini-2.5-flash,rouge1,approach-within-model,wilcoxon_posthoc,Finetune vs RAFG,870,2,148800.0,4.2133813568621074e-08,0.21453739261253416,8.426762713724215e-08,
+TBtest,gemini-2.5-flash,rouge1,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,870,2,165587.0,0.001554737666007681,-0.12391307223258337,0.001554737666007681,
+TBtest,gemma-3-4b-it,rouge1,approach-within-model,friedman,omnibus,870,4,367.7568965517239,2.1305964352454727e-79,0.14090302549874478,,
+TBtest,gemma-3-4b-it,rouge1,approach-within-model,wilcoxon_posthoc,DRAFT vs Finetune,870,2,177472.0,0.10642414719157402,-0.06318803858690632,0.10642414719157402,
+TBtest,gemma-3-4b-it,rouge1,approach-within-model,wilcoxon_posthoc,DRAFT vs Prompting,870,2,104904.0,4.0758053859425845e-30,0.4462488617918366,1.6303221543770338e-29,
+TBtest,gemma-3-4b-it,rouge1,approach-within-model,wilcoxon_posthoc,DRAFT vs RAFG,870,2,152049.0,4.57208911313664e-07,0.19738706995526348,9.14417822627328e-07,
+TBtest,gemma-3-4b-it,rouge1,approach-within-model,wilcoxon_posthoc,Finetune vs Prompting,870,2,76865.0,4.5115226004483425e-52,0.5942568325481347,2.2557613002241713e-51,
+TBtest,gemma-3-4b-it,rouge1,approach-within-model,wilcoxon_posthoc,Finetune vs RAFG,870,2,131077.0,5.00042305064575e-15,0.30649841937489253,1.500126915193725e-14,
+TBtest,gemma-3-4b-it,rouge1,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,870,2,60693.0,1.512022106841968e-67,-0.6796231046359713,9.072132641051808e-67,
+TBtest,gpt-5,rouge1,approach-within-model,wilcoxon,Prompting vs RAFG,794,2,135773.0,0.0006535885614202108,-0.1396289783438683,,
+TBtest,gpt-5,rouge1,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,794,2,135773.0,0.0006535885614202108,-0.1396289783438683,0.0006535885614202108,
+TBtest,qwen3-30b-a3b-instruct-2507,rouge1,approach-within-model,friedman,omnibus,870,4,9.967586206896158,0.01884368361139873,0.003818998546703509,,
+TBtest,qwen3-30b-a3b-instruct-2507,rouge1,approach-within-model,wilcoxon_posthoc,DRAFT vs Finetune,870,2,168340.0,0.005233306387136605,0.10934751266484134,0.03139983832281963,
+TBtest,qwen3-30b-a3b-instruct-2507,rouge1,approach-within-model,wilcoxon_posthoc,DRAFT vs Prompting,870,2,181763.0,0.30033297108212403,0.040537366219301374,0.8515216227564097,
+TBtest,qwen3-30b-a3b-instruct-2507,rouge1,approach-within-model,wilcoxon_posthoc,DRAFT vs RAFG,870,2,181496.0,0.28384054091880323,0.04194676484949259,0.8515216227564097,
+TBtest,qwen3-30b-a3b-instruct-2507,rouge1,approach-within-model,wilcoxon_posthoc,Finetune vs Prompting,870,2,174201.0,0.0398154327634466,-0.08045449146838751,0.199077163817233,
+TBtest,qwen3-30b-a3b-instruct-2507,rouge1,approach-within-model,wilcoxon_posthoc,Finetune vs RAFG,870,2,174531.0,0.04430969425342047,-0.07871253810522982,0.199077163817233,
+TBtest,qwen3-30b-a3b-instruct-2507,rouge1,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,870,2,185591.0,0.6444151699588732,0.018076002275041997,0.8515216227564097,
+CDtest,,rouge1,model-within-approach,friedman,omnibus,867,3,12.66493656286002,0.001777640632221058,0.00730388498434834,,DRAFT
+CDtest,,rouge1,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,867,2,155104.5,9.228962565359749e-05,0.1542737652537105,0.00018457925130719498,DRAFT
+CDtest,,rouge1,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,867,2,169709.5,0.09548839434029682,-0.06593409617533258,0.09548839434029682,DRAFT
+CDtest,,rouge1,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,867,2,152229.0,2.08390522310241e-05,-0.16801114936874897,6.25171566930723e-05,DRAFT
+CDtest,,rouge1,model-within-approach,friedman,omnibus,870,3,221.80517241379312,6.848867771714797e-49,0.12747423701942134,,Finetune
+CDtest,,rouge1,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,870,2,94456.0,9.741308675777733e-36,-0.49092810119350777,1.9482617351555466e-35,Finetune
+CDtest,,rouge1,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,870,2,77458.5,8.002217315968926e-50,-0.583503829784946,2.400665194790678e-49,Finetune
+CDtest,,rouge1,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,870,2,152689.0,6.787532335230191e-05,-0.15763834869774856,6.787532335230191e-05,Finetune
+CDtest,,rouge1,model-within-approach,friedman,omnibus,829,4,506.87840772014533,1.541695141064125e-109,0.2038111812304565,,Prompting
+CDtest,,rouge1,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,829,2,82324.0,4.788194470231102e-38,0.5179402197622024,1.9152777880924407e-37,Prompting
+CDtest,,rouge1,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gpt-5,829,2,88843.0,1.7454306854367394e-32,0.47724036481318033,5.236292056310218e-32,Prompting
+CDtest,,rouge1,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,829,2,138321.0,2.8724764818638005e-06,0.18807836231565045,5.744952963727601e-06,Prompting
+CDtest,,rouge1,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs gpt-5,829,2,146026.0,0.000250466945915105,-0.14698958461116077,0.000250466945915105,Prompting
+CDtest,,rouge1,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,829,2,47030.0,9.330542959155748e-73,-0.7246092091664202,5.598325775493449e-72,Prompting
+CDtest,,rouge1,model-within-approach,wilcoxon_posthoc,gpt-5 vs qwen3-30b-a3b-instruct-2507,829,2,71635.0,2.3799896316678908e-47,-0.5805311651847016,1.1899948158339454e-46,Prompting
+CDtest,,rouge1,model-within-approach,friedman,omnibus,850,4,279.98329411764826,2.1352523533004344e-60,0.109797370242215,,RAFG
+CDtest,,rouge1,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,850,2,161684.0,0.025516347382677683,-0.08885526467795425,0.051032694765355366,RAFG
+CDtest,,rouge1,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gpt-5,850,2,96466.0,1.186492837882115e-31,0.4640420472475943,5.9324641894105745e-31,RAFG
+CDtest,,rouge1,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,850,2,157120.5,0.0033416620171108536,-0.11667032095933616,0.010024986051332561,RAFG
+CDtest,,rouge1,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs gpt-5,850,2,109136.0,4.677169271240564e-23,0.39221670267982445,1.8708677084962257e-22,RAFG
+CDtest,,rouge1,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,850,2,174439.0,0.5862923083908772,0.02162707871785524,0.5862923083908772,RAFG
+CDtest,,rouge1,model-within-approach,wilcoxon_posthoc,gpt-5 vs qwen3-30b-a3b-instruct-2507,850,2,53601.0,8.911849670390948e-70,-0.7007879290277743,5.347109802234569e-69,RAFG
+TBtest,,rouge1,model-within-approach,friedman,omnibus,870,3,96.98678160919553,8.701376584708836e-22,0.0557395296604572,,DRAFT
+TBtest,,rouge1,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,870,2,111810.0,1.1769122725519383e-25,-0.4097945286828457,3.530736817655815e-25,DRAFT
+TBtest,,rouge1,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,870,2,126141.0,1.3675199741678665e-17,-0.3341462449028069,2.735039948335733e-17,DRAFT
+TBtest,,rouge1,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,870,2,160173.0,9.789485464704033e-05,0.15255743819689696,9.789485464704033e-05,DRAFT
+TBtest,,rouge1,model-within-approach,friedman,omnibus,870,3,274.5126436781611,2.4566134141518706e-60,0.15776588717135695,,Finetune
+TBtest,,rouge1,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,870,2,60305.0,6.067284362023722e-68,-0.6816712194993204,1.8201853086071165e-67,Finetune
+TBtest,,rouge1,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,870,2,102011.0,4.270843531868025e-32,-0.46151998627551893,8.54168706373605e-32,Finetune
+TBtest,,rouge1,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,870,2,131043.0,3.36207156427148e-15,0.30827031949008277,3.36207156427148e-15,Finetune
+TBtest,,rouge1,model-within-approach,friedman,omnibus,824,4,611.0930825242722,3.967581521349431e-132,0.24720593953247255,,Prompting
+TBtest,,rouge1,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,824,2,70146.0,2.676426255569942e-48,-0.5872550750220653,1.0705705022279768e-47,Prompting
+TBtest,,rouge1,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gpt-5,824,2,74695.5,3.743271839573997e-44,-0.5604854368932038,1.122981551872199e-43,Prompting
+TBtest,,rouge1,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,824,2,33254.0,5.3620522190266514e-89,-0.804330685495734,2.6810261095133256e-88,Prompting
+TBtest,,rouge1,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs gpt-5,824,2,123503.0,1.498383135543356e-11,0.27153204591301067,1.498383135543356e-11,Prompting
+TBtest,,rouge1,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,824,2,89753.0,8.494705492898589e-32,-0.47188584877905265,1.6989410985797178e-31,Prompting
+TBtest,,rouge1,model-within-approach,wilcoxon_posthoc,gpt-5 vs qwen3-30b-a3b-instruct-2507,824,2,32023.0,1.4249576402972308e-90,-0.8115739923506914,8.549745841783386e-90,Prompting
+TBtest,,rouge1,model-within-approach,friedman,omnibus,834,4,638.1726618705034,5.341402671714839e-138,0.2550650127380109,,RAFG
+TBtest,,rouge1,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,834,2,45419.0,2.44934805109669e-76,-0.7391174485561252,1.224674025548345e-75,RAFG
+TBtest,,rouge1,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gpt-5,834,2,88606.0,1.091814355170282e-34,-0.4910552994729965,2.183628710340564e-34,RAFG
+TBtest,,rouge1,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,834,2,40220.0,1.783629616300326e-82,-0.76898002556039,1.0701777697801956e-81,RAFG
+TBtest,,rouge1,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs gpt-5,834,2,66768.0,1.1468921958502045e-53,0.6164907594882179,3.4406765875506135e-53,RAFG
+TBtest,,rouge1,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,834,2,167006.0,0.30822024246937063,0.04073292264392079,0.30822024246937063,RAFG
+TBtest,,rouge1,model-within-approach,wilcoxon_posthoc,gpt-5 vs qwen3-30b-a3b-instruct-2507,834,2,50694.0,2.3415024318424166e-70,-0.7088183345539137,9.366009727369666e-70,RAFG
+CDtest,gemini-2.5-flash,rougeL,approach-within-model,friedman,omnibus,867,4,103.71314878892736,2.4715043194351974e-22,0.03987433632792286,,
+CDtest,gemini-2.5-flash,rougeL,approach-within-model,wilcoxon_posthoc,DRAFT vs Finetune,867,2,118409.5,3.974706369882819e-19,0.35284746133245887,2.3848238219296914e-18,
+CDtest,gemini-2.5-flash,rougeL,approach-within-model,wilcoxon_posthoc,DRAFT vs Prompting,867,2,127750.0,7.163101127801558e-15,0.30666927174494113,3.581550563900779e-14,
+CDtest,gemini-2.5-flash,rougeL,approach-within-model,wilcoxon_posthoc,DRAFT vs RAFG,867,2,152127.0,9.66670938181746e-06,0.1743692861271441,1.933341876363492e-05,
+CDtest,gemini-2.5-flash,rougeL,approach-within-model,wilcoxon_posthoc,Finetune vs Prompting,867,2,156294.0,3.1430413221369186e-05,-0.1634874759152216,3.1430413221369186e-05,
+CDtest,gemini-2.5-flash,rougeL,approach-within-model,wilcoxon_posthoc,Finetune vs RAFG,867,2,138686.5,5.2927887975633463e-11,-0.2577258616998501,2.1171155190253385e-10,
+CDtest,gemini-2.5-flash,rougeL,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,867,2,150271.0,2.867409070348788e-06,-0.18444225545506104,8.602227211046364e-06,
+CDtest,gemma-3-4b-it,rougeL,approach-within-model,friedman,omnibus,870,4,370.80793103448195,4.653309419437778e-80,0.14207200422777086,,
+CDtest,gemma-3-4b-it,rougeL,approach-within-model,wilcoxon_posthoc,DRAFT vs Finetune,870,2,167314.5,0.0518256327934208,-0.07695172208338161,0.0518256327934208,
+CDtest,gemma-3-4b-it,rougeL,approach-within-model,wilcoxon_posthoc,DRAFT vs Prompting,870,2,75669.0,1.0282372762392953e-52,0.5987283439304673,4.112949104957181e-52,
+CDtest,gemma-3-4b-it,rougeL,approach-within-model,wilcoxon_posthoc,DRAFT vs RAFG,870,2,152912.5,2.5206185111024927e-05,-0.16622591304158169,7.561855533307478e-05,
+CDtest,gemma-3-4b-it,rougeL,approach-within-model,wilcoxon_posthoc,Finetune vs Prompting,870,2,71199.0,7.962013897417156e-57,0.62243269184878,3.981006948708578e-56,
+CDtest,gemma-3-4b-it,rougeL,approach-within-model,wilcoxon_posthoc,Finetune vs RAFG,870,2,165519.5,0.015701850564116326,-0.09537355850685905,0.03140370112823265,
+CDtest,gemma-3-4b-it,rougeL,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,870,2,60175.0,7.37229861285828e-68,-0.68162639048715,4.423379167714968e-67,
+CDtest,gpt-5,rougeL,approach-within-model,wilcoxon,Prompting vs RAFG,819,2,117050.0,1.225102651728749e-13,-0.2994227195326692,,
+CDtest,gpt-5,rougeL,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,819,2,117050.0,1.225102651728749e-13,-0.2994227195326692,1.225102651728749e-13,
+CDtest,qwen3-30b-a3b-instruct-2507,rougeL,approach-within-model,friedman,omnibus,870,4,250.236551724136,5.816528937889504e-54,0.09587607345752337,,
+CDtest,qwen3-30b-a3b-instruct-2507,rougeL,approach-within-model,wilcoxon_posthoc,DRAFT vs Finetune,870,2,173062.0,0.7435474028079747,-0.013056631964938994,0.7435474028079747,
+CDtest,qwen3-30b-a3b-instruct-2507,rougeL,approach-within-model,wilcoxon_posthoc,DRAFT vs Prompting,870,2,84522.5,7.928405167647128e-45,0.5507443964302988,3.1713620670588513e-44,
+CDtest,qwen3-30b-a3b-instruct-2507,rougeL,approach-within-model,wilcoxon_posthoc,DRAFT vs RAFG,870,2,112057.5,3.304035255211819e-24,0.3988589545513068,6.608070510423638e-24,
+CDtest,qwen3-30b-a3b-instruct-2507,rougeL,approach-within-model,wilcoxon_posthoc,Finetune vs Prompting,870,2,81760.0,3.7360094360105957e-47,0.5654276891022063,1.868004718005298e-46,
+CDtest,qwen3-30b-a3b-instruct-2507,rougeL,approach-within-model,wilcoxon_posthoc,Finetune vs RAFG,870,2,108602.0,5.597238466796632e-26,0.41468804147769683,1.6791715400389894e-25,
+CDtest,qwen3-30b-a3b-instruct-2507,rougeL,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,870,2,76516.0,2.6271337752587287e-51,-0.5914189216249048,1.5762802651552372e-50,
+TBtest,gemini-2.5-flash,rougeL,approach-within-model,friedman,omnibus,870,4,263.9113793103443,6.407337512944692e-57,0.1011154710001319,,
+TBtest,gemini-2.5-flash,rougeL,approach-within-model,wilcoxon_posthoc,DRAFT vs Finetune,870,2,134171.0,2.540308460190465e-13,0.286851742594571,7.620925380571396e-13,
+TBtest,gemini-2.5-flash,rougeL,approach-within-model,wilcoxon_posthoc,DRAFT vs Prompting,870,2,82917.0,1.345890218433566e-46,0.5613031228919487,8.075341310601395e-46,
+TBtest,gemini-2.5-flash,rougeL,approach-within-model,wilcoxon_posthoc,DRAFT vs RAFG,870,2,92286.0,8.077825355162409e-39,0.5106086237160145,4.0389126775812044e-38,
+TBtest,gemini-2.5-flash,rougeL,approach-within-model,wilcoxon_posthoc,Finetune vs Prompting,870,2,127953.0,2.3169122394429447e-16,0.32146701807787964,9.267648957771779e-16,
+TBtest,gemini-2.5-flash,rougeL,approach-within-model,wilcoxon_posthoc,Finetune vs RAFG,870,2,143777.0,7.313503712897238e-10,0.24105203425841615,1.4627007425794477e-09,
+TBtest,gemini-2.5-flash,rougeL,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,870,2,172294.0,0.02072985114143881,-0.09052087044881692,0.02072985114143881,
+TBtest,gemma-3-4b-it,rougeL,approach-within-model,friedman,omnibus,870,4,756.5906896551714,1.1229557698367036e-163,0.28988149028933774,,
+TBtest,gemma-3-4b-it,rougeL,approach-within-model,wilcoxon_posthoc,DRAFT vs Finetune,870,2,184452.0,0.5382744950119989,-0.024102218165945797,0.5382744950119989,
+TBtest,gemma-3-4b-it,rougeL,approach-within-model,wilcoxon_posthoc,DRAFT vs Prompting,870,2,49450.0,1.6135514258978874e-79,0.7389709278540982,6.45420570359155e-79,
+TBtest,gemma-3-4b-it,rougeL,approach-within-model,wilcoxon_posthoc,DRAFT vs RAFG,870,2,98560.0,1.5243363531248914e-34,0.47973659553690434,3.048672706249783e-34,
+TBtest,gemma-3-4b-it,rougeL,approach-within-model,wilcoxon_posthoc,Finetune vs Prompting,870,2,29922.0,1.1132487801073521e-102,0.8420523377805931,6.679492680644113e-102,
+TBtest,gemma-3-4b-it,rougeL,approach-within-model,wilcoxon_posthoc,Finetune vs RAFG,870,2,86157.0,4.1195311488405973e-44,0.5452076487588582,1.2358593446521792e-43,
+TBtest,gemma-3-4b-it,rougeL,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,870,2,37270.0,1.3013346542925133e-93,-0.8032648428942819,6.506673271462566e-93,
+TBtest,gpt-5,rougeL,approach-within-model,wilcoxon,Prompting vs RAFG,794,2,129621.5,1.657764559396246e-05,-0.17653841389233882,,
+TBtest,gpt-5,rougeL,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,794,2,129621.5,1.657764559396246e-05,-0.17653841389233882,1.657764559396246e-05,
+TBtest,qwen3-30b-a3b-instruct-2507,rougeL,approach-within-model,friedman,omnibus,870,4,365.02586206896376,8.316258255742083e-79,0.1398566521337026,,
+TBtest,qwen3-30b-a3b-instruct-2507,rougeL,approach-within-model,wilcoxon_posthoc,DRAFT vs Finetune,870,2,176423.0,0.08908962204853832,0.06658201394124572,0.17817924409707664,
+TBtest,qwen3-30b-a3b-instruct-2507,rougeL,approach-within-model,wilcoxon_posthoc,DRAFT vs Prompting,870,2,63326.0,6.90803143052068e-65,0.6657244282565951,3.45401571526034e-64,
+TBtest,qwen3-30b-a3b-instruct-2507,rougeL,approach-within-model,wilcoxon_posthoc,DRAFT vs RAFG,870,2,62738.0,2.93758149400522e-65,0.6680660820337817,1.762548896403132e-64,
+TBtest,qwen3-30b-a3b-instruct-2507,rougeL,approach-within-model,wilcoxon_posthoc,Finetune vs Prompting,870,2,83271.0,1.640904033751979e-46,0.5604418227166554,6.563616135007916e-46,
+TBtest,qwen3-30b-a3b-instruct-2507,rougeL,approach-within-model,wilcoxon_posthoc,Finetune vs RAFG,870,2,83336.0,1.8614560408593262e-46,0.5600987106905789,6.563616135007916e-46,
+TBtest,qwen3-30b-a3b-instruct-2507,rougeL,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,870,2,188488.0,0.9908752018917021,0.0004507538194757468,0.9908752018917021,
+CDtest,,rougeL,model-within-approach,friedman,omnibus,867,3,53.44694348327539,2.4782418425065563e-12,0.030822920117229174,,DRAFT
+CDtest,,rougeL,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,867,2,155979.5,0.0001866085472876613,0.1475132535388315,0.0001866085472876613,DRAFT
+CDtest,,rougeL,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,867,2,131237.0,2.196691138877511e-12,-0.27768329398037306,4.393382277755022e-12,DRAFT
+CDtest,,rougeL,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,867,2,114042.5,1.39788309435533e-21,-0.3767147619828387,4.19364928306599e-21,DRAFT
+CDtest,,rougeL,model-within-approach,friedman,omnibus,870,3,177.41379310344746,2.985962304756118e-39,0.10196195005945256,,Finetune
+CDtest,,rougeL,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,870,2,127107.5,2.4653016324691316e-15,-0.31176056528683976,2.4653016324691316e-15,Finetune
+CDtest,,rougeL,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,870,2,86817.5,4.2262182327683244e-42,-0.5342608686322475,1.2678654698304973e-41,Finetune
+CDtest,,rougeL,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,870,2,117659.0,7.489504903556651e-19,-0.35089345315922166,1.4979009807113302e-18,Finetune
+CDtest,,rougeL,model-within-approach,friedman,omnibus,829,4,597.7136308805802,3.155335872006286e-129,0.24033519536814646,,Prompting
+CDtest,,rougeL,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,829,2,62198.0,3.219392181614461e-56,0.6349079169418153,9.658176544843383e-56,Prompting
+CDtest,,rougeL,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gpt-5,829,2,57074.0,4.6502511928755886e-61,0.6633557078649035,2.3251255964377943e-60,Prompting
+CDtest,,rougeL,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,829,2,116082.5,2.2311988521025635e-15,0.31861471861471863,4.462397704205127e-15,Prompting
+CDtest,,rougeL,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs gpt-5,829,2,160112.0,0.09509108817217642,0.06696269878731724,0.09509108817217642,Prompting
+CDtest,,rougeL,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,829,2,54935.0,2.013224972141843e-64,-0.679871564016946,1.2079349832851056e-63,Prompting
+CDtest,,rougeL,model-within-approach,wilcoxon_posthoc,gpt-5 vs qwen3-30b-a3b-instruct-2507,829,2,58505.0,8.859200423635337e-60,-0.6557516916740218,3.5436801694541347e-59,Prompting
+CDtest,,rougeL,model-within-approach,friedman,omnibus,850,4,476.1363529411774,7.07977800232566e-103,0.18672013840830487,,RAFG
+CDtest,,rougeL,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,850,2,139406.5,9.340494567993293e-08,-0.21252834963466746,1.8680989135986586e-07,RAFG
+CDtest,,rougeL,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gpt-5,850,2,60746.0,1.7566219940976458e-62,0.6617027912053641,8.783109970488229e-62,RAFG
+CDtest,,rougeL,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,850,2,174214.0,0.6465635398604922,-0.01824442171522923,0.6465635398604922,RAFG
+CDtest,,rougeL,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs gpt-5,850,2,60332.0,1.8077181853296787e-62,0.6624169429406745,8.783109970488229e-62,RAFG
+CDtest,,rougeL,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,850,2,132342.0,1.2088653338102619e-10,0.25597476851461437,3.6265960014307856e-10,RAFG
+CDtest,,rougeL,model-within-approach,wilcoxon_posthoc,gpt-5 vs qwen3-30b-a3b-instruct-2507,850,2,35037.0,2.435949826073757e-91,-0.8044160868145395,1.461569895644254e-90,RAFG
+TBtest,,rougeL,model-within-approach,friedman,omnibus,870,3,234.76781609195314,1.0490989959744929e-51,0.13492403223675467,,DRAFT
+TBtest,,rougeL,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,870,2,105042.0,5.046698696060553e-30,-0.44552040856724334,1.0093397392121107e-29,DRAFT
+TBtest,,rougeL,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,870,2,68169.0,3.882455642184538e-60,-0.6401599429906172,1.1647366926553615e-59,DRAFT
+TBtest,,rougeL,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,870,2,127816.0,9.416352538480199e-17,-0.3253045119231429,9.416352538480199e-17,DRAFT
+TBtest,,rougeL,model-within-approach,friedman,omnibus,870,3,354.6827586206891,9.585561378195057e-78,0.20384066587395927,,Finetune
+TBtest,,rougeL,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,870,2,63659.0,1.4854385851416228e-64,-0.6639666389537723,2.9708771702832457e-64,Finetune
+TBtest,,rougeL,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,870,2,60540.0,1.0551707755412618e-67,-0.6804307375588899,3.165512326623786e-67,Finetune
+TBtest,,rougeL,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,870,2,158569.0,3.1264596824601056e-05,-0.16297029441651162,3.1264596824601056e-05,Finetune
+TBtest,,rougeL,model-within-approach,friedman,omnibus,824,4,460.346359223302,1.8684478618859733e-99,0.1862242553492322,,Prompting
+TBtest,,rougeL,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,824,2,105796.0,9.304993633708662e-21,-0.375974707735139,2.7914980901125984e-20,Prompting
+TBtest,,rougeL,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gpt-5,824,2,128005.0,8.391801219697725e-10,-0.24680788467196235,8.391801219697725e-10,Prompting
+TBtest,,rougeL,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,824,2,62637.0,1.4654365825399886e-55,-0.6314386584289496,7.327182912699944e-55,Prompting
+TBtest,,rougeL,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs gpt-5,824,2,112603.0,4.8219004448925337e-17,0.3374345395704619,9.643800889785067e-17,Prompting
+TBtest,,rougeL,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,824,2,76953.0,3.6248589933484525e-42,-0.5472021182700795,1.449943597339381e-41,Prompting
+TBtest,,rougeL,model-within-approach,wilcoxon_posthoc,gpt-5 vs qwen3-30b-a3b-instruct-2507,824,2,30516.0,2.5823179117660063e-92,-0.8200049546414373,1.5493907470596038e-91,Prompting
+TBtest,,rougeL,model-within-approach,friedman,omnibus,834,4,530.8521582733811,9.821122811400674e-115,0.21217112640822586,,RAFG
+TBtest,,rougeL,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,834,2,59746.0,1.1282255925344956e-60,-0.6568244805353323,4.5179018438171896e-60,RAFG
+TBtest,,rougeL,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gpt-5,834,2,136608.0,7.160355970186562e-08,-0.21533623400680654,7.160355970186562e-08,RAFG
+TBtest,,rougeL,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,834,2,72092.5,1.1999851984023375e-48,-0.5859073220465544,3.5999555952070126e-48,RAFG
+TBtest,,rougeL,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs gpt-5,834,2,46534.0,7.754855083162038e-75,0.7320712457644929,4.652913049897223e-74,RAFG
+TBtest,,rougeL,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,834,2,128764.0,7.304477656975694e-11,0.26039144732118497,1.460895531395139e-10,RAFG
+TBtest,,rougeL,model-within-approach,wilcoxon_posthoc,gpt-5 vs qwen3-30b-a3b-instruct-2507,834,2,59441.0,9.035803687634379e-61,-0.6577566278309885,4.5179018438171896e-60,RAFG
+CDtest,gemini-2.5-flash,bleu,approach-within-model,friedman,omnibus,867,4,13.75259515570906,0.003262007014229331,0.005287426049868919,,
+CDtest,gemini-2.5-flash,bleu,approach-within-model,wilcoxon_posthoc,DRAFT vs Finetune,867,2,8061.0,9.937626249499398e-08,0.4035074737309457,4.9688131247497e-07,
+CDtest,gemini-2.5-flash,bleu,approach-within-model,wilcoxon_posthoc,DRAFT vs Prompting,867,2,7543.0,8.283364171095711e-11,0.4826652035252563,4.970018502657426e-10,
+CDtest,gemini-2.5-flash,bleu,approach-within-model,wilcoxon_posthoc,DRAFT vs RAFG,867,2,11724.0,4.7484282944071176e-05,0.2927336892588906,0.0001899371317762847,
+CDtest,gemini-2.5-flash,bleu,approach-within-model,wilcoxon_posthoc,Finetune vs Prompting,867,2,7829.0,0.8433982717884113,0.017136400728140103,0.8433982717884113,
+CDtest,gemini-2.5-flash,bleu,approach-within-model,wilcoxon_posthoc,Finetune vs RAFG,867,2,8696.0,0.028642738774504014,-0.17632015155103006,0.05728547754900803,
+CDtest,gemini-2.5-flash,bleu,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,867,2,6623.0,0.0024913693628983735,-0.2544185522908927,0.007474108088695121,
+CDtest,gemma-3-4b-it,bleu,approach-within-model,friedman,omnibus,870,4,7.487586206894775,0.05787827477178022,0.002868806975821753,,
+CDtest,gemma-3-4b-it,bleu,approach-within-model,wilcoxon_posthoc,DRAFT vs Finetune,870,2,13393.0,0.7327331863864929,0.025786506637570466,0.7327331863864929,
+CDtest,gemma-3-4b-it,bleu,approach-within-model,wilcoxon_posthoc,DRAFT vs Prompting,870,2,9385.0,1.331870112728018e-07,0.38716207391928953,6.659350563640091e-07,
+CDtest,gemma-3-4b-it,bleu,approach-within-model,wilcoxon_posthoc,DRAFT vs RAFG,870,2,8499.0,5.196233929613425e-05,0.3132953581384075,0.00015588701788840273,
+CDtest,gemma-3-4b-it,bleu,approach-within-model,wilcoxon_posthoc,Finetune vs Prompting,870,2,9582.0,2.6340010086356468e-08,0.40356664903053124,1.580400605181388e-07,
+CDtest,gemma-3-4b-it,bleu,approach-within-model,wilcoxon_posthoc,Finetune vs RAFG,870,2,8937.0,3.667605514198012e-05,0.31532980923925535,0.00014670422056792048,
+CDtest,gemma-3-4b-it,bleu,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,870,2,8247.0,0.09752634827174797,-0.1368916797488226,0.19505269654349594,
+CDtest,gpt-5,bleu,approach-within-model,wilcoxon,Prompting vs RAFG,819,2,4164.0,0.009840210553945966,-0.24469435878831852,,
+CDtest,gpt-5,bleu,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,819,2,4164.0,0.009840210553945966,-0.24469435878831852,0.009840210553945966,
+CDtest,qwen3-30b-a3b-instruct-2507,bleu,approach-within-model,friedman,omnibus,870,4,5.701034482757677,0.12709692424644553,0.0021843043995240143,,
+CDtest,qwen3-30b-a3b-instruct-2507,bleu,approach-within-model,wilcoxon_posthoc,DRAFT vs Finetune,870,2,18984.5,0.6861896403968847,0.027931387608806965,0.6861896403968847,
+CDtest,qwen3-30b-a3b-instruct-2507,bleu,approach-within-model,wilcoxon_posthoc,DRAFT vs Prompting,870,2,12909.0,1.8568975530285764e-07,0.35753745085353106,1.07180476080044e-06,
+CDtest,qwen3-30b-a3b-instruct-2507,bleu,approach-within-model,wilcoxon_posthoc,DRAFT vs RAFG,870,2,11007.0,1.7863412680007333e-07,0.3706689536878216,1.07180476080044e-06,
+CDtest,qwen3-30b-a3b-instruct-2507,bleu,approach-within-model,wilcoxon_posthoc,Finetune vs Prompting,870,2,14673.0,1.5538622777491809e-06,0.3232791421653407,6.2154491109967234e-06,
+CDtest,qwen3-30b-a3b-instruct-2507,bleu,approach-within-model,wilcoxon_posthoc,Finetune vs RAFG,870,2,14432.0,6.575307335554687e-06,0.3064206074586697,1.972592200666406e-05,
+CDtest,qwen3-30b-a3b-instruct-2507,bleu,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,870,2,11634.0,0.12665546940665762,-0.11646098348205809,0.25331093881331523,
+TBtest,gemini-2.5-flash,bleu,approach-within-model,friedman,omnibus,870,4,284.8955172413789,1.8472419986424247e-61,0.10915537059056664,,
+TBtest,gemini-2.5-flash,bleu,approach-within-model,wilcoxon_posthoc,DRAFT vs Finetune,870,2,127226.0,0.0001671632781607182,0.15597924876275393,0.0003343265563214364,
+TBtest,gemini-2.5-flash,bleu,approach-within-model,wilcoxon_posthoc,DRAFT vs Prompting,870,2,40974.5,2.5689387818731982e-56,0.6816315272160776,1.5413632691239188e-55,
+TBtest,gemini-2.5-flash,bleu,approach-within-model,wilcoxon_posthoc,DRAFT vs RAFG,870,2,99351.5,8.595402289794783e-15,0.32358958473044414,2.5786206869384347e-14,
+TBtest,gemini-2.5-flash,bleu,approach-within-model,wilcoxon_posthoc,Finetune vs Prompting,870,2,48891.5,1.974486561721905e-40,0.5862403100775194,9.872432808609525e-40,
+TBtest,gemini-2.5-flash,bleu,approach-within-model,wilcoxon_posthoc,Finetune vs RAFG,870,2,128375.0,0.007401567442665844,0.11214468497129815,0.007401567442665844,
+TBtest,gemini-2.5-flash,bleu,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,870,2,56501.5,2.3706363623757293e-31,-0.5148065933027913,9.482545449502917e-31,
+TBtest,gemma-3-4b-it,bleu,approach-within-model,friedman,omnibus,870,4,799.6631034482743,5.12034315697782e-173,0.30638433082309363,,
+TBtest,gemma-3-4b-it,bleu,approach-within-model,wilcoxon_posthoc,DRAFT vs Finetune,870,2,162403.0,0.06422490523689782,-0.07384310941166743,0.06422490523689782,
+TBtest,gemma-3-4b-it,bleu,approach-within-model,wilcoxon_posthoc,DRAFT vs Prompting,870,2,28976.0,1.2430231202690505e-90,0.8213646101444138,4.972092481076202e-90,
+TBtest,gemma-3-4b-it,bleu,approach-within-model,wilcoxon_posthoc,DRAFT vs RAFG,870,2,126708.0,5.74913311234912e-14,0.29767615880274373,1.149826622469824e-13,
+TBtest,gemma-3-4b-it,bleu,approach-within-model,wilcoxon_posthoc,Finetune vs Prompting,870,2,18822.0,4.997781488900281e-106,0.8859542290004181,2.4988907444501407e-105,
+TBtest,gemma-3-4b-it,bleu,approach-within-model,wilcoxon_posthoc,Finetune vs RAFG,870,2,108076.0,2.930955120728438e-24,0.4023584710029723,8.792865362185314e-24,
+TBtest,gemma-3-4b-it,bleu,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,870,2,9855.0,1.0017559755620927e-119,-0.9407253699025623,6.010535853372556e-119,
+TBtest,gpt-5,bleu,approach-within-model,wilcoxon,Prompting vs RAFG,794,2,8681.0,2.539822793106246e-05,-0.3231452964796694,,
+TBtest,gpt-5,bleu,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,794,2,8681.0,2.539822793106246e-05,-0.3231452964796694,2.539822793106246e-05,
+TBtest,qwen3-30b-a3b-instruct-2507,bleu,approach-within-model,friedman,omnibus,870,4,209.35689655172246,4.0102458365168896e-45,0.08021337032633044,,
+TBtest,qwen3-30b-a3b-instruct-2507,bleu,approach-within-model,wilcoxon_posthoc,DRAFT vs Finetune,870,2,164910.0,0.18678329216000866,-0.05277215353465731,0.18678329216000866,
+TBtest,qwen3-30b-a3b-instruct-2507,bleu,approach-within-model,wilcoxon_posthoc,DRAFT vs Prompting,870,2,86318.0,1.8814040907892324e-35,0.4982022177976078,7.52561636315693e-35,
+TBtest,qwen3-30b-a3b-instruct-2507,bleu,approach-within-model,wilcoxon_posthoc,DRAFT vs RAFG,870,2,86817.0,3.1266138035028704e-33,0.484168622441401,9.37984141050861e-33,
+TBtest,qwen3-30b-a3b-instruct-2507,bleu,approach-within-model,wilcoxon_posthoc,Finetune vs Prompting,870,2,80328.0,4.017267812940341e-40,0.5318962955193091,2.4103606877642042e-39,
+TBtest,qwen3-30b-a3b-instruct-2507,bleu,approach-within-model,wilcoxon_posthoc,Finetune vs RAFG,870,2,83709.0,4.003383924620274e-37,0.5110141422638137,2.0016919623101372e-36,
+TBtest,qwen3-30b-a3b-instruct-2507,bleu,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,870,2,72008.0,0.04084818816168782,-0.09930892147972106,0.08169637632337565,
+CDtest,,bleu,model-within-approach,friedman,omnibus,867,3,0.7220299884666019,0.6969685478795133,0.0004163956104190323,,DRAFT
+CDtest,,bleu,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,867,2,14143.0,0.177321762082593,0.09845418326693227,0.177321762082593,DRAFT
+CDtest,,bleu,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,867,2,16903.0,0.026167810795085733,-0.15279552915820865,0.052335621590171466,DRAFT
+CDtest,,bleu,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,867,2,14168.0,0.002406232273241655,-0.21389335848637853,0.007218696819724965,DRAFT
+CDtest,,bleu,model-within-approach,friedman,omnibus,870,3,18.812068965517028,8.222637178185959e-05,0.010811533888228177,,Finetune
+CDtest,,bleu,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,870,2,7919.0,1.43459273523549e-06,-0.3715079365079365,2.86918547047098e-06,Finetune
+CDtest,,bleu,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,870,2,7605.0,1.6468052078378943e-12,-0.5152191235059761,4.940415623513683e-12,Finetune
+CDtest,,bleu,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,870,2,15756.0,0.024150732984803837,-0.15745568300312826,0.024150732984803837,Finetune
+CDtest,,bleu,model-within-approach,friedman,omnibus,829,4,8.334499396863976,0.039581540519488444,0.0033512261346457482,,Prompting
+CDtest,,bleu,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,829,2,8668.0,0.5945398345471175,0.04458528520253514,0.5945398345471175,Prompting
+CDtest,,bleu,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gpt-5,829,2,5135.0,0.007462721923836331,0.2409460458240946,0.014925443847672661,Prompting
+CDtest,,bleu,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,829,2,7486.0,0.0034094567287056266,-0.2400385767219938,0.01022837018611688,Prompting
+CDtest,,bleu,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs gpt-5,829,2,6469.0,0.001750625029614995,0.2639663215382865,0.00700250011845998,Prompting
+CDtest,,bleu,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,829,2,6753.0,7.707115430716466e-06,-0.36035993369642433,3.853557715358233e-05,Prompting
+CDtest,,bleu,model-within-approach,wilcoxon_posthoc,gpt-5 vs qwen3-30b-a3b-instruct-2507,829,2,4392.0,9.909258883114968e-11,-0.5356066613798572,5.945555329868981e-10,Prompting
+CDtest,,bleu,model-within-approach,friedman,omnibus,850,4,5.377764705883237,0.14613520591505602,0.002108927335640485,,RAFG
+CDtest,,bleu,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,850,2,7965.0,0.611993267618887,0.04341560079264997,0.7346907966261697,RAFG
+CDtest,,bleu,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gpt-5,850,2,7240.0,0.00014025207059074432,0.30750836920133906,0.0007012603529537216,RAFG
+CDtest,,bleu,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,850,2,11618.0,0.3673453983130848,-0.0696668802049968,0.7346907966261697,RAFG
+CDtest,,bleu,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs gpt-5,850,2,6734.0,0.033464650056328,0.18232044198895028,0.133858600225312,RAFG
+CDtest,,bleu,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,850,2,8397.0,0.09104781488167128,-0.1389017074296262,0.27314344464501383,RAFG
+CDtest,,bleu,model-within-approach,wilcoxon_posthoc,gpt-5 vs qwen3-30b-a3b-instruct-2507,850,2,7245.0,4.89903712111252e-07,-0.39298730677390975,2.9394222726675124e-06,RAFG
+TBtest,,bleu,model-within-approach,friedman,omnibus,870,3,115.46954022988575,8.435443582201644e-26,0.0663618047298194,,DRAFT
+TBtest,,bleu,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,870,2,103815.0,4.635008064480723e-23,-0.39648582266339183,1.3905024193442169e-22,DRAFT
+TBtest,,bleu,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,870,2,109745.0,2.77321782256769e-18,-0.35110701161556584,5.54643564513538e-18,DRAFT
+TBtest,,bleu,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,870,2,172832.0,0.8092929964393035,0.009643870154427987,0.8092929964393035,DRAFT
+TBtest,,bleu,model-within-approach,friedman,omnibus,870,3,190.31551724137898,4.7153129401017725e-42,0.10937673404676954,,Finetune
+TBtest,,bleu,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,870,2,79111.0,1.2532081442540165e-42,-0.5466808010772713,3.75962443276205e-42,Finetune
+TBtest,,bleu,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,870,2,98624.0,3.5552163702436604e-28,-0.4389047081279282,7.110432740487321e-28,Finetune
+TBtest,,bleu,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,870,2,173061.0,0.4600733302801661,0.02935584284472363,0.4600733302801661,Finetune
+TBtest,,bleu,model-within-approach,friedman,omnibus,824,4,195.86177184466032,3.305766332461883e-42,0.07923210835139981,,Prompting
+TBtest,,bleu,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,824,2,57124.0,0.8447244107174467,-0.010325710325710325,0.8447244107174467,Prompting
+TBtest,,bleu,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gpt-5,824,2,19764.0,2.4254216191819958e-12,0.4209624258404746,4.8508432383639916e-12,Prompting
+TBtest,,bleu,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,824,2,44183.0,7.746054581250891e-16,-0.39949576291343025,2.3238163743752673e-15,Prompting
+TBtest,,bleu,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs gpt-5,824,2,14742.0,8.521642256870399e-21,0.5633811159815187,3.4086569027481597e-20,Prompting
+TBtest,,bleu,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,824,2,22922.0,1.8477964306748537e-34,-0.6325130260521042,9.238982153374269e-34,Prompting
+TBtest,,bleu,model-within-approach,wilcoxon_posthoc,gpt-5 vs qwen3-30b-a3b-instruct-2507,824,2,5953.0,1.3038009512134267e-58,-0.8810922019814638,7.82280570728056e-58,Prompting
+TBtest,,bleu,model-within-approach,friedman,omnibus,834,4,748.7276978417267,5.695437448417739e-162,0.2992516777944551,,RAFG
+TBtest,,bleu,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,834,2,85406.0,1.0549688216286123e-31,-0.47608180892438684,2.1099376432572245e-31,RAFG
+TBtest,,bleu,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gpt-5,834,2,28040.0,3.1125704241712393e-56,0.7231519603487259,1.2450281696684957e-55,RAFG
+TBtest,,bleu,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,834,2,111108.0,0.0008245904799213409,0.14387424872861765,0.0008245904799213409,RAFG
+TBtest,,bleu,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs gpt-5,834,2,6798.0,2.5369537621327998e-117,0.954785500498836,1.52217225727968e-116,RAFG
+TBtest,,bleu,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,834,2,45424.0,5.933863511353635e-66,0.7062701468843258,2.966931755676817e-65,RAFG
+TBtest,,bleu,model-within-approach,wilcoxon_posthoc,gpt-5 vs qwen3-30b-a3b-instruct-2507,834,2,12867.0,3.741385528254553e-51,-0.7852009515462627,1.1224156584763657e-50,RAFG
+CDtest,gemini-2.5-flash,meteor,approach-within-model,friedman,omnibus,867,4,418.10588235294017,2.6489846371670544e-90,0.1607481285478432,,
+CDtest,gemini-2.5-flash,meteor,approach-within-model,wilcoxon_posthoc,DRAFT vs Finetune,867,2,74013.0,2.357386118633095e-53,0.6038696210661528,1.1786930593165475e-52,
+CDtest,gemini-2.5-flash,meteor,approach-within-model,wilcoxon_posthoc,DRAFT vs Prompting,867,2,169772.0,0.017273745882587052,0.09344938525410831,0.034547491765174104,
+CDtest,gemini-2.5-flash,meteor,approach-within-model,wilcoxon_posthoc,DRAFT vs RAFG,867,2,179722.0,0.3320476713385284,-0.038096767287518735,0.3320476713385284,
+CDtest,gemini-2.5-flash,meteor,approach-within-model,wilcoxon_posthoc,Finetune vs Prompting,867,2,79114.0,1.9359821529969414e-49,-0.579491758752837,7.743928611987766e-49,
+CDtest,gemini-2.5-flash,meteor,approach-within-model,wilcoxon_posthoc,Finetune vs RAFG,867,2,65931.0,1.9424175584267434e-61,-0.6487529667484437,1.165450535056046e-60,
+CDtest,gemini-2.5-flash,meteor,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,867,2,150872.0,1.2264461768569869e-06,-0.19063559503883953,3.6793385305709606e-06,
+CDtest,gemma-3-4b-it,meteor,approach-within-model,friedman,omnibus,870,4,20.5279310344813,0.00013192274181669642,0.007865107676046474,,
+CDtest,gemma-3-4b-it,meteor,approach-within-model,wilcoxon_posthoc,DRAFT vs Finetune,870,2,182149.0,0.5609900141372824,-0.022847731857001844,0.6564356355127405,
+CDtest,gemma-3-4b-it,meteor,approach-within-model,wilcoxon_posthoc,DRAFT vs Prompting,870,2,165415.0,0.0011924205566049915,-0.12683268010082216,0.005962102783024958,
+CDtest,gemma-3-4b-it,meteor,approach-within-model,wilcoxon_posthoc,DRAFT vs RAFG,870,2,180506.0,0.32821781775637027,0.038355295928995156,0.6564356355127405,
+CDtest,gemma-3-4b-it,meteor,approach-within-model,wilcoxon_posthoc,Finetune vs Prompting,870,2,167936.0,0.0037237492454509696,-0.11352521213560843,0.014894996981803878,
+CDtest,gemma-3-4b-it,meteor,approach-within-model,wilcoxon_posthoc,Finetune vs RAFG,870,2,173689.0,0.05011022301053649,0.07680491551459294,0.15033066903160947,
+CDtest,gemma-3-4b-it,meteor,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,870,2,158099.0,2.363586151204082e-05,0.16545125829737256,0.00014181516907224492,
+CDtest,gpt-5,meteor,approach-within-model,wilcoxon,Prompting vs RAFG,819,2,148863.0,0.008204360389476101,-0.10682914536683706,,
+CDtest,gpt-5,meteor,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,819,2,148863.0,0.008204360389476101,-0.10682914536683706,0.008204360389476101,
+CDtest,qwen3-30b-a3b-instruct-2507,meteor,approach-within-model,friedman,omnibus,870,4,331.12482758620536,1.821373007623835e-71,0.12686775003302886,,
+CDtest,qwen3-30b-a3b-instruct-2507,meteor,approach-within-model,wilcoxon_posthoc,DRAFT vs Finetune,870,2,177210.0,0.3924980222328121,-0.033740825963205705,0.3924980222328121,
+CDtest,qwen3-30b-a3b-instruct-2507,meteor,approach-within-model,wilcoxon_posthoc,DRAFT vs Prompting,870,2,128607.0,3.333041240426721e-16,-0.3195666838617515,9.999123721280163e-16,
+CDtest,qwen3-30b-a3b-instruct-2507,meteor,approach-within-model,wilcoxon_posthoc,DRAFT vs RAFG,870,2,115150.0,2.8670225456004736e-23,-0.3893611492631501,1.4335112728002368e-22,
+CDtest,qwen3-30b-a3b-instruct-2507,meteor,approach-within-model,wilcoxon_posthoc,Finetune vs Prompting,870,2,125419.0,8.5952347562355e-18,-0.3364337394018756,3.4380939024942e-17,
+CDtest,qwen3-30b-a3b-instruct-2507,meteor,approach-within-model,wilcoxon_posthoc,Finetune vs RAFG,870,2,113378.0,2.5104925852506505e-24,-0.39875804065269155,1.5062955511503905e-23,
+CDtest,qwen3-30b-a3b-instruct-2507,meteor,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,870,2,178487.0,0.15521406326751197,-0.05566181236194331,0.31042812653502394,
+TBtest,gemini-2.5-flash,meteor,approach-within-model,friedman,omnibus,870,4,190.5458620689642,4.652572349257439e-41,0.07300607742105908,,
+TBtest,gemini-2.5-flash,meteor,approach-within-model,wilcoxon_posthoc,DRAFT vs Finetune,870,2,160481.0,0.00017702876425241127,0.14700832894827762,0.00035405752850482255,
+TBtest,gemini-2.5-flash,meteor,approach-within-model,wilcoxon_posthoc,DRAFT vs Prompting,870,2,85849.0,2.3007059124592104e-44,0.5468334718978054,1.3804235474755262e-43,
+TBtest,gemini-2.5-flash,meteor,approach-within-model,wilcoxon_posthoc,DRAFT vs RAFG,870,2,145789.0,5.246210604592584e-09,0.22866023835033,1.5738631813777753e-08,
+TBtest,gemini-2.5-flash,meteor,approach-within-model,wilcoxon_posthoc,Finetune vs Prompting,870,2,105228.0,6.727305714986084e-30,0.444538580308009,3.363652857493042e-29,
+TBtest,gemini-2.5-flash,meteor,approach-within-model,wilcoxon_posthoc,Finetune vs RAFG,870,2,176495.0,0.08076733814370159,0.06834527627116407,0.08076733814370159,
+TBtest,gemini-2.5-flash,meteor,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,870,2,115504.0,2.0104690761320958e-23,-0.39029520830858966,8.041876304528383e-23,
+TBtest,gemma-3-4b-it,meteor,approach-within-model,friedman,omnibus,870,4,256.96275862068796,2.0408046846224412e-55,0.0984531642224858,,
+TBtest,gemma-3-4b-it,meteor,approach-within-model,wilcoxon_posthoc,DRAFT vs Finetune,870,2,121453.0,4.723848560024638e-20,-0.3588925399527561,1.8895394240098552e-19,
+TBtest,gemma-3-4b-it,meteor,approach-within-model,wilcoxon_posthoc,DRAFT vs Prompting,870,2,174492.0,0.043757178145279664,-0.07891840532087573,0.043757178145279664,
+TBtest,gemma-3-4b-it,meteor,approach-within-model,wilcoxon_posthoc,DRAFT vs RAFG,870,2,105065.0,5.229480079554026e-30,-0.44539899969647784,2.614740039777013e-29,
+TBtest,gemma-3-4b-it,meteor,approach-within-model,wilcoxon_posthoc,Finetune vs Prompting,870,2,144275.0,1.1151960753726654e-09,0.23842326827401455,3.3455882261179963e-09,
+TBtest,gemma-3-4b-it,meteor,approach-within-model,wilcoxon_posthoc,Finetune vs RAFG,870,2,155066.0,3.5431048726607246e-06,-0.1814613932987582,7.086209745321449e-06,
+TBtest,gemma-3-4b-it,meteor,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,870,2,59506.0,9.175393477504396e-69,-0.685888858096784,5.505236086502638e-68,
+TBtest,gpt-5,meteor,approach-within-model,wilcoxon,Prompting vs RAFG,794,2,141611.0,0.012235178839706583,0.10263453891608447,,
+TBtest,gpt-5,meteor,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,794,2,141611.0,0.012235178839706583,0.10263453891608447,0.012235178839706583,
+TBtest,qwen3-30b-a3b-instruct-2507,meteor,approach-within-model,friedman,omnibus,870,4,372.570689655171,1.93200434665349e-80,0.14274739067247932,,
+TBtest,qwen3-30b-a3b-instruct-2507,meteor,approach-within-model,wilcoxon_posthoc,DRAFT vs Finetune,870,2,183371.0,0.44637167803515365,-0.029821567927198655,0.8927433560703073,
+TBtest,qwen3-30b-a3b-instruct-2507,meteor,approach-within-model,wilcoxon_posthoc,DRAFT vs Prompting,870,2,105807.0,1.639456690172349e-29,-0.44148224395265057,6.557826760689396e-29,
+TBtest,qwen3-30b-a3b-instruct-2507,meteor,approach-within-model,wilcoxon_posthoc,DRAFT vs RAFG,870,2,106553.0,5.119935151178907e-29,-0.4375443736226032,1.535980545353672e-28,
+TBtest,qwen3-30b-a3b-instruct-2507,meteor,approach-within-model,wilcoxon_posthoc,Finetune vs Prompting,870,2,102524.0,9.690630559192616e-32,-0.458812040592792,5.81437833551557e-31,
+TBtest,qwen3-30b-a3b-instruct-2507,meteor,approach-within-model,wilcoxon_posthoc,Finetune vs RAFG,870,2,102847.0,1.6193441760250447e-31,-0.4571070377555195,8.096720880125224e-31,
+TBtest,qwen3-30b-a3b-instruct-2507,meteor,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,870,2,187731.0,0.8174901072284014,-0.009034403578922365,0.8927433560703073,
+CDtest,,meteor,model-within-approach,friedman,omnibus,867,3,39.53114186851235,2.6056831921701505e-09,0.022797659670422347,,DRAFT
+CDtest,,meteor,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,867,2,166109.5,0.0055869201161887734,0.10889285867559333,0.0055869201161887734,DRAFT
+CDtest,,meteor,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,867,2,147462.5,1.38655549279766e-07,0.207090680811823,4.15966647839298e-07,DRAFT
+CDtest,,meteor,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,867,2,160467.0,0.0005912764028853792,0.13516091740300898,0.0011825528057707584,DRAFT
+CDtest,,meteor,model-within-approach,friedman,omnibus,870,3,206.66436781609264,1.3286259351053666e-45,0.11877262518166243,,Finetune
+CDtest,,meteor,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,870,2,85593.0,2.3030871100335284e-44,-0.547144954565295,6.909261330100585e-44,Finetune
+CDtest,,meteor,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,870,2,107708.0,1.0964980251375114e-27,-0.4275083847580778,2.1929960502750228e-27,Finetune
+CDtest,,meteor,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,870,2,161572.0,0.0010227077428802372,0.1292055048492149,0.0010227077428802372,Finetune
+CDtest,,meteor,model-within-approach,friedman,omnibus,829,4,146.17020506634617,1.7654442212242316e-31,0.05877370529406762,,Prompting
+CDtest,,meteor,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,829,2,166364.0,0.41239773288009324,-0.03286584213815455,0.8247954657601865,Prompting
+CDtest,,meteor,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gpt-5,829,2,163746.0,0.23041528286631965,-0.04808522388710451,0.691245848598959,Prompting
+CDtest,,meteor,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,829,2,116913.0,1.952832401124573e-15,-0.3187007220153494,7.811329604498292e-15,Prompting
+CDtest,,meteor,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs gpt-5,829,2,172000.0,0.9980332250897985,-0.00010173383522025375,0.9980332250897985,Prompting
+CDtest,,meteor,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,829,2,93099.0,2.54738428880995e-30,-0.45878180999026263,1.273692144404975e-29,Prompting
+CDtest,,meteor,model-within-approach,wilcoxon_posthoc,gpt-5 vs qwen3-30b-a3b-instruct-2507,829,2,88769.0,2.3962122973377917e-33,-0.48270717877892577,1.437727378402675e-32,Prompting
+CDtest,,meteor,model-within-approach,friedman,omnibus,850,4,152.72611764706016,6.802332398163656e-33,0.05989259515570987,,RAFG
+CDtest,,meteor,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,850,2,146384.0,2.480262646354396e-06,0.18670133564459854,4.960525292708792e-06,RAFG
+CDtest,,meteor,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gpt-5,850,2,173678.0,0.3765252245920961,0.03505789274840545,0.3765252245920961,RAFG
+CDtest,,meteor,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,850,2,132020.0,3.412150283796606e-11,-0.2630365551061876,1.3648601135186424e-10,RAFG
+CDtest,,meteor,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs gpt-5,850,2,140683.0,3.613349843301012e-08,-0.21837566948907705,1.0840049529903036e-07,RAFG
+CDtest,,meteor,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,850,2,98333.0,2.5083207562567354e-30,-0.45366913349778876,1.5049924537540412e-29,RAFG
+CDtest,,meteor,model-within-approach,wilcoxon_posthoc,gpt-5 vs qwen3-30b-a3b-instruct-2507,850,2,114718.0,5.803056763992264e-20,-0.36263528679689755,2.9015283819961315e-19,RAFG
+TBtest,,meteor,model-within-approach,friedman,omnibus,870,3,98.84367816091981,3.438491870128e-22,0.056806711586735524,,DRAFT
+TBtest,,meteor,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,870,2,126623.0,2.3949968110024973e-17,-0.3316019372632857,4.7899936220049945e-17,DRAFT
+TBtest,,meteor,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,870,2,178322.0,0.13365819134900758,-0.05870118901513652,0.13365819134900758,DRAFT
+TBtest,,meteor,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,870,2,105568.0,1.1358754952373566e-29,0.4427438404793011,3.40762648571207e-29,DRAFT
+TBtest,,meteor,model-within-approach,friedman,omnibus,870,3,359.23678160919553,9.833860092107859e-79,0.2064579204650549,,Finetune
+TBtest,,meteor,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,870,2,64662.0,1.472565238105169e-63,-0.658672156459084,2.945130476210338e-63,Finetune
+TBtest,,meteor,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,870,2,148527.0,3.419291989900753e-08,-0.21597846312205551,3.419291989900753e-08,Finetune
+TBtest,,meteor,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,870,2,59372.0,6.676494722612437e-69,0.6865961967351571,2.002948416783731e-68,Finetune
+TBtest,,meteor,model-within-approach,friedman,omnibus,824,4,1310.7276699029135,6.920382464937104e-284,0.530229639928363,,Prompting
+TBtest,,meteor,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,824,2,22183.0,1.1337713498914819e-103,-0.8694733745219182,3.4013140496744453e-103,Prompting
+TBtest,,meteor,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gpt-5,824,2,83929.0,2.5038213035731372e-36,-0.5061547513974698,5.0076426071462744e-36,Prompting
+TBtest,,meteor,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,824,2,13991.0,2.909559171314125e-115,-0.9176757869961754,1.4547795856570624e-114,Prompting
+TBtest,,meteor,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs gpt-5,824,2,15140.0,1.3398991158219986e-113,0.9109149749926448,5.359596463287994e-113,Prompting
+TBtest,,meteor,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,824,2,159916.0,0.14207565759479274,-0.059040894380700204,0.14207565759479274,Prompting
+TBtest,,meteor,model-within-approach,wilcoxon_posthoc,gpt-5 vs qwen3-30b-a3b-instruct-2507,824,2,2991.0,8.327622963147846e-132,-0.9824007060900265,4.996573777888708e-131,Prompting
+TBtest,,meteor,model-within-approach,friedman,omnibus,834,4,1316.0503597122297,4.843969207945371e-285,0.5259993444093644,,RAFG
+TBtest,,meteor,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,834,2,27346.0,1.0283461481223218e-98,-0.842927095449389,4.113384592489287e-98,RAFG
+TBtest,,meteor,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gpt-5,834,2,162791.0,0.10423687314815813,0.06494349430635132,0.10423687314815813,RAFG
+TBtest,,meteor,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,834,2,57730.0,9.104822286416311e-63,-0.6684041987966512,1.8209644572832622e-62,RAFG
+TBtest,,meteor,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs gpt-5,834,2,405.0,1.6958737056283798e-137,0.9976737173135742,1.0175242233770278e-136,RAFG
+TBtest,,meteor,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,834,2,54300.0,2.0634093984336817e-66,0.6881058027829233,6.190228195301045e-66,RAFG
+TBtest,,meteor,model-within-approach,wilcoxon_posthoc,gpt-5 vs qwen3-30b-a3b-instruct-2507,834,2,2281.0,1.3817920157659024e-134,-0.9868981461537357,6.908960078829512e-134,RAFG
+CDtest,gemini-2.5-flash,bert_precision,approach-within-model,friedman,omnibus,867,4,133.54498269896067,9.312056382453047e-29,0.05134370730448315,,
+CDtest,gemini-2.5-flash,bert_precision,approach-within-model,wilcoxon_posthoc,DRAFT vs Finetune,867,2,183478.0,0.5659157457644083,0.02252198257376582,0.5659157457644083,
+CDtest,gemini-2.5-flash,bert_precision,approach-within-model,wilcoxon_posthoc,DRAFT vs Prompting,867,2,123945.0,3.2273657224908984e-18,0.3412051727711958,1.936419433494539e-17,
+CDtest,gemini-2.5-flash,bert_precision,approach-within-model,wilcoxon_posthoc,DRAFT vs RAFG,867,2,148819.0,9.776739407242448e-08,0.20899441370476085,2.9330218221727347e-07,
+CDtest,gemini-2.5-flash,bert_precision,approach-within-model,wilcoxon_posthoc,Finetune vs Prompting,867,2,125409.0,1.8208737207227356e-17,0.33342369205746814,9.104368603613677e-17,
+CDtest,gemini-2.5-flash,bert_precision,approach-within-model,wilcoxon_posthoc,Finetune vs RAFG,867,2,149552.0,1.6818795555022254e-07,0.2050983581288303,3.3637591110044507e-07,
+CDtest,gemini-2.5-flash,bert_precision,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,867,2,138009.0,1.0725508242668714e-11,-0.26645193181636984,4.2902032970674857e-11,
+CDtest,gemma-3-4b-it,bert_precision,approach-within-model,friedman,omnibus,870,4,1339.3437931034478,4.274650723632501e-290,0.5131585414189455,,
+CDtest,gemma-3-4b-it,bert_precision,approach-within-model,wilcoxon_posthoc,DRAFT vs Finetune,870,2,164702.0,0.0010240317269256873,-0.1285954261074296,0.0010240317269256873,
+CDtest,gemma-3-4b-it,bert_precision,approach-within-model,wilcoxon_posthoc,DRAFT vs Prompting,870,2,19739.0,5.977976824987463e-116,0.8958047956503953,2.3911907299949853e-115,
+CDtest,gemma-3-4b-it,bert_precision,approach-within-model,wilcoxon_posthoc,DRAFT vs RAFG,870,2,89728.0,3.115839245110342e-41,-0.52635760191087,9.347517735331026e-41,
+CDtest,gemma-3-4b-it,bert_precision,approach-within-model,wilcoxon_posthoc,Finetune vs Prompting,870,2,15576.0,1.3063238913196626e-121,0.9177798012589572,6.531619456598312e-121,
+CDtest,gemma-3-4b-it,bert_precision,approach-within-model,wilcoxon_posthoc,Finetune vs RAFG,870,2,109913.0,7.633430683087992e-27,-0.4198081211977249,1.5266861366175985e-26,
+CDtest,gemma-3-4b-it,bert_precision,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,870,2,145.0,8.748310408018388e-144,-0.9992345962495216,5.248986244811033e-143,
+CDtest,gpt-5,bert_precision,approach-within-model,wilcoxon,Prompting vs RAFG,819,2,100509.0,2.5156613862331757e-23,-0.40135799160189406,,
+CDtest,gpt-5,bert_precision,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,819,2,100509.0,2.5156613862331757e-23,-0.40135799160189406,2.5156613862331757e-23,
+CDtest,qwen3-30b-a3b-instruct-2507,bert_precision,approach-within-model,friedman,omnibus,870,4,1510.4137931034475,0.0,0.5787026027216274,,
+CDtest,qwen3-30b-a3b-instruct-2507,bert_precision,approach-within-model,wilcoxon_posthoc,DRAFT vs Finetune,870,2,172651.0,0.04090295017006298,0.08020276443684389,0.04090295017006298,
+CDtest,qwen3-30b-a3b-instruct-2507,bert_precision,approach-within-model,wilcoxon_posthoc,DRAFT vs Prompting,870,2,10968.0,4.910231836820182e-128,0.9421038045845045,2.946139102092109e-127,
+CDtest,qwen3-30b-a3b-instruct-2507,bert_precision,approach-within-model,wilcoxon_posthoc,DRAFT vs RAFG,870,2,23988.0,2.5886074185804383e-110,0.8733758264381013,7.765822255741315e-110,
+CDtest,qwen3-30b-a3b-instruct-2507,bert_precision,approach-within-model,wilcoxon_posthoc,Finetune vs Prompting,870,2,20115.0,1.9101992440764464e-115,0.8938200245457065,9.550996220382231e-115,
+CDtest,qwen3-30b-a3b-instruct-2507,bert_precision,approach-within-model,wilcoxon_posthoc,Finetune vs RAFG,870,2,40032.0,2.586902817794637e-90,0.7886852211093076,5.173805635589274e-90,
+CDtest,qwen3-30b-a3b-instruct-2507,bert_precision,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,870,2,22252.0,1.3408339704917223e-112,-0.8825395568576218,5.363335881966889e-112,
+TBtest,gemini-2.5-flash,bert_precision,approach-within-model,friedman,omnibus,870,4,265.38655172413746,3.072906415998597e-57,0.10168067115867335,,
+TBtest,gemini-2.5-flash,bert_precision,approach-within-model,wilcoxon_posthoc,DRAFT vs Finetune,870,2,115980.0,5.807101711424002e-23,0.38637355660489664,2.903550855712001e-22,
+TBtest,gemini-2.5-flash,bert_precision,approach-within-model,wilcoxon_posthoc,DRAFT vs Prompting,870,2,124830.0,2.9161872463800825e-18,0.34106655053644247,8.748561739140248e-18,
+TBtest,gemini-2.5-flash,bert_precision,approach-within-model,wilcoxon_posthoc,DRAFT vs RAFG,870,2,78966.0,5.349765461047494e-50,0.5822070552755843,3.2098592766284964e-49,
+TBtest,gemini-2.5-flash,bert_precision,approach-within-model,wilcoxon_posthoc,Finetune vs Prompting,870,2,170583.0,0.010970308009497448,-0.09955263470446178,0.010970308009497448,
+TBtest,gemini-2.5-flash,bert_precision,approach-within-model,wilcoxon_posthoc,Finetune vs RAFG,870,2,143269.0,4.734215016249113e-10,0.24373358670836798,9.468430032498226e-10,
+TBtest,gemini-2.5-flash,bert_precision,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,870,2,118834.0,1.6762444765366387e-21,0.3727173152803621,6.704977906146555e-21,
+TBtest,gemma-3-4b-it,bert_precision,approach-within-model,friedman,omnibus,870,4,857.6317241379293,1.370040281722572e-185,0.3285945303210457,,
+TBtest,gemma-3-4b-it,bert_precision,approach-within-model,wilcoxon_posthoc,DRAFT vs Finetune,870,2,148760.0,4.086749100184116e-08,0.21474853847473507,4.086749100184116e-08,
+TBtest,gemma-3-4b-it,bert_precision,approach-within-model,wilcoxon_posthoc,DRAFT vs Prompting,870,2,26166.0,1.7664657420458398e-107,0.8618789342412605,1.0598794452275039e-106,
+TBtest,gemma-3-4b-it,bert_precision,approach-within-model,wilcoxon_posthoc,DRAFT vs RAFG,870,2,52879.0,9.216868453745801e-76,0.7208704488169233,3.6867473814983203e-75,
+TBtest,gemma-3-4b-it,bert_precision,approach-within-model,wilcoxon_posthoc,Finetune vs Prompting,870,2,43377.0,2.1227175383143963e-86,0.7710281483827547,1.0613587691571982e-85,
+TBtest,gemma-3-4b-it,bert_precision,approach-within-model,wilcoxon_posthoc,Finetune vs RAFG,870,2,80347.0,5.2111024422405815e-49,0.5758765852435436,1.0422204884481163e-48,
+TBtest,gemma-3-4b-it,bert_precision,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,870,2,66826.5,1.9541306393802308e-61,-0.647246525990736,5.8623919181406924e-61,
+TBtest,gpt-5,bert_precision,approach-within-model,wilcoxon,Prompting vs RAFG,794,2,85954.0,1.0649871572396598e-28,-0.4553237330291653,,
+TBtest,gpt-5,bert_precision,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,794,2,85954.0,1.0649871572396598e-28,-0.4553237330291653,1.0649871572396598e-28,
+TBtest,qwen3-30b-a3b-instruct-2507,bert_precision,approach-within-model,friedman,omnibus,870,4,1230.5972413793097,1.6848251094159e-266,0.47149319593077,,
+TBtest,qwen3-30b-a3b-instruct-2507,bert_precision,approach-within-model,wilcoxon_posthoc,DRAFT vs Finetune,870,2,156685.0,9.954372398031711e-06,0.17291526452617548,1.9908744796063422e-05,
+TBtest,qwen3-30b-a3b-instruct-2507,bert_precision,approach-within-model,wilcoxon_posthoc,DRAFT vs Prompting,870,2,13189.0,6.43806215709715e-125,0.9303799305857978,3.86283729425829e-124,
+TBtest,qwen3-30b-a3b-instruct-2507,bert_precision,approach-within-model,wilcoxon_posthoc,DRAFT vs RAFG,870,2,13523.0,1.880317111749607e-124,0.9286168626364201,9.401585558748035e-124,
+TBtest,qwen3-30b-a3b-instruct-2507,bert_precision,approach-within-model,wilcoxon_posthoc,Finetune vs Prompting,870,2,31649.0,1.644592652630304e-100,0.8329361151800678,6.578370610521216e-100,
+TBtest,qwen3-30b-a3b-instruct-2507,bert_precision,approach-within-model,wilcoxon_posthoc,Finetune vs RAFG,870,2,31885.0,3.2411315282938037e-100,0.8316903545930824,9.723394584881412e-100,
+TBtest,qwen3-30b-a3b-instruct-2507,bert_precision,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,870,2,182150.5,0.32538364275475007,-0.03849189067922985,0.32538364275475007,
+CDtest,,bert_precision,model-within-approach,friedman,omnibus,867,3,401.1089965397932,7.948553111741403e-88,0.23132006720864662,,DRAFT
+CDtest,,bert_precision,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,867,2,148619.0,1.1062560883484313e-07,0.20823310984494328,1.1062560883484313e-07,DRAFT
+CDtest,,bert_precision,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,867,2,70255.0,1.6974332025621458e-57,-0.6265792844652093,3.3948664051242916e-57,DRAFT
+CDtest,,bert_precision,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,867,2,52095.0,5.784949993410403e-76,-0.7231036627174589,1.735484998023121e-75,DRAFT
+CDtest,,bert_precision,model-within-approach,friedman,omnibus,870,3,266.3195402298843,1.4772249275411579e-58,0.15305720702866912,,Finetune
+CDtest,,bert_precision,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,870,2,179981.0,0.20193069717932313,0.04994391438035288,0.20193069717932313,Finetune
+CDtest,,bert_precision,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,870,2,88166.0,1.7648826096863357e-42,-0.5346028478298165,3.5297652193726715e-42,Finetune
+CDtest,,bert_precision,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,870,2,77098.0,1.9631600066193243e-51,-0.5911503767771632,5.889480019857972e-51,Finetune
+CDtest,,bert_precision,model-within-approach,friedman,omnibus,829,4,1918.0176115802187,0.0,0.7712173749819938,,Prompting
+CDtest,,bert_precision,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,829,2,2106.0,5.074013700829445e-134,0.9877570596014941,3.044408220497667e-133,Prompting
+CDtest,,bert_precision,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gpt-5,829,2,2799.5,6.037505026714272e-133,0.9837254930457657,2.4150020106857087e-132,Prompting
+CDtest,,bert_precision,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,829,2,35286.0,1.7793746375600261e-87,0.7948697080238929,3.5587492751200522e-87,Prompting
+CDtest,,bert_precision,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs gpt-5,829,2,59954.0,2.267990026532112e-59,-0.6514656938974233,2.267990026532112e-59,Prompting
+CDtest,,bert_precision,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,829,2,2529.0,2.3007925902855987e-133,-0.9852980074701702,1.1503962951427994e-132,Prompting
+CDtest,,bert_precision,model-within-approach,wilcoxon_posthoc,gpt-5 vs qwen3-30b-a3b-instruct-2507,829,2,6842.0,9.180296918288027e-127,-0.9602249771098871,2.754089075486408e-126,Prompting
+CDtest,,bert_precision,model-within-approach,friedman,omnibus,850,4,1672.3891764705895,0.0,0.6558388927335645,,RAFG
+CDtest,,bert_precision,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,850,2,69226.0,8.804718415639958e-55,-0.6171922305937652,1.7609436831279916e-54,RAFG
+CDtest,,bert_precision,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gpt-5,850,2,2729.0,1.3883634754452175e-136,0.9849091034768784,5.55345390178087e-136,RAFG
+CDtest,,bert_precision,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,850,2,127430.0,8.721800683642172e-14,0.2953342088891961,8.721800683642172e-14,RAFG
+CDtest,,bert_precision,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs gpt-5,850,2,925.0,2.52647655541389e-139,0.9948849104859335,1.515885933248334e-138,RAFG
+CDtest,,bert_precision,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,850,2,18778.0,2.0269076162868893e-113,0.8961609179511992,6.080722848860668e-113,RAFG
+CDtest,,bert_precision,model-within-approach,wilcoxon_posthoc,gpt-5 vs qwen3-30b-a3b-instruct-2507,850,2,2551.0,7.470910832860753e-137,-0.9858934125941798,3.735455416430376e-136,RAFG
+TBtest,,bert_precision,model-within-approach,friedman,omnibus,870,3,254.42988505747053,5.639653790322741e-56,0.1462240718721095,,DRAFT
+TBtest,,bert_precision,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,870,2,160636.0,0.00010221892261520074,0.15205933198727847,0.00010221892261520074,DRAFT
+TBtest,,bert_precision,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,870,2,114002.0,2.5610439963719434e-24,-0.39822373543423467,5.122087992743887e-24,DRAFT
+TBtest,,bert_precision,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,870,2,66709.0,1.5019648359345081e-61,-0.6478667669609512,4.5058945078035245e-61,DRAFT
+TBtest,,bert_precision,model-within-approach,friedman,omnibus,870,3,224.94482758620688,1.4251196336065131e-49,0.12927863654379707,,Finetune
+TBtest,,bert_precision,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,870,2,177775.5,0.11559355762509928,-0.06158596935745675,0.11559355762509928,Finetune
+TBtest,,bert_precision,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,870,2,98432.0,1.2317030133828052e-34,-0.4804122622959473,2.4634060267656105e-34,Finetune
+TBtest,,bert_precision,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,870,2,88637.0,4.214136491553348e-42,-0.5321166053024005,1.2642409474660045e-41,Finetune
+TBtest,,bert_precision,model-within-approach,friedman,omnibus,824,4,1017.5111650485433,2.8601823238312014e-220,0.4116145489678573,,Prompting
+TBtest,,bert_precision,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,824,2,24063.0,4.233014635654603e-101,0.8584112974404237,2.1165073178273014e-100,Prompting
+TBtest,,bert_precision,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gpt-5,824,2,8506.0,2.2652507321392302e-123,0.9499499852897911,1.359150439283538e-122,Prompting
+TBtest,,bert_precision,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,824,2,29745.5,1.5915559840386767e-93,0.8249749926448956,6.366223936154707e-93,Prompting
+TBtest,,bert_precision,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs gpt-5,824,2,66420.5,7.763498889984736e-52,0.6091762283024419,1.5526997779969472e-51,Prompting
+TBtest,,bert_precision,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,824,2,149828.0,0.0032380659172611807,-0.11839952927331568,0.0032380659172611807,Prompting
+TBtest,,bert_precision,model-within-approach,wilcoxon_posthoc,gpt-5 vs qwen3-30b-a3b-instruct-2507,824,2,56790.0,1.4125945958051845e-61,-0.6658428949691085,4.237783787415554e-61,Prompting
+TBtest,,bert_precision,model-within-approach,friedman,omnibus,834,4,331.0863309352517,1.8566636796274615e-71,0.13232866943854985,,RAFG
+TBtest,,bert_precision,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,834,2,153340.0,0.0028567815466466937,0.11922916756415228,0.0028567815466466937,RAFG
+TBtest,,bert_precision,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gpt-5,834,2,90304.0,2.165812916098655e-33,0.48130214391361165,8.66325166439462e-33,RAFG
+TBtest,,bert_precision,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,834,2,120517.5,1.3684012425374923e-14,0.30775858355231983,2.7368024850749845e-14,RAFG
+TBtest,,bert_precision,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs gpt-5,834,2,56180.0,2.114839939917258e-64,0.6773072559916139,1.268903963950355e-63,RAFG
+TBtest,,bert_precision,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,834,2,89582.0,6.124448186238835e-34,0.4854492453941039,3.0622240931194175e-33,RAFG
+TBtest,,bert_precision,model-within-approach,wilcoxon_posthoc,gpt-5 vs qwen3-30b-a3b-instruct-2507,834,2,102388.5,6.732502903844567e-25,-0.41188988928617587,2.0197508711533703e-24,RAFG
+CDtest,gemini-2.5-flash,bert_recall,approach-within-model,friedman,omnibus,867,4,135.3574394463667,3.787566687250307e-29,0.052040538041663476,,
+CDtest,gemini-2.5-flash,bert_recall,approach-within-model,wilcoxon_posthoc,DRAFT vs Finetune,867,2,102999.0,1.258190327386756e-30,0.4512734043488337,7.549141964320535e-30,
+CDtest,gemini-2.5-flash,bert_recall,approach-within-model,wilcoxon_posthoc,DRAFT vs Prompting,867,2,150158.0,2.614777051356432e-07,0.20187733537437746,7.844331154069296e-07,
+CDtest,gemini-2.5-flash,bert_recall,approach-within-model,wilcoxon_posthoc,DRAFT vs RAFG,867,2,174395.0,0.06241944708967549,0.07305237085346472,0.06241944708967549,
+CDtest,gemini-2.5-flash,bert_recall,approach-within-model,wilcoxon_posthoc,Finetune vs Prompting,867,2,130523.0,5.6581018709980785e-15,-0.30624166175008904,2.2632407483992314e-14,
+CDtest,gemini-2.5-flash,bert_recall,approach-within-model,wilcoxon_posthoc,Finetune vs RAFG,867,2,113951.0,8.459054885102722e-24,-0.3943254721243336,4.229527442551361e-23,
+CDtest,gemini-2.5-flash,bert_recall,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,867,2,157543.5,3.354178626877661e-05,-0.162621784956867,6.708357253755322e-05,
+CDtest,gemma-3-4b-it,bert_recall,approach-within-model,friedman,omnibus,870,4,78.90241379310282,5.277727115308497e-17,0.030230809882414875,,
+CDtest,gemma-3-4b-it,bert_recall,approach-within-model,wilcoxon_posthoc,DRAFT vs Finetune,870,2,178841.0,0.18780815832044112,-0.051608660836917265,0.18780815832044112,
+CDtest,gemma-3-4b-it,bert_recall,approach-within-model,wilcoxon_posthoc,DRAFT vs Prompting,870,2,151175.0,2.4519651109075624e-07,0.20200060704435382,9.80786044363025e-07,
+CDtest,gemma-3-4b-it,bert_recall,approach-within-model,wilcoxon_posthoc,DRAFT vs RAFG,870,2,160054.0,9.159968176312245e-05,-0.15318704284221527,0.00027479904528936736,
+CDtest,gemma-3-4b-it,bert_recall,approach-within-model,wilcoxon_posthoc,Finetune vs Prompting,870,2,143073.0,3.9979853896850383e-10,0.24476820143315253,1.9989926948425193e-09,
+CDtest,gemma-3-4b-it,bert_recall,approach-within-model,wilcoxon_posthoc,Finetune vs RAFG,870,2,173270.0,0.029166482487310998,-0.08536891141111419,0.058332964974621995,
+CDtest,gemma-3-4b-it,bert_recall,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,870,2,128240.5,1.5232538372990228e-16,-0.3230637264605355,9.139523023794137e-16,
+CDtest,gpt-5,bert_recall,approach-within-model,wilcoxon,Prompting vs RAFG,819,2,132117.0,1.2711370241213898e-07,-0.213097471634057,,
+CDtest,gpt-5,bert_recall,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,819,2,132117.0,1.2711370241213898e-07,-0.213097471634057,1.2711370241213898e-07,
+CDtest,qwen3-30b-a3b-instruct-2507,bert_recall,approach-within-model,friedman,omnibus,870,4,57.770689655171736,1.7594600230366816e-12,0.02213436385255622,,
+CDtest,qwen3-30b-a3b-instruct-2507,bert_recall,approach-within-model,wilcoxon_posthoc,DRAFT vs Finetune,870,2,182978.0,0.5590942906141197,-0.022931823946388284,0.5590942906141197,
+CDtest,qwen3-30b-a3b-instruct-2507,bert_recall,approach-within-model,wilcoxon_posthoc,DRAFT vs Prompting,870,2,170720.0,0.0115643957275325,-0.09882946012642359,0.0346931871825975,
+CDtest,qwen3-30b-a3b-instruct-2507,bert_recall,approach-within-model,wilcoxon_posthoc,DRAFT vs RAFG,870,2,146804.0,8.877975950867709e-09,-0.22507357113636065,5.3267855705206255e-08,
+CDtest,qwen3-30b-a3b-instruct-2507,bert_recall,approach-within-model,wilcoxon_posthoc,Finetune vs Prompting,870,2,175339.0,0.05714909978265326,-0.074447391688771,0.11429819956530653,
+CDtest,qwen3-30b-a3b-instruct-2507,bert_recall,approach-within-model,wilcoxon_posthoc,Finetune vs RAFG,870,2,150801.0,1.870395320627296e-07,-0.20397482085593255,7.481581282509184e-07,
+CDtest,qwen3-30b-a3b-instruct-2507,bert_recall,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,870,2,149199.0,5.703677141615461e-08,-0.21243121263707984,2.8518385708077304e-07,
+TBtest,gemini-2.5-flash,bert_recall,approach-within-model,friedman,omnibus,870,4,217.3644827586195,7.454543156428449e-47,0.08328141101862815,,
+TBtest,gemini-2.5-flash,bert_recall,approach-within-model,wilcoxon_posthoc,DRAFT vs Finetune,870,2,153085.0,1.2135750249851312e-06,0.1900585955583773,2.4271500499702625e-06,
+TBtest,gemini-2.5-flash,bert_recall,approach-within-model,wilcoxon_posthoc,DRAFT vs Prompting,870,2,82723.0,5.649533388027006e-47,0.5633345210288082,3.3897200328162036e-46,
+TBtest,gemini-2.5-flash,bert_recall,approach-within-model,wilcoxon_posthoc,DRAFT vs RAFG,870,2,128022.0,1.7269929179495818e-16,0.32266179913495496,6.907971671798327e-16,
+TBtest,gemini-2.5-flash,bert_recall,approach-within-model,wilcoxon_posthoc,Finetune vs Prompting,870,2,104343.0,1.703916098389411e-30,0.44921018250920464,8.519580491947054e-30,
+TBtest,gemini-2.5-flash,bert_recall,approach-within-model,wilcoxon_posthoc,Finetune vs RAFG,870,2,166200.0,0.0017196627724657132,0.12268894255512887,0.0017196627724657132,
+TBtest,gemini-2.5-flash,bert_recall,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,870,2,147543.0,1.5932539964250538e-08,-0.22117265133219843,4.7797619892751613e-08,
+TBtest,gemma-3-4b-it,bert_recall,approach-within-model,friedman,omnibus,870,4,324.17793103448093,5.811951989034914e-70,0.12420610384462871,,
+TBtest,gemma-3-4b-it,bert_recall,approach-within-model,wilcoxon_posthoc,DRAFT vs Finetune,870,2,171657.0,0.016449550971965723,-0.09388336830436676,0.016449550971965723,
+TBtest,gemma-3-4b-it,bert_recall,approach-within-model,wilcoxon_posthoc,DRAFT vs Prompting,870,2,122972.0,3.095310661585532e-19,0.3508742758356757,1.2381242646342129e-18,
+TBtest,gemma-3-4b-it,bert_recall,approach-within-model,wilcoxon_posthoc,DRAFT vs RAFG,870,2,151128.0,2.3702650902769733e-07,-0.20224870343243992,7.11079527083092e-07,
+TBtest,gemma-3-4b-it,bert_recall,approach-within-model,wilcoxon_posthoc,Finetune vs Prompting,870,2,100748.0,5.567287843401006e-33,0.46818691687451336,2.783643921700503e-32,
+TBtest,gemma-3-4b-it,bert_recall,approach-within-model,wilcoxon_posthoc,Finetune vs RAFG,870,2,164706.0,0.000848970149769628,-0.13057524050833366,0.001697940299539256,
+TBtest,gemma-3-4b-it,bert_recall,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,870,2,37533.0,2.6980794695226597e-93,-0.8018765588503107,1.618847681713596e-92,
+TBtest,gpt-5,bert_recall,approach-within-model,wilcoxon,Prompting vs RAFG,794,2,139235.0,0.004068248474117831,-0.11769085753211983,,
+TBtest,gpt-5,bert_recall,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,794,2,139235.0,0.004068248474117831,-0.11769085753211983,0.004068248474117831,
+TBtest,qwen3-30b-a3b-instruct-2507,bert_recall,approach-within-model,friedman,omnibus,870,4,95.47724137930891,1.457973824765158e-20,0.03658131853613368,,
+TBtest,qwen3-30b-a3b-instruct-2507,bert_recall,approach-within-model,wilcoxon_posthoc,DRAFT vs Finetune,870,2,179932.0,0.19960449396537314,-0.05020256806154902,0.3992089879307463,
+TBtest,qwen3-30b-a3b-instruct-2507,bert_recall,approach-within-model,wilcoxon_posthoc,DRAFT vs Prompting,870,2,147521.5,1.5665904570738637e-08,-0.22128614223313142,9.399542742443183e-08,
+TBtest,qwen3-30b-a3b-instruct-2507,bert_recall,approach-within-model,wilcoxon_posthoc,DRAFT vs RAFG,870,2,148556.0,3.496210609476046e-08,-0.21582538237195983,1.748105304738023e-07,
+TBtest,qwen3-30b-a3b-instruct-2507,bert_recall,approach-within-model,wilcoxon_posthoc,Finetune vs Prompting,870,2,151983.0,4.3639955188395197e-07,-0.19773546062789502,1.3091986556518558e-06,
+TBtest,qwen3-30b-a3b-instruct-2507,bert_recall,approach-within-model,wilcoxon_posthoc,Finetune vs RAFG,870,2,151547.0,3.2018732510566534e-07,-0.20003695052588516,1.2807493004226614e-06,
+TBtest,qwen3-30b-a3b-instruct-2507,bert_recall,approach-within-model,wilcoxon_posthoc,Prompting vs RAFG,870,2,188435.0,0.8919627699297846,0.0053182364041859664,0.8919627699297846,
+CDtest,,bert_recall,model-within-approach,friedman,omnibus,867,3,35.682237600922235,1.7852562163301703e-08,0.020577991696033585,,DRAFT
+CDtest,,bert_recall,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,867,2,133616.0,2.0433300427296974e-13,0.28816150832021437,6.129990128189092e-13,DRAFT
+CDtest,,bert_recall,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,867,2,153813.0,3.2594700992507776e-06,0.1824502096853922,6.518940198501555e-06,DRAFT
+CDtest,,bert_recall,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,867,2,176552.0,0.12984581283740712,-0.05942020878450552,0.12984581283740712,DRAFT
+CDtest,,bert_recall,model-within-approach,friedman,omnibus,870,3,72.35229885057379,1.9449029188126467e-16,0.04158178094860562,,Finetune
+CDtest,,bert_recall,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,870,2,125526.0,6.649313844551517e-18,-0.33739261253414626,1.3298627689103034e-17,Finetune
+CDtest,,bert_recall,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,870,2,124889.0,3.128286155946942e-18,-0.3407551103896961,9.384858467840826e-18,Finetune
+CDtest,,bert_recall,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,870,2,177755.0,0.15920059667752823,-0.05519323478917183,0.15920059667752823,Finetune
+CDtest,,bert_recall,model-within-approach,friedman,omnibus,829,4,210.20193003618806,2.6335453306010564e-45,0.08452027745725293,,Prompting
+CDtest,,bert_recall,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,829,2,122106.0,4.585032591082725e-13,0.29015361809118256,1.83401303643309e-12,Prompting
+CDtest,,bert_recall,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gpt-5,829,2,157793.0,0.03916291157718638,0.08269216794802854,0.07832582315437275,Prompting
+CDtest,,bert_recall,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,829,2,161342.0,0.12165401334524915,-0.06206054616536108,0.12165401334524915,Prompting
+CDtest,,bert_recall,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs gpt-5,829,2,109213.0,8.505075977722586e-20,-0.36510529451945295,4.252537988861293e-19,Prompting
+CDtest,,bert_recall,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,829,2,77231.0,5.540089923368913e-43,-0.5510282384059761,3.324053954021348e-42,Prompting
+CDtest,,bert_recall,model-within-approach,wilcoxon_posthoc,gpt-5 vs qwen3-30b-a3b-instruct-2507,829,2,132996.0,1.5312891032658266e-08,-0.22684610577412181,4.5938673097974796e-08,Prompting
+CDtest,,bert_recall,model-within-approach,friedman,omnibus,850,4,35.06964705882456,1.1776644480654215e-07,0.013752802768166494,,RAFG
+CDtest,,bert_recall,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,850,2,168529.0,0.08562097964732443,0.06806386949609455,0.17124195929464886,RAFG
+CDtest,,bert_recall,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gpt-5,850,2,158485.0,0.0017979055292266038,0.12360544687910417,0.007191622116906415,RAFG
+CDtest,,bert_recall,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,850,2,162868.0,0.012087070860801411,-0.09936821732218151,0.03626121258240424,RAFG
+CDtest,,bert_recall,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs gpt-5,850,2,175699.0,0.473013240565445,0.0284150134789521,0.473013240565445,RAFG
+CDtest,,bert_recall,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,850,2,148713.0,7.239862500184206e-06,-0.17764291145365313,3.619931250092103e-05,RAFG
+CDtest,,bert_recall,model-within-approach,wilcoxon_posthoc,gpt-5 vs qwen3-30b-a3b-instruct-2507,850,2,138399.5,3.086706010859162e-09,-0.23467477707886916,1.852023606515497e-08,RAFG
+TBtest,,bert_recall,model-within-approach,friedman,omnibus,870,3,96.85747126436763,9.282551115304606e-22,0.055665213370326226,,DRAFT
+TBtest,,bert_recall,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,870,2,118821.0,1.6481867996340476e-21,-0.37278593768557744,3.296373599268095e-21,DRAFT
+TBtest,,bert_recall,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,870,2,170919.0,0.012478188864617067,-0.09777900946197395,0.012478188864617067,DRAFT
+TBtest,,bert_recall,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,870,2,104544.0,2.330447319922849e-30,0.44814917455164494,6.991341959768547e-30,DRAFT
+TBtest,,bert_recall,model-within-approach,friedman,omnibus,870,3,211.2712643678151,1.3274795827883166e-46,0.12142026687805466,,Finetune
+TBtest,,bert_recall,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,870,2,87676.0,7.105987528900243e-43,-0.5371893846417779,2.131796258670073e-42,Finetune
+TBtest,,bert_recall,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,870,2,133822.0,6.29221951888145e-14,-0.29360096071367303,6.29221951888145e-14,Finetune
+TBtest,,bert_recall,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,870,2,92915.0,9.508642837268999e-39,0.5095345553400108,1.9017285674537997e-38,Finetune
+TBtest,,bert_recall,model-within-approach,friedman,omnibus,824,4,1202.3956310679623,2.215290469266818e-260,0.4864059996229621,,Prompting
+TBtest,,bert_recall,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,824,2,39820.0,7.863204176223003e-81,-0.7656957928802589,2.358961252866901e-80,Prompting
+TBtest,,bert_recall,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gpt-5,824,2,124889.0,4.302493077504747e-11,-0.26514268902618415,4.302493077504747e-11,Prompting
+TBtest,,bert_recall,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,824,2,27408.0,1.3244590897142626e-96,-0.8387290379523389,5.2978363588570505e-96,Prompting
+TBtest,,bert_recall,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs gpt-5,824,2,13067.0,1.3103728535936464e-116,0.9231126802000589,6.551864267968232e-116,Prompting
+TBtest,,bert_recall,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,824,2,78937.0,1.8441693294611974e-40,-0.5355280964989703,3.688338658922395e-40,Prompting
+TBtest,,bert_recall,model-within-approach,wilcoxon_posthoc,gpt-5 vs qwen3-30b-a3b-instruct-2507,824,2,5202.0,2.167254599224306e-128,-0.9693909973521624,1.3003527595345836e-127,Prompting
+TBtest,,bert_recall,model-within-approach,friedman,omnibus,834,4,1001.8834532374112,7.023504561433737e-217,0.4004330348670708,,RAFG
+TBtest,,bert_recall,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gemma-3-4b-it,834,2,55385.0,3.0120774339063856e-65,-0.6818736627464496,1.2048309735625543e-64,RAFG
+TBtest,,bert_recall,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs gpt-5,834,2,173408.0,0.9211318958478889,0.003960424474791425,0.9211318958478889,RAFG
+TBtest,,bert_recall,model-within-approach,wilcoxon_posthoc,gemini-2.5-flash vs qwen3-30b-a3b-instruct-2507,834,2,76689.0,1.6179236360677342e-44,-0.5595054495325895,4.853770908203203e-44,RAFG
+TBtest,,bert_recall,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs gpt-5,834,2,3754.0,2.5354805586645026e-132,0.9784373698645874,1.5212883351987015e-131,RAFG
+TBtest,,bert_recall,model-within-approach,wilcoxon_posthoc,gemma-3-4b-it vs qwen3-30b-a3b-instruct-2507,834,2,80386.0,2.476107309377785e-41,0.5382702221456368,4.95221461875557e-41,RAFG
+TBtest,,bert_recall,model-within-approach,wilcoxon_posthoc,gpt-5 vs qwen3-30b-a3b-instruct-2507,834,2,10362.0,2.0883477554050814e-122,-0.9404816266747081,1.0441738777025407e-121,RAFG
