@@ -1,0 +1,38 @@
+# ── Core data handling ──────────────────────────────────────────────
+pandas==2.3.3
+numpy==2.2.6
+tqdm==4.67.1
+
+# ── Jira + commit mining (data/script.py, experiments/utils.py) ─────
+requests==2.33.1
+beautifulsoup4==4.14.3
+GitPython==3.1.45
+
+# ── Dataset curation notebook (data/initial_dataset.ipynb) ──────────
+scikit-learn==1.7.2
+
+# ── Model backends (experiments) ────────────────────────────────────
+python-dotenv==1.2.1
+boto3==1.42.22
+google-genai==2.0.0
+
+# ── Scoring (experiments/score.py) ──────────────────────────────────
+evaluate==0.4.6
+nltk==3.9.2
+rouge_score==0.1.2
+bert_score==0.3.13
+
+# ── Few-shot retrieval (experiments/rag_fewshot.py, retrieve_fewshot.py) ─
+# Building the index needs a CUDA GPU.
+sentence-transformers==5.2.0
+transformers==4.57.3
+torch==2.9.1
+accelerate==1.12.0
+faiss-cpu                          # for a GPU box: `conda install -c pytorch faiss-gpu`
+bitsandbytes==0.49.1 ; sys_platform == "linux"   # GPU/Linux only — skipped on macOS/Windows
+
+# ── Plotting + notebooks (data) ─
+matplotlib==3.10.7
+seaborn==0.13.2
+scipy==1.15.3
+jupyter==1.1.1
