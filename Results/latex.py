@@ -5,7 +5,7 @@ import pandas as pd
 # -------------------------
 CSV_FILE = "Results/stat_tests/significance_tests.csv"
 
-DATASET = "CDtest"
+DATASET = "TBtest"
 METRICS = {"rouge1": "ROUGE-1", "rougeL": "ROUGE-L", "bleu": "BLEU", "meteor": "METEOR",
            "bert_precision": "BERT-Precision", "bert_recall": "BERT-Recall", "bert_f1": "BERT-F1"}
 
@@ -116,15 +116,14 @@ def create_dataset_table(dataset):
             vals = [lookup_comparison(posthoc, left, right)
                     for left, right in pairs]
 
-            metric_cell = rf"\multirow{{{len(models)}}}{{*}}{{{METRICS.get(metric, metric).replace('_', '\\_')}}}" if model_index == 0 else ""
+            metric_cell = rf"\multirow{{{len(MODELS)}}}{{*}}{{{METRICS.get(metric, metric).replace('_', '\\_')}}}" if model_index == 0 else ""
             print(
                 f"{metric_cell} & {MODELS.get(model, model)} & {friedman_cell} & "
                 + " & ".join(vals)
                 + r" \\")
 
         if metric_index < len(available_metrics) - 1:
-            print(r"\midrule")
-            print("\n")
+            print(r"\midrule"+"\n")
 
     print(r"\bottomrule")
     print(r"\end{tabular}}")
