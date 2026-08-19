@@ -1,0 +1,22 @@
+Evaluator 1 mean:
+  Finetuning: closeness=3.016, correctness=2.797
+  RAFG: closeness=2.922, correctness=2.594
+  DRAFT: closeness=3.156, correctness=3.031
+  Prompting: closeness=2.859, correctness=2.5
+
+Evaluator 2 mean:
+  Finetuning: closeness=2.234, correctness=3.391
+  RAFG: closeness=1.953, correctness=3.578
+  DRAFT: closeness=2.281, correctness=3.469
+  Prompting: closeness=1.969, correctness=3.469
+
+Combined mean (both evaluators):
+  Finetuning: closeness=2.625, correctness=3.094
+  RAFG: closeness=2.438, correctness=3.086
+  DRAFT: closeness=2.719, correctness=3.25
+  Prompting: closeness=2.414, correctness=2.984
+Overall combined mean: closeness=2.549, correctness=3.103
+
+Common Decision_IDs: 63
+Cohen's kappa (closeness): 0.241
+Cohen's kappa (correctness): 0.138

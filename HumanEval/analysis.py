@@ -13,7 +13,7 @@ METRICS = ["closeness", "correctness"]
 
 
 def load_evaluator_rows(path: str | Path) -> dict[str, list[dict[str, Any]]]:
-    """Load evaluation rows from all sheets containing a Decision_ID column."""
+    """Load evaluation rows from sheets containing a task identifier column."""
     sheet_rows: dict[str, list[dict[str, Any]]] = {}
 
     workbook = load_workbook(
@@ -34,7 +34,16 @@ def load_evaluator_rows(path: str | Path) -> dict[str, list[dict[str, Any]]]:
                 for cell in rows[0]
             ]
 
-            if "Decision_ID" not in headers:
+            identifier_header = next(
+                (
+                    header
+                    for header in ("Decision_ID", "Task_ID")
+                    if header in headers
+                ),
+                None,
+            )
+
+            if identifier_header is None:
                 continue
 
             parsed_rows = []
@@ -43,12 +52,12 @@ def load_evaluator_rows(path: str | Path) -> dict[str, list[dict[str, Any]]]:
                 if not has_content(row):
                     continue
 
-                parsed_rows.append(
-                    {
-                        header: row[index] if index < len(row) else None
-                        for index, header in enumerate(headers)
-                    }
-                )
+                parsed_row = {
+                    header: row[index] if index < len(row) else None
+                    for index, header in enumerate(headers)
+                }
+                parsed_row["Decision_ID"] = parsed_row[identifier_header]
+                parsed_rows.append(parsed_row)
 
             sheet_rows[worksheet.title] = parsed_rows
 
@@ -432,14 +441,15 @@ def format_evaluator_summary(
 
 def find_evaluator_sheets(
     base_dir: Path,
+    task: str
 ) -> list[list[dict[str, Any]]]:
     """Load evaluator sheets from matching Excel files."""
-    files = sorted(base_dir.glob("CD Authors.xlsx"))
+    files = sorted(base_dir.glob(f"{task} Authors.xlsx"))
 
     if not files:
         raise FileNotFoundError(
             f"No Excel files found in {base_dir} "
-            "matching pattern 'CD Authors.xlsx'"
+            f"matching pattern '{task} Authors.xlsx'"
         )
 
     evaluator_sheets = []
@@ -510,11 +520,10 @@ def format_results(
     return "\n\n".join(sections)
 
 
-def main() -> None:
+def main(task: str) -> None:
     base_dir = Path(__file__).resolve().parent
-    output_file = base_dir / "results.txt"
-
-    evaluator_sheets = find_evaluator_sheets(base_dir)
+    output_file = base_dir / f"{task}_results.txt"
+    evaluator_sheets = find_evaluator_sheets(base_dir, task)
 
     evaluator_a = evaluator_sheets[0]
     evaluator_b = evaluator_sheets[1]
@@ -530,6 +539,8 @@ def main() -> None:
     )
 
     print(f"Results written to: {output_file}")
-    
+
+
 if __name__ == "__main__":
-    main()
+    main("CD")
+    main("TB")
