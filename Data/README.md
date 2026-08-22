@@ -94,13 +94,14 @@ The final step removes redundant or near-identical ADRs from the dataset.
 
 ## Final Data Preparation: Dataset Partitioning
 
-This final preparation step partitions the clean dataset for use in machine learning workflows.
+This final preparation step partitions the clean dataset for use in machine learning workflows. The final dataset consisted of 4,344 ADRs.
 
 * **Input**: `ADR-data/adrs.jsonl`
 
 * **Process**:
     * Randomly shuffles the entire collection to ensure that the resulting subsets are unbiased.
     * The data is split into train-validation-test set with proportion **70-10-20**
+    * The train-validation-test set size were 3,040, 434, and 870 ADRs, respectively.
 
 
 * **Output**: Three JSONL files ready for model training and evaluation ✅
