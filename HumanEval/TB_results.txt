@@ -1,22 +1,25 @@
-Evaluator 1 mean:
-  Finetuning: closeness=3.016, correctness=2.797
-  RAFG: closeness=2.922, correctness=2.594
-  DRAFT: closeness=3.156, correctness=3.031
-  Prompting: closeness=2.859, correctness=2.5
+## Performance Means
+| Evaluator | Approach | Closeness | Correctness |
+|---|---|---:|---:|
+| Evaluator 1 (adyanshkakran@gmail.com) | Prompting | 2.859 | 2.5 |
+| Evaluator 1 (adyanshkakran@gmail.com) | RAFG | 2.922 | 2.594 |
+| Evaluator 1 (adyanshkakran@gmail.com) | Finetuning | 3.016 | 2.797 |
+| Evaluator 1 (adyanshkakran@gmail.com) | DRAFT | 3.156 | 3.031 |
+| Evaluator 2 (rudra.dhar@research.iiit.ac.in) | Prompting | 1.969 | 3.469 |
+| Evaluator 2 (rudra.dhar@research.iiit.ac.in) | RAFG | 1.953 | 3.578 |
+| Evaluator 2 (rudra.dhar@research.iiit.ac.in) | Finetuning | 2.234 | 3.391 |
+| Evaluator 2 (rudra.dhar@research.iiit.ac.in) | DRAFT | 2.281 | 3.469 |
+| Expert (srinivasan.r@research.iiit.ac.i) | Prompting | 2.5 | 2.071 |
+| Expert (srinivasan.r@research.iiit.ac.i) | RAFG | 2.571 | 4.143 |
+| Expert (srinivasan.r@research.iiit.ac.i) | Finetuning | 2.0 | 2.143 |
+| Expert (srinivasan.r@research.iiit.ac.i) | DRAFT | 2.357 | 2.071 |
+| Combined | Prompting | 2.423 | 2.894 |
+| Combined | RAFG | 2.451 | 3.19 |
+| Combined | Finetuning | 2.563 | 3.0 |
+| Combined | DRAFT | 2.683 | 3.134 |
 
-Evaluator 2 mean:
-  Finetuning: closeness=2.234, correctness=3.391
-  RAFG: closeness=1.953, correctness=3.578
-  DRAFT: closeness=2.281, correctness=3.469
-  Prompting: closeness=1.969, correctness=3.469
+## Inter-Rater Agreement (Krippendorff's Alpha - Ordinal)
+* **Closeness:** 0.201
+* **Correctness:** 0.130
 
-Combined mean (both evaluators):
-  Finetuning: closeness=2.625, correctness=3.094
-  RAFG: closeness=2.438, correctness=3.086
-  DRAFT: closeness=2.719, correctness=3.25
-  Prompting: closeness=2.414, correctness=2.984
-Overall combined mean: closeness=2.549, correctness=3.103
-
-Common Decision_IDs: 63
-Cohen's kappa (closeness): 0.241
-Cohen's kappa (correctness): 0.138
+*(Note: Alpha > 0.66 is acceptable, > 0.80 is reliable)*

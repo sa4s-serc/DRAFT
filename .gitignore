@@ -2,3 +2,5 @@
 checkpoint-*/
 unsloth_compiled_cache/
 cache/
+
+**/__pycache__/
