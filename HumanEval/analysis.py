@@ -8,7 +8,7 @@ from typing import Any
 import numpy as np
 import krippendorff
 from openpyxl import load_workbook
-
+from scipy.stats import rankdata
 
 APPROACH_ORDER = ["Prompting", "RAFG", "Finetuning", "DRAFT"]
 APPROACH_POSITIONS = ["Model_A", "Model_B", "Model_C", "Model_D"]
@@ -59,7 +59,7 @@ def load_evaluator_rows(path: str | Path) -> dict[str, list[dict[str, Any]]]:
                     header: row[index] if index < len(row) else None
                     for index, header in enumerate(headers)
                 }
-                parsed_row["Decision_ID"] = parsed_row[identifier_header]
+                parsed_row["Decision_ID"] = safe_float(parsed_row[identifier_header])
                 parsed_rows.append(parsed_row)
 
             sheet_rows[worksheet.title] = parsed_rows
@@ -122,13 +122,12 @@ def build_reliability_matrices(
     evaluators: dict[str, list[dict[str, Any]]]
 ) -> tuple[np.ndarray, np.ndarray]:
     """
-    Aligns scores by Decision_ID and Approach to create matrices of shape 
-    (num_evaluators, num_samples) for Krippendorff's alpha.
+    Aligns scores by Decision_ID and Approach, converting raw scores into 
+    rankings for each sample to calculate agreement on relative preferences.
     """
     evaluator_keys = list(evaluators.keys())
     num_evaluators = len(evaluator_keys)
 
-    # Use (Decision_ID, Approach) as the unique key for each item
     closeness_data = defaultdict(lambda: [np.nan] * num_evaluators)
     correctness_data = defaultdict(lambda: [np.nan] * num_evaluators)
 
@@ -138,12 +137,34 @@ def build_reliability_matrices(
             if not decision_id:
                 continue
 
-            for approach, closeness, correctness in get_approach_scores(row):
-                key = (decision_id, approach)
-                closeness_data[key][i] = closeness
-                correctness_data[key][i] = correctness
+            scores = get_approach_scores(row)
+            if not scores:
+                continue
 
-    # Convert to (items, raters) and then transpose to (raters, items)
+            # Separate the components for ranking
+            approaches = [s[0] for s in scores]
+            closeness_vals = np.array([s[1] for s in scores])
+            correctness_vals = np.array([s[2] for s in scores])
+
+            def get_ranks(vals: np.ndarray) -> np.ndarray:
+                ranks = np.full(len(vals), np.nan)
+                valid_mask = ~np.isnan(vals)
+                if np.any(valid_mask):
+                    valid_vals = vals[valid_mask]
+                    # We rank negative values so the highest score (e.g., 5) gets rank 1
+                    valid_ranks = rankdata(
+                        [-v for v in valid_vals], method='average')
+                    ranks[valid_mask] = valid_ranks
+                return ranks
+
+            closeness_ranks = get_ranks(closeness_vals)
+            correctness_ranks = get_ranks(correctness_vals)
+
+            for approach, c_rank, corr_rank in zip(approaches, closeness_ranks, correctness_ranks):
+                key = (decision_id, approach)
+                closeness_data[key][i] = c_rank
+                correctness_data[key][i] = corr_rank
+
     closeness_matrix = np.array(list(closeness_data.values())).T
     correctness_matrix = np.array(list(correctness_data.values())).T
 
@@ -151,15 +172,16 @@ def build_reliability_matrices(
 
 
 def calculate_krippendorff(matrix: np.ndarray) -> float:
-    """Calculate ordinal Krippendorff's Alpha, handling NaN values."""
+    """Calculate interval Krippendorff's Alpha on rank-transformed data."""
     try:
-        # Safely check if the matrix is empty or not 2-dimensional
         if matrix.size == 0 or matrix.ndim < 2 or matrix.shape[1] == 0 or np.isnan(matrix).all():
             return np.nan
 
+        # We switch to "interval" because fractional ranks (like 1.5 for ties)
+        # represent equidistant, continuous intervals, not strict ordinal categories.
         return krippendorff.alpha(
             reliability_data=matrix,
-            level_of_measurement="ordinal"
+            level_of_measurement="interval"
         )
     except Exception as e:
         print(f"Warning: Could not calculate Krippendorff's alpha: {e}")
@@ -298,9 +320,10 @@ def format_results(
                     f"{summary[approach]['correctness']} |"
                 )
 
-    lines.append("\n## Inter-Rater Agreement (Krippendorff's Alpha - Ordinal)")
+    lines.append("\n## Inter-Rater Agreement (Krippendorff's Alpha - Interval)")
 
-    closeness_matrix, correctness_matrix = build_reliability_matrices(evaluators)
+    closeness_matrix, correctness_matrix = build_reliability_matrices(
+        evaluators)
 
     alpha_closeness = calculate_krippendorff(closeness_matrix)
     alpha_correctness = calculate_krippendorff(correctness_matrix)
@@ -312,12 +335,85 @@ def format_results(
     return "\n".join(lines)
 
 
+def visualize_raw_matrix(
+    evaluators: dict[str, list[dict[str, Any]]], 
+    metric: str = "closeness"
+) -> str:
+    """
+    Creates a formatted text table of raw scores for all evaluators,
+    labeled by Decision_ID and Approach.
+    """
+    evaluator_keys = list(evaluators.keys())
+    
+    # Store data as: (Decision_ID, Approach) -> [eval_1_score, eval_2_score, eval_3_score]
+    matrix_data = defaultdict(lambda: ["NaN"] * len(evaluator_keys))
+    
+    for i, eval_key in enumerate(evaluator_keys):
+        for row in evaluators[eval_key]:
+            decision_id = row.get("Decision_ID")
+            if not decision_id:
+                continue
+            
+            for approach, closeness, correctness in get_approach_scores(row):
+                key = (str(decision_id), approach)
+                
+                # Select the score based on the requested metric
+                val = closeness if metric == "closeness" else correctness
+                
+                if math.isnan(val):
+                    matrix_data[key][i] = "NaN"
+                else:
+                    matrix_data[key][i] = f"{val:.1f}"
+
+    # Sort the rows by Decision_ID, then by your Approach order
+    def sort_key(k):
+        dec_id, app = k
+        app_idx = APPROACH_ORDER.index(app) if app in APPROACH_ORDER else 999
+        return (dec_id, app_idx)
+        
+    sorted_keys = sorted(matrix_data.keys(), key=sort_key)
+    
+    # Build the table layout
+    headers = ["Decision_ID", "Approach"] + evaluator_keys
+    
+    # Dynamically calculate column widths for clean alignment
+    col_widths = [len(h) for h in headers]
+    for k in sorted_keys:
+        col_widths[0] = max(col_widths[0], len(k[0]))
+        col_widths[1] = max(col_widths[1], len(k[1]))
+    
+    # Add a little padding to the widths
+    col_widths = [w + 2 for w in col_widths]
+    
+    lines = []
+    lines.append(f"### Raw Scores Matrix: {metric.capitalize()}")
+    
+    header_line = "".join(h.ljust(w) for h, w in zip(headers, col_widths))
+    lines.append(header_line)
+    lines.append("-" * len(header_line))
+    
+    for k in sorted_keys:
+        row_data = [k[0], k[1]] + matrix_data[k]
+        row_line = "".join(str(item).ljust(w) for item, w in zip(row_data, col_widths))
+        lines.append(row_line)
+        
+    return "\n".join(lines)
+
 def main(task: str) -> None:
     base_dir = Path(__file__).resolve().parent
     output_file = base_dir / f"{task}_results.txt"
 
     try:
         evaluators = find_evaluator_sheets(base_dir, task)
+        
+        print(f"\n{'='*60}")
+        print(f"VISUALIZING DATA FOR TASK: {task}")
+        print(f"{'='*60}")
+        print(visualize_raw_matrix(evaluators, metric="closeness"))
+        print("\n")
+        print(visualize_raw_matrix(evaluators, metric="correctness"))
+        print(f"{'='*60}\n")
+        
         report = format_results(evaluators)
 
         output_file.write_text(

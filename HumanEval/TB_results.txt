@@ -19,7 +19,7 @@
 | Combined | DRAFT | 2.683 | 3.134 |
 
 ## Inter-Rater Agreement (Krippendorff's Alpha - Ordinal)
-* **Closeness:** 0.201
-* **Correctness:** 0.130
+* **Closeness:** 0.282
+* **Correctness:** 0.274
 
 *(Note: Alpha > 0.66 is acceptable, > 0.80 is reliable)*
