@@ -1,22 +1,25 @@
-Evaluator 1 mean:
-  Finetuning: closeness=3.453, correctness=3.484
-  RAFG: closeness=3.469, correctness=3.062
-  DRAFT: closeness=3.703, correctness=3.625
-  Prompting: closeness=3.406, correctness=2.969
+## Performance Means
+| Evaluator | Approach | Closeness | Correctness |
+|---|---|---:|---:|
+| Evaluator 1 (adyanshkakran@gmail.com) | Prompting | 3.406 | 2.969 |
+| Evaluator 1 (adyanshkakran@gmail.com) | RAFG | 3.469 | 3.062 |
+| Evaluator 1 (adyanshkakran@gmail.com) | Finetuning | 3.453 | 3.484 |
+| Evaluator 1 (adyanshkakran@gmail.com) | DRAFT | 3.703 | 3.625 |
+| Evaluator 2 (rudra.dhar@research.iiit.ac.in) | Prompting | 2.375 | 3.781 |
+| Evaluator 2 (rudra.dhar@research.iiit.ac.in) | RAFG | 2.516 | 4.031 |
+| Evaluator 2 (rudra.dhar@research.iiit.ac.in) | Finetuning | 2.438 | 3.469 |
+| Evaluator 2 (rudra.dhar@research.iiit.ac.in) | DRAFT | 2.688 | 3.734 |
+| Expert (srinivasan.r@research.iiit.ac.i) | Prompting | 2.786 | 3.214 |
+| Expert (srinivasan.r@research.iiit.ac.i) | RAFG | 3.571 | 4.214 |
+| Expert (srinivasan.r@research.iiit.ac.i) | Finetuning | 2.571 | 2.786 |
+| Expert (srinivasan.r@research.iiit.ac.i) | DRAFT | 2.071 | 2.357 |
+| Combined | Prompting | 2.88 | 3.359 |
+| Combined | RAFG | 3.049 | 3.613 |
+| Combined | Finetuning | 2.908 | 3.408 |
+| Combined | DRAFT | 3.085 | 3.549 |
 
-Evaluator 2 mean:
-  Finetuning: closeness=2.438, correctness=3.469
-  RAFG: closeness=2.516, correctness=4.031
-  DRAFT: closeness=2.688, correctness=3.734
-  Prompting: closeness=2.375, correctness=3.781
+## Inter-Rater Agreement (Krippendorff's Alpha - Ordinal)
+* **Closeness:** 0.261
+* **Correctness:** 0.071
 
-Combined mean (both evaluators):
-  Finetuning: closeness=2.945, correctness=3.477
-  RAFG: closeness=2.992, correctness=3.547
-  DRAFT: closeness=3.195, correctness=3.68
-  Prompting: closeness=2.891, correctness=3.375
-Overall combined mean: closeness=3.006, correctness=3.52
-
-Common Decision_IDs: 64
-Cohen's kappa (closeness): 0.143
-Cohen's kappa (correctness): 0.001
+*(Note: Alpha > 0.66 is acceptable, > 0.80 is reliable)*

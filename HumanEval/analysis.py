@@ -1,14 +1,17 @@
 from __future__ import annotations
 
+import math
 from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
+import numpy as np
+import krippendorff
 from openpyxl import load_workbook
+from scipy.stats import rankdata
 
-
-MODEL_ORDER = ["Finetuning", "RAFG", "DRAFT", "Prompting"]
-MODEL_POSITIONS = ["Model_A", "Model_B", "Model_C", "Model_D"]
+APPROACH_ORDER = ["Prompting", "RAFG", "Finetuning", "DRAFT"]
+APPROACH_POSITIONS = ["Model_A", "Model_B", "Model_C", "Model_D"]
 METRICS = ["closeness", "correctness"]
 
 
@@ -56,7 +59,7 @@ def load_evaluator_rows(path: str | Path) -> dict[str, list[dict[str, Any]]]:
                     header: row[index] if index < len(row) else None
                     for index, header in enumerate(headers)
                 }
-                parsed_row["Decision_ID"] = parsed_row[identifier_header]
+                parsed_row["Decision_ID"] = safe_float(parsed_row[identifier_header])
                 parsed_rows.append(parsed_row)
 
             sheet_rows[worksheet.title] = parsed_rows
@@ -75,297 +78,165 @@ def has_content(row: tuple[Any, ...]) -> bool:
     )
 
 
-def safe_int(value: Any) -> int:
-    """Convert a value to int, treating missing/empty values as zero."""
+def safe_float(value: Any) -> float:
+    """Convert a value to float, treating missing/empty values as NaN."""
     if value is None or str(value).strip() == "":
-        return 0
+        return np.nan
+    try:
+        return float(value)
+    except ValueError:
+        return np.nan
 
-    return int(value)
 
-
-def get_model_score(
+def get_approach_score(
     row: dict[str, Any],
     position: str,
-) -> tuple[str, int, int] | None:
-    """Return (model, closeness, correctness) for a model position."""
-    model = row.get(position)
+) -> tuple[str, float, float] | None:
+    """Return (approach, closeness, correctness) for an approach position."""
+    approach = row.get(position)
 
-    if model is None or not str(model).strip():
+    if approach is None or not str(approach).strip():
         return None
 
-    model = str(model).strip()
+    approach = str(approach).strip()
 
-    closeness = safe_int(row.get(f"{position}_Closeness"))
-    correctness = safe_int(row.get(f"{position}_Correctness"))
+    closeness = safe_float(row.get(f"{position}_Closeness"))
+    correctness = safe_float(row.get(f"{position}_Correctness"))
 
-    return model, closeness, correctness
+    return approach, closeness, correctness
 
 
-def get_model_scores(row: dict[str, Any]) -> list[tuple[str, int, int]]:
-    """Return scores for all populated model positions in a row."""
+def get_approach_scores(row: dict[str, Any]) -> list[tuple[str, float, float]]:
+    """Return scores for all populated approach positions in a row."""
     scores = []
 
-    for position in MODEL_POSITIONS:
-        score = get_model_score(row, position)
-
+    for position in APPROACH_POSITIONS:
+        score = get_approach_score(row, position)
         if score is not None:
             scores.append(score)
 
     return scores
 
 
-def winner_by_metric(
-    row: dict[str, Any],
-    metric: str,
-) -> str | None:
-    """Return the model with the highest score for a given metric."""
-    scores = get_model_scores(row)
+def build_reliability_matrices(
+    evaluators: dict[str, list[dict[str, Any]]]
+) -> tuple[np.ndarray, np.ndarray]:
+    """
+    Aligns scores by Decision_ID and Approach, converting raw scores into 
+    rankings for each sample to calculate agreement on relative preferences.
+    """
+    evaluator_keys = list(evaluators.keys())
+    num_evaluators = len(evaluator_keys)
 
-    if not scores:
-        return None
+    closeness_data = defaultdict(lambda: [np.nan] * num_evaluators)
+    correctness_data = defaultdict(lambda: [np.nan] * num_evaluators)
 
-    score_index = 1 if metric == "closeness" else 2
+    for i, eval_key in enumerate(evaluator_keys):
+        for row in evaluators[eval_key]:
+            decision_id = row.get("Decision_ID")
+            if not decision_id:
+                continue
 
-    return max(scores, key=lambda score: score[score_index])[0]
+            scores = get_approach_scores(row)
+            if not scores:
+                continue
+
+            # Separate the components for ranking
+            approaches = [s[0] for s in scores]
+            closeness_vals = np.array([s[1] for s in scores])
+            correctness_vals = np.array([s[2] for s in scores])
+
+            def get_ranks(vals: np.ndarray) -> np.ndarray:
+                ranks = np.full(len(vals), np.nan)
+                valid_mask = ~np.isnan(vals)
+                if np.any(valid_mask):
+                    valid_vals = vals[valid_mask]
+                    # We rank negative values so the highest score (e.g., 5) gets rank 1
+                    valid_ranks = rankdata(
+                        [-v for v in valid_vals], method='average')
+                    ranks[valid_mask] = valid_ranks
+                return ranks
+
+            closeness_ranks = get_ranks(closeness_vals)
+            correctness_ranks = get_ranks(correctness_vals)
+
+            for approach, c_rank, corr_rank in zip(approaches, closeness_ranks, correctness_ranks):
+                key = (decision_id, approach)
+                closeness_data[key][i] = c_rank
+                correctness_data[key][i] = corr_rank
+
+    closeness_matrix = np.array(list(closeness_data.values())).T
+    correctness_matrix = np.array(list(correctness_data.values())).T
+
+    return closeness_matrix, correctness_matrix
 
 
-def cohen_kappa(
-    labels_a: list[Any],
-    labels_b: list[Any],
-) -> float:
-    """Calculate Cohen's kappa between two sets of categorical labels."""
-    if len(labels_a) != len(labels_b):
-        raise ValueError("Label lists must have the same length.")
+def calculate_krippendorff(matrix: np.ndarray) -> float:
+    """Calculate interval Krippendorff's Alpha on rank-transformed data."""
+    try:
+        if matrix.size == 0 or matrix.ndim < 2 or matrix.shape[1] == 0 or np.isnan(matrix).all():
+            return np.nan
 
-    n = len(labels_a)
-
-    if n == 0:
-        return 0.0
-
-    categories = sorted(set(labels_a) | set(labels_b), key=str)
-
-    counts = {
-        category_a: {
-            category_b: 0
-            for category_b in categories
-        }
-        for category_a in categories
-    }
-
-    for label_a, label_b in zip(labels_a, labels_b):
-        counts[label_a][label_b] += 1
-
-    observed_agreement = (
-        sum(counts[category][category] for category in categories) / n
-    )
-
-    row_totals = {
-        category: sum(counts[category].values())
-        for category in categories
-    }
-
-    column_totals = {
-        category: sum(
-            counts[row_category][category]
-            for row_category in categories
+        # We switch to "interval" because fractional ranks (like 1.5 for ties)
+        # represent equidistant, continuous intervals, not strict ordinal categories.
+        return krippendorff.alpha(
+            reliability_data=matrix,
+            level_of_measurement="interval"
         )
-        for category in categories
-    }
-
-    expected_agreement = sum(
-        (row_totals[category] / n)
-        * (column_totals[category] / n)
-        for category in categories
-    )
-
-    denominator = 1 - expected_agreement
-
-    if denominator == 0:
-        return 0.0
-
-    return (observed_agreement - expected_agreement) / denominator
+    except Exception as e:
+        print(f"Warning: Could not calculate Krippendorff's alpha: {e}")
+        return np.nan
 
 
 def summarize_rows(rows: list[dict[str, Any]]) -> dict[str, Any]:
-    """Calculate model means, rankings, and row-level wins."""
-    model_stats = defaultdict(
+    """Calculate approach means and rankings, ignoring NaN values."""
+    approach_stats = defaultdict(
         lambda: {
             "closeness": [],
             "correctness": [],
         }
     )
 
-    row_wins = {
-        metric: defaultdict(int)
-        for metric in METRICS
-    }
-
     for row in rows:
-        scores = get_model_scores(row)
-
+        scores = get_approach_scores(row)
         if not scores:
             continue
 
-        for model, closeness, correctness in scores:
-            model_stats[model]["closeness"].append(closeness)
-            model_stats[model]["correctness"].append(correctness)
+        for approach, closeness, correctness in scores:
+            if not math.isnan(closeness):
+                approach_stats[approach]["closeness"].append(closeness)
+            if not math.isnan(correctness):
+                approach_stats[approach]["correctness"].append(correctness)
 
-        best_closeness = max(scores, key=lambda score: score[1])[0]
-        best_correctness = max(scores, key=lambda score: score[2])[0]
+    mean_per_approach = {}
 
-        row_wins["closeness"][best_closeness] += 1
-        row_wins["correctness"][best_correctness] += 1
-
-    mean_per_model = {}
-
-    for model in MODEL_ORDER:
-        if model not in model_stats:
+    for approach in APPROACH_ORDER:
+        if approach not in approach_stats:
             continue
 
-        closeness_values = model_stats[model]["closeness"]
-        correctness_values = model_stats[model]["correctness"]
+        c_vals = approach_stats[approach]["closeness"]
+        corr_vals = approach_stats[approach]["correctness"]
 
-        mean_per_model[model] = {
-            "closeness": sum(closeness_values) / len(closeness_values),
-            "correctness": sum(correctness_values) / len(correctness_values),
+        mean_per_approach[approach] = {
+            "closeness": sum(c_vals) / len(c_vals) if c_vals else np.nan,
+            "correctness": sum(corr_vals) / len(corr_vals) if corr_vals else np.nan,
         }
 
-    closeness_rank = sorted(
-        mean_per_model,
-        key=lambda model: mean_per_model[model]["closeness"],
-        reverse=True,
-    )
-
-    correctness_rank = sorted(
-        mean_per_model,
-        key=lambda model: mean_per_model[model]["correctness"],
-        reverse=True,
-    )
-
-    overall = {
-        model: (
-            stats["closeness"] + stats["correctness"]
-        ) / 2
-        for model, stats in mean_per_model.items()
-    }
-
-    combined_rank = sorted(
-        overall,
-        key=overall.get,
-        reverse=True,
-    )
-
     return {
-        "mean_per_model": {
-            model: {
-                "closeness": round(stats["closeness"], 3),
-                "correctness": round(stats["correctness"], 3),
+        "mean_per_approach": {
+            approach: {
+                "closeness": round(stats["closeness"], 3) if not math.isnan(stats["closeness"]) else "N/A",
+                "correctness": round(stats["correctness"], 3) if not math.isnan(stats["correctness"]) else "N/A",
             }
-            for model, stats in mean_per_model.items()
-        },
-        "closeness_rank": closeness_rank,
-        "correctness_rank": correctness_rank,
-        "combined_rank": combined_rank,
-        "row_wins": {
-            metric: dict(sorted(row_wins[metric].items()))
-            for metric in METRICS
-        },
-    }
-
-
-def rows_by_decision_id(
-    rows: list[dict[str, Any]],
-) -> dict[str, dict[str, Any]]:
-    """Index rows by Decision_ID."""
-    result = {}
-
-    for row in rows:
-        decision_id = row.get("Decision_ID")
-
-        if decision_id is None:
-            continue
-
-        decision_id = str(decision_id).strip()
-
-        if decision_id:
-            result[decision_id] = row
-
-    return result
-
-
-def compare_evaluators(
-    evaluator_a: list[dict[str, Any]],
-    evaluator_b: list[dict[str, Any]],
-) -> dict[str, Any]:
-    """Compare evaluator model winners using common Decision_IDs."""
-    evaluator_a_by_id = rows_by_decision_id(evaluator_a)
-    evaluator_b_by_id = rows_by_decision_id(evaluator_b)
-
-    common_ids = sorted(
-        set(evaluator_a_by_id) & set(evaluator_b_by_id)
-    )
-
-    labels = {
-        metric: []
-        for metric in METRICS
-    }
-
-    for decision_id in common_ids:
-        row_a = evaluator_a_by_id[decision_id]
-        row_b = evaluator_b_by_id[decision_id]
-
-        for metric in METRICS:
-            labels[metric].append(
-                (
-                    winner_by_metric(row_a, metric),
-                    winner_by_metric(row_b, metric),
-                )
-            )
-
-    agreement = {
-        metric: {
-            "agree": 0,
-            "disagree": 0,
+            for approach, stats in mean_per_approach.items()
         }
-        for metric in METRICS
-    }
-
-    kappas = {}
-
-    for metric in METRICS:
-        evaluator_a_labels = [
-            pair[0]
-            for pair in labels[metric]
-        ]
-
-        evaluator_b_labels = [
-            pair[1]
-            for pair in labels[metric]
-        ]
-
-        for label_a, label_b in zip(
-            evaluator_a_labels,
-            evaluator_b_labels,
-        ):
-            result = "agree" if label_a == label_b else "disagree"
-            agreement[metric][result] += 1
-
-        kappas[metric] = cohen_kappa(
-            evaluator_a_labels,
-            evaluator_b_labels,
-        )
-
-    return {
-        "common_ids": len(common_ids),
-        "agreement": agreement,
-        "kappa": kappas,
     }
 
 
 def combined_mean(
     rows_list: list[dict[str, Any]],
-) -> tuple[dict[str, dict[str, float]], dict[str, float]]:
-    """Calculate model means across multiple evaluator datasets."""
+) -> dict[str, dict[str, float | str]]:
+    """Calculate approach means across multiple evaluator datasets."""
     scores = defaultdict(
         lambda: {
             "closeness": [],
@@ -374,171 +245,185 @@ def combined_mean(
     )
 
     for row in rows_list:
-        for model, closeness, correctness in get_model_scores(row):
-            scores[model]["closeness"].append(closeness)
-            scores[model]["correctness"].append(correctness)
+        for approach, closeness, correctness in get_approach_scores(row):
+            if not math.isnan(closeness):
+                scores[approach]["closeness"].append(closeness)
+            if not math.isnan(correctness):
+                scores[approach]["correctness"].append(correctness)
 
     combined = {}
 
-    for model in MODEL_ORDER:
-        if model not in scores:
+    for approach in APPROACH_ORDER:
+        if approach not in scores:
             continue
 
-        closeness_values = scores[model]["closeness"]
-        correctness_values = scores[model]["correctness"]
+        closeness_values = scores[approach]["closeness"]
+        correctness_values = scores[approach]["correctness"]
 
-        combined[model] = {
-            "closeness": round(
-                sum(closeness_values) / len(closeness_values),
-                3,
-            ),
-            "correctness": round(
-                sum(correctness_values) / len(correctness_values),
-                3,
-            ),
+        combined[approach] = {
+            "closeness": round(sum(closeness_values) / len(closeness_values), 3) if closeness_values else "N/A",
+            "correctness": round(sum(correctness_values) / len(correctness_values), 3) if correctness_values else "N/A",
         }
 
-    if not combined:
-        return {}, {
-            "closeness": 0.0,
-            "correctness": 0.0,
-        }
-
-    overall = {
-        metric: round(
-            sum(stats[metric] for stats in combined.values())
-            / len(combined),
-            3,
-        )
-        for metric in METRICS
-    }
-
-    return combined, overall
-
-
-def format_evaluator_summary(
-    evaluator_number: int,
-    rows: list[dict[str, Any]],
-) -> str:
-    """Format summary statistics for one evaluator as text."""
-    summary = summarize_rows(rows)
-    lines = [f"Evaluator {evaluator_number} mean:"]
-
-    for model in MODEL_ORDER:
-        stats = summary["mean_per_model"].get(model)
-
-        if stats is None:
-            continue
-
-        lines.append(
-            f"  {model}: "
-            f"closeness={stats['closeness']}, "
-            f"correctness={stats['correctness']}"
-        )
-
-    return "\n".join(lines)
+    return combined
 
 
 def find_evaluator_sheets(
     base_dir: Path,
     task: str
-) -> list[list[dict[str, Any]]]:
-    """Load evaluator sheets from matching Excel files."""
-    files = sorted(base_dir.glob(f"{task} Authors.xlsx"))
+) -> dict[str, list[dict[str, Any]]]:
+    """Load the two author evaluators and the named expert evaluator."""
+    authors = load_evaluator_rows(base_dir / f"{task} Authors.xlsx")
+    expert = load_evaluator_rows(base_dir / f"{task} Expert.xlsx")
 
-    if not files:
-        raise FileNotFoundError(
-            f"No Excel files found in {base_dir} "
-            f"matching pattern '{task} Authors.xlsx'"
-        )
+    author_rows = list(authors.values())
+    expert_rows = list(expert.values())
 
-    evaluator_sheets = []
+    if len(author_rows) < 2:
+        raise ValueError(
+            "Need at least two evaluator sheets in the Authors workbook.")
+    if len(expert_rows) != 1:
+        raise ValueError(
+            "Need exactly one evaluator sheet in the Expert workbook.")
 
-    for file_path in files:
-        sheets = load_evaluator_rows(file_path)
-        evaluator_sheets.extend(sheets.values())
-
-    if len(evaluator_sheets) < 2:
-        raise ValueError("Need at least 2 evaluator sheets.")
-
-    return evaluator_sheets
+    return {
+        f"Evaluator 1 ({list(authors.keys())[0]})": author_rows[0],
+        f"Evaluator 2 ({list(authors.keys())[1]})": author_rows[1],
+        f"Expert ({list(expert.keys())[0]})": expert_rows[0],
+    }
 
 
 def format_results(
-    evaluator_a: list[dict[str, Any]],
-    evaluator_b: list[dict[str, Any]],
+    evaluators: dict[str, list[dict[str, Any]]],
 ) -> str:
-    """Generate the complete evaluation report."""
-    sections = [
-        format_evaluator_summary(1, evaluator_a),
-        format_evaluator_summary(2, evaluator_b),
+    """Generate the complete evaluation report, including inter-rater agreement."""
+    summaries = {
+        name: summarize_rows(rows)["mean_per_approach"]
+        for name, rows in evaluators.items()
+    }
+
+    all_rows = [row for rows in evaluators.values() for row in rows]
+    summaries["Combined"] = combined_mean(all_rows)
+
+    lines = [
+        "## Performance Means",
+        "| Evaluator | Approach | Closeness | Correctness |",
+        "|---|---|---:|---:|"
     ]
 
-    combined, overall = combined_mean(evaluator_a + evaluator_b)
+    for evaluator, summary in summaries.items():
+        for approach in APPROACH_ORDER:
+            if approach in summary:
+                lines.append(
+                    f"| {evaluator} | {approach} | "
+                    f"{summary[approach]['closeness']} | "
+                    f"{summary[approach]['correctness']} |"
+                )
 
-    combined_lines = ["Combined mean (both evaluators):"]
+    lines.append("\n## Inter-Rater Agreement (Krippendorff's Alpha - Interval)")
 
-    for model in MODEL_ORDER:
-        if model not in combined:
-            continue
+    closeness_matrix, correctness_matrix = build_reliability_matrices(
+        evaluators)
 
-        stats = combined[model]
+    alpha_closeness = calculate_krippendorff(closeness_matrix)
+    alpha_correctness = calculate_krippendorff(correctness_matrix)
 
-        combined_lines.append(
-            f"  {model}: "
-            f"closeness={stats['closeness']}, "
-            f"correctness={stats['correctness']}"
-        )
+    lines.append(f"* **Closeness:** {alpha_closeness:.3f}")
+    lines.append(f"* **Correctness:** {alpha_correctness:.3f}")
+    lines.append("\n*(Note: Alpha > 0.66 is acceptable, > 0.80 is reliable)*")
 
-    combined_lines.append(
-        f"Overall combined mean: "
-        f"closeness={overall['closeness']}, "
-        f"correctness={overall['correctness']}"
-    )
+    return "\n".join(lines)
 
-    sections.append("\n".join(combined_lines))
 
-    comparison = compare_evaluators(
-        evaluator_a,
-        evaluator_b,
-    )
+def visualize_raw_matrix(
+    evaluators: dict[str, list[dict[str, Any]]], 
+    metric: str = "closeness"
+) -> str:
+    """
+    Creates a formatted text table of raw scores for all evaluators,
+    labeled by Decision_ID and Approach.
+    """
+    evaluator_keys = list(evaluators.keys())
+    
+    # Store data as: (Decision_ID, Approach) -> [eval_1_score, eval_2_score, eval_3_score]
+    matrix_data = defaultdict(lambda: ["NaN"] * len(evaluator_keys))
+    
+    for i, eval_key in enumerate(evaluator_keys):
+        for row in evaluators[eval_key]:
+            decision_id = row.get("Decision_ID")
+            if not decision_id:
+                continue
+            
+            for approach, closeness, correctness in get_approach_scores(row):
+                key = (str(decision_id), approach)
+                
+                # Select the score based on the requested metric
+                val = closeness if metric == "closeness" else correctness
+                
+                if math.isnan(val):
+                    matrix_data[key][i] = "NaN"
+                else:
+                    matrix_data[key][i] = f"{val:.1f}"
 
-    comparison_lines = [
-        f"Common Decision_IDs: {comparison['common_ids']}",
-        (
-            "Cohen's kappa (closeness): "
-            f"{comparison['kappa']['closeness']:.3f}"
-        ),
-        (
-            "Cohen's kappa (correctness): "
-            f"{comparison['kappa']['correctness']:.3f}"
-        ),
-    ]
-
-    sections.append("\n".join(comparison_lines))
-
-    return "\n\n".join(sections)
-
+    # Sort the rows by Decision_ID, then by your Approach order
+    def sort_key(k):
+        dec_id, app = k
+        app_idx = APPROACH_ORDER.index(app) if app in APPROACH_ORDER else 999
+        return (dec_id, app_idx)
+        
+    sorted_keys = sorted(matrix_data.keys(), key=sort_key)
+    
+    # Build the table layout
+    headers = ["Decision_ID", "Approach"] + evaluator_keys
+    
+    # Dynamically calculate column widths for clean alignment
+    col_widths = [len(h) for h in headers]
+    for k in sorted_keys:
+        col_widths[0] = max(col_widths[0], len(k[0]))
+        col_widths[1] = max(col_widths[1], len(k[1]))
+    
+    # Add a little padding to the widths
+    col_widths = [w + 2 for w in col_widths]
+    
+    lines = []
+    lines.append(f"### Raw Scores Matrix: {metric.capitalize()}")
+    
+    header_line = "".join(h.ljust(w) for h, w in zip(headers, col_widths))
+    lines.append(header_line)
+    lines.append("-" * len(header_line))
+    
+    for k in sorted_keys:
+        row_data = [k[0], k[1]] + matrix_data[k]
+        row_line = "".join(str(item).ljust(w) for item, w in zip(row_data, col_widths))
+        lines.append(row_line)
+        
+    return "\n".join(lines)
 
 def main(task: str) -> None:
     base_dir = Path(__file__).resolve().parent
     output_file = base_dir / f"{task}_results.txt"
-    evaluator_sheets = find_evaluator_sheets(base_dir, task)
 
-    evaluator_a = evaluator_sheets[0]
-    evaluator_b = evaluator_sheets[1]
+    try:
+        evaluators = find_evaluator_sheets(base_dir, task)
+        
+        print(f"\n{'='*60}")
+        print(f"VISUALIZING DATA FOR TASK: {task}")
+        print(f"{'='*60}")
+        print(visualize_raw_matrix(evaluators, metric="closeness"))
+        print("\n")
+        print(visualize_raw_matrix(evaluators, metric="correctness"))
+        print(f"{'='*60}\n")
+        
+        report = format_results(evaluators)
 
-    report = format_results(
-        evaluator_a,
-        evaluator_b,
-    )
+        output_file.write_text(
+            report,
+            encoding="utf-8",
+        )
+        print(f"[{task}] Results written to: {output_file}")
 
-    output_file.write_text(
-        report,
-        encoding="utf-8",
-    )
-
-    print(f"Results written to: {output_file}")
+    except Exception as e:
+        print(f"[{task}] Failed to process: {e}")
 
 
 if __name__ == "__main__":
