@@ -9,17 +9,42 @@
 | Evaluator 2 (rudra.dhar@research.iiit.ac.in) | RAFG | 2.516 | 4.031 |
 | Evaluator 2 (rudra.dhar@research.iiit.ac.in) | Finetuning | 2.438 | 3.469 |
 | Evaluator 2 (rudra.dhar@research.iiit.ac.in) | DRAFT | 2.688 | 3.734 |
-| Expert (srinivasan.r@research.iiit.ac.i) | Prompting | 2.786 | 3.214 |
-| Expert (srinivasan.r@research.iiit.ac.i) | RAFG | 3.571 | 4.214 |
-| Expert (srinivasan.r@research.iiit.ac.i) | Finetuning | 2.571 | 2.786 |
-| Expert (srinivasan.r@research.iiit.ac.i) | DRAFT | 2.071 | 2.357 |
-| Combined | Prompting | 2.88 | 3.359 |
-| Combined | RAFG | 3.049 | 3.613 |
-| Combined | Finetuning | 2.908 | 3.408 |
-| Combined | DRAFT | 3.085 | 3.549 |
+| Combined | Prompting | 2.891 | 3.375 |
+| Combined | RAFG | 2.992 | 3.547 |
+| Combined | Finetuning | 2.945 | 3.477 |
+| Combined | DRAFT | 3.195 | 3.68 |
 
-## Inter-Rater Agreement (Krippendorff's Alpha - Ordinal)
-* **Closeness:** 0.261
-* **Correctness:** 0.071
+## Inter-Rater Agreement (Krippendorff's Alpha - Interval)
+* **Closeness:** 0.225
+* **Correctness:** 0.061
 
-*(Note: Alpha > 0.66 is acceptable, > 0.80 is reliable)*
+## Pairwise Inter-Rater Agreement (Weighted Cohen's Kappa)
+*(Uses raw Likert scores. Quadratic weights applied to penalize severe disagreements.)*
+
+**Closeness Pairwise:**
+  * Evaluator 1 vs Evaluator 2: 0.352 (n=256)
+
+**Correctness Pairwise:**
+  * Evaluator 1 vs Evaluator 2: 0.205 (n=256)
+
+*(Note for Kappa: <0=Poor, .01-.20=Slight, .21-.40=Fair, .41-.60=Moderate, .61-.80=Substantial, .81-1=Almost Perfect)*
+
+## Statistical Significance: Closeness
+* **Matched Sample Size:** 64
+* **Friedman Test (Omnibus):** p = 0.0495
+* *Conclusion:* Significant difference detected. Proceeding to pairwise tests against DRAFT.
+
+### Pairwise Wilcoxon Tests vs. DRAFT (Holm-Bonferroni Corrected)
+  * **DRAFT vs. Prompting:** p = 0.1022 (Not Significant) | *Higher Mean: DRAFT*
+  * **DRAFT vs. RAFG:** p = 0.1022 (Not Significant) | *Higher Mean: DRAFT*
+  * **DRAFT vs. Finetuning:** p = 0.1022 (Not Significant) | *Higher Mean: DRAFT*
+
+## Statistical Significance: Correctness
+* **Matched Sample Size:** 64
+* **Friedman Test (Omnibus):** p = 0.0281
+* *Conclusion:* Significant difference detected. Proceeding to pairwise tests against DRAFT.
+
+### Pairwise Wilcoxon Tests vs. DRAFT (Holm-Bonferroni Corrected)
+  * **DRAFT vs. Prompting:** p = 0.0238 (**Significant**) | *Higher Mean: DRAFT*
+  * **DRAFT vs. RAFG:** p = 0.3764 (Not Significant) | *Higher Mean: DRAFT*
+  * **DRAFT vs. Finetuning:** p = 0.3764 (Not Significant) | *Higher Mean: DRAFT*

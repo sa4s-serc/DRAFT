@@ -9,17 +9,32 @@
 | Evaluator 2 (rudra.dhar@research.iiit.ac.in) | RAFG | 1.953 | 3.578 |
 | Evaluator 2 (rudra.dhar@research.iiit.ac.in) | Finetuning | 2.234 | 3.391 |
 | Evaluator 2 (rudra.dhar@research.iiit.ac.in) | DRAFT | 2.281 | 3.469 |
-| Expert (srinivasan.r@research.iiit.ac.i) | Prompting | 2.5 | 2.071 |
-| Expert (srinivasan.r@research.iiit.ac.i) | RAFG | 2.571 | 4.143 |
-| Expert (srinivasan.r@research.iiit.ac.i) | Finetuning | 2.0 | 2.143 |
-| Expert (srinivasan.r@research.iiit.ac.i) | DRAFT | 2.357 | 2.071 |
-| Combined | Prompting | 2.423 | 2.894 |
-| Combined | RAFG | 2.451 | 3.19 |
-| Combined | Finetuning | 2.563 | 3.0 |
-| Combined | DRAFT | 2.683 | 3.134 |
+| Combined | Prompting | 2.414 | 2.984 |
+| Combined | RAFG | 2.438 | 3.086 |
+| Combined | Finetuning | 2.625 | 3.094 |
+| Combined | DRAFT | 2.719 | 3.25 |
 
-## Inter-Rater Agreement (Krippendorff's Alpha - Ordinal)
-* **Closeness:** 0.282
-* **Correctness:** 0.274
+## Inter-Rater Agreement (Krippendorff's Alpha - Interval)
+* **Closeness:** 0.337
+* **Correctness:** 0.354
 
-*(Note: Alpha > 0.66 is acceptable, > 0.80 is reliable)*
+## Pairwise Inter-Rater Agreement (Weighted Cohen's Kappa)
+*(Uses raw Likert scores. Quadratic weights applied to penalize severe disagreements.)*
+
+**Closeness Pairwise:**
+  * Evaluator 1 vs Evaluator 2: 0.266 (n=252)
+
+**Correctness Pairwise:**
+  * Evaluator 1 vs Evaluator 2: 0.272 (n=252)
+
+*(Note for Kappa: <0=Poor, .01-.20=Slight, .21-.40=Fair, .41-.60=Moderate, .61-.80=Substantial, .81-1=Almost Perfect)*
+
+## Statistical Significance: Closeness
+* **Matched Sample Size:** 64
+* **Friedman Test (Omnibus):** p = 0.0727
+* *Conclusion:* No statistically significant difference found among the 4 approaches (p >= 0.05). Pairwise tests omitted.
+
+## Statistical Significance: Correctness
+* **Matched Sample Size:** 64
+* **Friedman Test (Omnibus):** p = 0.1826
+* *Conclusion:* No statistically significant difference found among the 4 approaches (p >= 0.05). Pairwise tests omitted.

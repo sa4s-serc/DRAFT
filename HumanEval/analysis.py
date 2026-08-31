@@ -8,7 +8,8 @@ from typing import Any
 import numpy as np
 import krippendorff
 from openpyxl import load_workbook
-from scipy.stats import rankdata
+from scipy.stats import rankdata, friedmanchisquare, wilcoxon
+from sklearn.metrics import cohen_kappa_score
 
 APPROACH_ORDER = ["Prompting", "RAFG", "Finetuning", "DRAFT"]
 APPROACH_POSITIONS = ["Model_A", "Model_B", "Model_C", "Model_D"]
@@ -134,14 +135,13 @@ def build_reliability_matrices(
     for i, eval_key in enumerate(evaluator_keys):
         for row in evaluators[eval_key]:
             decision_id = row.get("Decision_ID")
-            if not decision_id:
+            if not decision_id or math.isnan(decision_id):
                 continue
 
             scores = get_approach_scores(row)
             if not scores:
                 continue
 
-            # Separate the components for ranking
             approaches = [s[0] for s in scores]
             closeness_vals = np.array([s[1] for s in scores])
             correctness_vals = np.array([s[2] for s in scores])
@@ -151,9 +151,7 @@ def build_reliability_matrices(
                 valid_mask = ~np.isnan(vals)
                 if np.any(valid_mask):
                     valid_vals = vals[valid_mask]
-                    # We rank negative values so the highest score (e.g., 5) gets rank 1
-                    valid_ranks = rankdata(
-                        [-v for v in valid_vals], method='average')
+                    valid_ranks = rankdata([-v for v in valid_vals], method='average')
                     ranks[valid_mask] = valid_ranks
                 return ranks
 
@@ -171,14 +169,42 @@ def build_reliability_matrices(
     return closeness_matrix, correctness_matrix
 
 
+def build_raw_matrices_for_kappa(
+    evaluators: dict[str, list[dict[str, Any]]]
+) -> tuple[np.ndarray, np.ndarray, list[str]]:
+    """
+    Aligns raw Likert scores (unranked) for pairwise Cohen's Kappa evaluation.
+    """
+    evaluator_keys = list(evaluators.keys())
+    num_evaluators = len(evaluator_keys)
+
+    closeness_data = defaultdict(lambda: [np.nan] * num_evaluators)
+    correctness_data = defaultdict(lambda: [np.nan] * num_evaluators)
+
+    for i, eval_key in enumerate(evaluator_keys):
+        for row in evaluators[eval_key]:
+            decision_id = row.get("Decision_ID")
+            if not decision_id or math.isnan(decision_id):
+                continue
+
+            scores = get_approach_scores(row)
+            for approach, closeness, correctness in scores:
+                key = (decision_id, approach)
+                closeness_data[key][i] = closeness
+                correctness_data[key][i] = correctness
+
+    closeness_matrix = np.array(list(closeness_data.values())).T
+    correctness_matrix = np.array(list(correctness_data.values())).T
+
+    return closeness_matrix, correctness_matrix, evaluator_keys
+
+
 def calculate_krippendorff(matrix: np.ndarray) -> float:
     """Calculate interval Krippendorff's Alpha on rank-transformed data."""
     try:
         if matrix.size == 0 or matrix.ndim < 2 or matrix.shape[1] == 0 or np.isnan(matrix).all():
             return np.nan
 
-        # We switch to "interval" because fractional ranks (like 1.5 for ties)
-        # represent equidistant, continuous intervals, not strict ordinal categories.
         return krippendorff.alpha(
             reliability_data=matrix,
             level_of_measurement="interval"
@@ -186,6 +212,39 @@ def calculate_krippendorff(matrix: np.ndarray) -> float:
     except Exception as e:
         print(f"Warning: Could not calculate Krippendorff's alpha: {e}")
         return np.nan
+
+
+def calculate_pairwise_kappas(matrix: np.ndarray, evaluator_keys: list[str]) -> list[str]:
+    """Calculate Weighted Cohen's Kappa for all rater pairs."""
+    results = []
+    num_raters = matrix.shape[0]
+    
+    for i in range(num_raters):
+        for j in range(i + 1, num_raters):
+            r1_name = evaluator_keys[i].split(" (")[0]
+            r2_name = evaluator_keys[j].split(" (")[0]
+            
+            # Keep only samples where BOTH raters provided a score
+            valid_mask = ~np.isnan(matrix[i]) & ~np.isnan(matrix[j])
+            r1 = matrix[i][valid_mask]
+            r2 = matrix[j][valid_mask]
+            
+            if len(r1) == 0:
+                results.append(f"  * {r1_name} vs {r2_name}: N/A (no overlap)")
+                continue
+                
+            # Convert to integers (Cohen's Kappa expects discrete categories)
+            r1 = np.round(r1).astype(int)
+            r2 = np.round(r2).astype(int)
+            
+            try:
+                # Quadratic weights heavily penalize large mismatches (e.g., 1 vs 5)
+                kappa = cohen_kappa_score(r1, r2, weights="quadratic")
+                results.append(f"  * {r1_name} vs {r2_name}: {kappa:.3f} (n={len(r1)})")
+            except Exception as e:
+                results.append(f"  * {r1_name} vs {r2_name}: Error ({e})")
+                
+    return results
 
 
 def summarize_rows(rows: list[dict[str, Any]]) -> dict[str, Any]:
@@ -268,35 +327,122 @@ def combined_mean(
     return combined
 
 
+def get_averaged_author_scores(evaluators: dict[str, list[dict[str, Any]]], metric: str) -> dict[str, list[float]]:
+    """Averages scores for the two authors across identical samples for statistical testing."""
+    author_keys = [k for k in evaluators.keys() if "Evaluator" in k]
+    if len(author_keys) != 2:
+        return {}
+
+    decision_scores = defaultdict(lambda: defaultdict(list))
+
+    for author in author_keys:
+        for row in evaluators[author]:
+            dec_id = row.get("Decision_ID")
+            if not dec_id or math.isnan(dec_id):
+                continue
+            for approach, closeness, correctness in get_approach_scores(row):
+                val = closeness if metric == "closeness" else correctness
+                if not math.isnan(val):
+                    decision_scores[dec_id][approach].append(val)
+
+    approach_lists = {app: [] for app in APPROACH_ORDER}
+
+    for dec_id, app_dict in decision_scores.items():
+        if all(app in app_dict and len(app_dict[app]) > 0 for app in APPROACH_ORDER):
+            for app in APPROACH_ORDER:
+                avg_score = sum(app_dict[app]) / len(app_dict[app])
+                approach_lists[app].append(avg_score)
+
+    return approach_lists
+
+
+def run_statistical_tests(evaluators: dict[str, list[dict[str, Any]]], target: str = "DRAFT") -> list[str]:
+    """Runs Friedman omnibus test followed by Wilcoxon signed-rank with Holm-Bonferroni."""
+    lines = []
+
+    for metric in METRICS:
+        lines.append(f"\n## Statistical Significance: {metric.capitalize()}")
+        data = get_averaged_author_scores(evaluators, metric)
+
+        if not data or not all(len(v) > 0 for v in data.values()):
+            lines.append("*Not enough perfectly paired data to run statistical tests across all 4 approaches.*")
+            continue
+
+        n_samples = len(data[APPROACH_ORDER[0]])
+        arrays = [data[app] for app in APPROACH_ORDER]
+        
+        stat, p_friedman = friedmanchisquare(*arrays)
+        
+        lines.append(f"* **Matched Sample Size:** {n_samples}")
+        lines.append(f"* **Friedman Test (Omnibus):** p = {p_friedman:.4f}")
+
+        if p_friedman >= 0.05:
+            lines.append("* *Conclusion:* No statistically significant difference found among the 4 approaches (p >= 0.05). Pairwise tests omitted.")
+            continue
+
+        lines.append(f"* *Conclusion:* Significant difference detected. Proceeding to pairwise tests against {target}.")
+        lines.append(f"\n### Pairwise Wilcoxon Tests vs. {target} (Holm-Bonferroni Corrected)")
+
+        target_data = data[target]
+        baselines = [app for app in APPROACH_ORDER if app != target]
+        raw_p_values = []
+        
+        for baseline in baselines:
+            baseline_data = data[baseline]
+            diffs = [t - b for t, b in zip(target_data, baseline_data)]
+            if all(d == 0 for d in diffs):
+                raw_p_values.append(1.0)
+            else:
+                _, p_wilc = wilcoxon(target_data, baseline_data)
+                raw_p_values.append(p_wilc)
+
+        sorted_indices = np.argsort(raw_p_values)
+        m = len(raw_p_values)
+        adj_p_values = np.zeros(m)
+
+        for i, idx in enumerate(sorted_indices):
+            adj_p_values[idx] = raw_p_values[idx] * (m - i)
+            if i > 0:
+                adj_p_values[idx] = max(adj_p_values[idx], adj_p_values[sorted_indices[i-1]])
+            adj_p_values[idx] = min(adj_p_values[idx], 1.0)
+
+        for idx in range(m):
+            baseline = baselines[idx]
+            adj_p = adj_p_values[idx]
+            sig_marker = "**Significant**" if adj_p < 0.05 else "Not Significant"
+            
+            mean_target = sum(target_data) / n_samples
+            mean_baseline = sum(data[baseline]) / n_samples
+            
+            winner = target if mean_target > mean_baseline else (baseline if mean_baseline > mean_target else "Tie")
+            lines.append(f"  * **{target} vs. {baseline}:** p = {adj_p:.4f} ({sig_marker}) | *Higher Mean: {winner}*")
+
+    return lines
+
+
 def find_evaluator_sheets(
     base_dir: Path,
     task: str
 ) -> dict[str, list[dict[str, Any]]]:
-    """Load the two author evaluators and the named expert evaluator."""
+    """Load the two author evaluators."""
     authors = load_evaluator_rows(base_dir / f"{task} Authors.xlsx")
-    expert = load_evaluator_rows(base_dir / f"{task} Expert.xlsx")
 
     author_rows = list(authors.values())
-    expert_rows = list(expert.values())
 
     if len(author_rows) < 2:
         raise ValueError(
             "Need at least two evaluator sheets in the Authors workbook.")
-    if len(expert_rows) != 1:
-        raise ValueError(
-            "Need exactly one evaluator sheet in the Expert workbook.")
 
     return {
         f"Evaluator 1 ({list(authors.keys())[0]})": author_rows[0],
         f"Evaluator 2 ({list(authors.keys())[1]})": author_rows[1],
-        f"Expert ({list(expert.keys())[0]})": expert_rows[0],
     }
 
 
 def format_results(
     evaluators: dict[str, list[dict[str, Any]]],
 ) -> str:
-    """Generate the complete evaluation report, including inter-rater agreement."""
+    """Generate the complete evaluation report."""
     summaries = {
         name: summarize_rows(rows)["mean_per_approach"]
         for name, rows in evaluators.items()
@@ -322,15 +468,29 @@ def format_results(
 
     lines.append("\n## Inter-Rater Agreement (Krippendorff's Alpha - Interval)")
 
-    closeness_matrix, correctness_matrix = build_reliability_matrices(
-        evaluators)
+    closeness_matrix, correctness_matrix = build_reliability_matrices(evaluators)
 
     alpha_closeness = calculate_krippendorff(closeness_matrix)
     alpha_correctness = calculate_krippendorff(correctness_matrix)
 
     lines.append(f"* **Closeness:** {alpha_closeness:.3f}")
     lines.append(f"* **Correctness:** {alpha_correctness:.3f}")
-    lines.append("\n*(Note: Alpha > 0.66 is acceptable, > 0.80 is reliable)*")
+
+    # Adding pairwise Weighted Cohen's Kappa
+    lines.append("\n## Pairwise Inter-Rater Agreement (Weighted Cohen's Kappa)")
+    lines.append("*(Uses raw Likert scores. Quadratic weights applied to penalize severe disagreements.)*")
+    
+    raw_close, raw_corr, eval_keys = build_raw_matrices_for_kappa(evaluators)
+    
+    lines.append("\n**Closeness Pairwise:**")
+    lines.extend(calculate_pairwise_kappas(raw_close, eval_keys))
+    
+    lines.append("\n**Correctness Pairwise:**")
+    lines.extend(calculate_pairwise_kappas(raw_corr, eval_keys))
+
+    lines.append("\n*(Note for Kappa: <0=Poor, .01-.20=Slight, .21-.40=Fair, .41-.60=Moderate, .61-.80=Substantial, .81-1=Almost Perfect)*")
+
+    lines.extend(run_statistical_tests(evaluators, target="DRAFT"))
 
     return "\n".join(lines)
 
@@ -339,25 +499,19 @@ def visualize_raw_matrix(
     evaluators: dict[str, list[dict[str, Any]]], 
     metric: str = "closeness"
 ) -> str:
-    """
-    Creates a formatted text table of raw scores for all evaluators,
-    labeled by Decision_ID and Approach.
-    """
+    """Creates a formatted text table of raw scores for all evaluators."""
     evaluator_keys = list(evaluators.keys())
     
-    # Store data as: (Decision_ID, Approach) -> [eval_1_score, eval_2_score, eval_3_score]
     matrix_data = defaultdict(lambda: ["NaN"] * len(evaluator_keys))
     
     for i, eval_key in enumerate(evaluator_keys):
         for row in evaluators[eval_key]:
             decision_id = row.get("Decision_ID")
-            if not decision_id:
+            if not decision_id or math.isnan(decision_id):
                 continue
             
             for approach, closeness, correctness in get_approach_scores(row):
                 key = (str(decision_id), approach)
-                
-                # Select the score based on the requested metric
                 val = closeness if metric == "closeness" else correctness
                 
                 if math.isnan(val):
@@ -365,24 +519,18 @@ def visualize_raw_matrix(
                 else:
                     matrix_data[key][i] = f"{val:.1f}"
 
-    # Sort the rows by Decision_ID, then by your Approach order
     def sort_key(k):
         dec_id, app = k
         app_idx = APPROACH_ORDER.index(app) if app in APPROACH_ORDER else 999
-        return (dec_id, app_idx)
+        return (float(dec_id) if dec_id.replace('.','',1).isdigit() else dec_id, app_idx)
         
     sorted_keys = sorted(matrix_data.keys(), key=sort_key)
     
-    # Build the table layout
     headers = ["Decision_ID", "Approach"] + evaluator_keys
-    
-    # Dynamically calculate column widths for clean alignment
     col_widths = [len(h) for h in headers]
     for k in sorted_keys:
         col_widths[0] = max(col_widths[0], len(k[0]))
         col_widths[1] = max(col_widths[1], len(k[1]))
-    
-    # Add a little padding to the widths
     col_widths = [w + 2 for w in col_widths]
     
     lines = []
@@ -399,6 +547,7 @@ def visualize_raw_matrix(
         
     return "\n".join(lines)
 
+
 def main(task: str) -> None:
     base_dir = Path(__file__).resolve().parent
     output_file = base_dir / f"{task}_results.txt"
@@ -406,13 +555,13 @@ def main(task: str) -> None:
     try:
         evaluators = find_evaluator_sheets(base_dir, task)
         
-        print(f"\n{'='*60}")
-        print(f"VISUALIZING DATA FOR TASK: {task}")
-        print(f"{'='*60}")
-        print(visualize_raw_matrix(evaluators, metric="closeness"))
-        print("\n")
-        print(visualize_raw_matrix(evaluators, metric="correctness"))
-        print(f"{'='*60}\n")
+        # print(f"\n{'='*60}")
+        # print(f"VISUALIZING DATA FOR TASK: {task}")
+        # print(f"{'='*60}")
+        # print(visualize_raw_matrix(evaluators, metric="closeness"))
+        # print("\n")
+        # print(visualize_raw_matrix(evaluators, metric="correctness"))
+        # print(f"{'='*60}\n")
         
         report = format_results(evaluators)
 
