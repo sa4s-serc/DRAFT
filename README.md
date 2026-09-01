@@ -1,6 +1,6 @@
 # DRAFT-ing Architectural Design Decisions using LLMs
 
-**TOSEM 2026** | [Paper](TOSEM_2026_DRAFT.pdf) | [GitHub](https://github.com/sa4s-serc/DRAFT)
+<!-- **TOSEM 2026** | [Paper](TOSEM_2026_DRAFT.pdf) | [GitHub](https://github.com/sa4s-serc/DRAFT) -->
 
 > Rudra Dhar · Adyansh Kakran · Amey Karan · Vasudeva Varma · Karthik Vaidhyanathan
 > IIIT Hyderabad, India
@@ -53,6 +53,7 @@ See [DRAFT/Readme.md](DRAFT/Readme.md) for full implementation details.
 ├── RAFG/           # Retrieval-Augmented Few-shot Generation experiments
 ├── Finetune/       # Fine-tuning baseline experiments
 ├── DRAFT/          # DRAFT training and inference (main contribution)
+├── HumanEval/      # Human evaluation study, analysis scripts, and results
 ├── Results/        # Evaluation scripts, scores, efficiency metrics, and plots
 └── Diagrams/       # Architecture figures used in the paper
 ```
@@ -129,6 +130,12 @@ Evaluated on the held-out test set of **982 ADRs** using ROUGE-1, BLEU, METEOR, 
 
 The `Results/` directory contains scripts (`score.py`, `efficiency.py`, `input_tokens.py`) to compute all metrics from the prediction JSONL files produced by each approach, and a notebook (`Results/Plots/plots.ipynb`) to reproduce all paper figures. See [Results/Readme.md](Results/Readme.md) for the full tables and workflow.
 
+### Human Evaluation
+
+To complement automated metrics, **2 domain-expert evaluators** independently rated outputs across **64 sampled ADRs** (CD and TB) on Closeness to Ground Truth and Architectural Correctness (5-point Likert), with approaches blinded and randomly shuffled. DRAFT achieved the highest combined means on both tasks and both metrics; on CD Correctness, DRAFT vs. Prompting is statistically significant (Wilcoxon, Holm-Bonferroni corrected, p = 0.0238).
+
+See [HumanEval/README.md](HumanEval/README.md) for the full study design, scores, inter-rater agreement, and significance tests.
+
 ---
 
 ## Key Findings
@@ -138,6 +145,8 @@ The `Results/` directory contains scripts (`score.py`, `efficiency.py`, `input_t
 - **Absolute scores are higher for Task 2** (Title → Body), reflecting the longer, richer nature of ADR bodies — and DRAFT's improvement over baseline is more pronounced for Task 2.
 - **DRAFT-ed models generate concisely**, producing outputs close to ground truth length (61–140 tokens for Task 1 vs. 147–672 for prompting). This directly reduces response latency, since output length is the primary driver of inference cost.
 - **Open-source models with DRAFT** (Qwen3-30B, Gemma-3-4B) can match or approach proprietary model quality while being deployable on-premises, addressing organizational privacy and cost concerns.
+- **Human evaluators confirm DRAFT's superiority**, rating it highest on both Closeness and Correctness across CD and TB tasks; the advantage on CD Correctness over Prompting is statistically significant (p = 0.0238).
+
 
 ---
 
