@@ -6,7 +6,6 @@ from pathlib import Path
 from typing import Any
 
 import numpy as np
-import krippendorff
 from openpyxl import load_workbook
 from scipy.stats import rankdata, friedmanchisquare, wilcoxon
 from sklearn.metrics import cohen_kappa_score
@@ -198,20 +197,6 @@ def build_raw_matrices_for_kappa(
 
     return closeness_matrix, correctness_matrix, evaluator_keys
 
-
-def calculate_krippendorff(matrix: np.ndarray) -> float:
-    """Calculate interval Krippendorff's Alpha on rank-transformed data."""
-    try:
-        if matrix.size == 0 or matrix.ndim < 2 or matrix.shape[1] == 0 or np.isnan(matrix).all():
-            return np.nan
-
-        return krippendorff.alpha(
-            reliability_data=matrix,
-            level_of_measurement="interval"
-        )
-    except Exception as e:
-        print(f"Warning: Could not calculate Krippendorff's alpha: {e}")
-        return np.nan
 
 
 def calculate_pairwise_kappas(matrix: np.ndarray, evaluator_keys: list[str]) -> list[str]:
@@ -465,17 +450,6 @@ def format_results(
                     f"{summary[approach]['closeness']} | "
                     f"{summary[approach]['correctness']} |"
                 )
-
-    lines.append("\n## Inter-Rater Agreement (Krippendorff's Alpha - Interval)")
-
-    closeness_matrix, correctness_matrix = build_reliability_matrices(evaluators)
-
-    alpha_closeness = calculate_krippendorff(closeness_matrix)
-    alpha_correctness = calculate_krippendorff(correctness_matrix)
-
-    lines.append(f"* **Closeness:** {alpha_closeness:.3f}")
-    lines.append(f"* **Correctness:** {alpha_correctness:.3f}")
-
     # Adding pairwise Weighted Cohen's Kappa
     lines.append("\n## Pairwise Inter-Rater Agreement (Weighted Cohen's Kappa)")
     lines.append("*(Uses raw Likert scores. Quadratic weights applied to penalize severe disagreements.)*")

@@ -14,10 +14,6 @@
 | Combined | Finetuning | 2.625 | 3.094 |
 | Combined | DRAFT | 2.719 | 3.25 |
 
-## Inter-Rater Agreement (Krippendorff's Alpha - Interval)
-* **Closeness:** 0.337
-* **Correctness:** 0.354
-
 ## Pairwise Inter-Rater Agreement (Weighted Cohen's Kappa)
 *(Uses raw Likert scores. Quadratic weights applied to penalize severe disagreements.)*
 
