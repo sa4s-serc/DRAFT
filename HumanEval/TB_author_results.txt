@@ -18,19 +18,19 @@
 *(Uses raw Likert scores. Quadratic weights applied to penalize severe disagreements.)*
 
 **Closeness Pairwise:**
-  * Evaluator 1 vs Evaluator 2: 0.266 (n=252)
+  * Evaluator 1 vs Evaluator 2: 0.258 (n=256)
 
 **Correctness Pairwise:**
-  * Evaluator 1 vs Evaluator 2: 0.272 (n=252)
+  * Evaluator 1 vs Evaluator 2: 0.259 (n=256)
 
 *(Note for Kappa: <0=Poor, .01-.20=Slight, .21-.40=Fair, .41-.60=Moderate, .61-.80=Substantial, .81-1=Almost Perfect)*
 
 ## Statistical Significance: Closeness
 * **Matched Sample Size:** 64
-* **Friedman Test (Omnibus):** p = 0.0727
+* **Friedman Test (Omnibus):** p = 0.0655
 * *Conclusion:* No statistically significant difference found among the 4 approaches (p >= 0.05). Pairwise tests omitted.
 
 ## Statistical Significance: Correctness
 * **Matched Sample Size:** 64
-* **Friedman Test (Omnibus):** p = 0.1826
+* **Friedman Test (Omnibus):** p = 0.1645
 * *Conclusion:* No statistically significant difference found among the 4 approaches (p >= 0.05). Pairwise tests omitted.

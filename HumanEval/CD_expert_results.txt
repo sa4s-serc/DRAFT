@@ -1,0 +1,49 @@
+## Performance Means
+| Evaluator | Approach | Closeness | Correctness |
+|---|---|---:|---:|
+| Senior Architect | Prompting | 2.786 | 3.214 |
+| Senior Architect | RAFG | 3.571 | 4.214 |
+| Senior Architect | Finetuning | 2.571 | 2.786 |
+| Senior Architect | DRAFT | 2.071 | 2.357 |
+| Student Architect | Prompting | 3.143 | 3.714 |
+| Student Architect | RAFG | 3.214 | 3.429 |
+| Student Architect | Finetuning | 2.929 | 3.071 |
+| Student Architect | DRAFT | 3.286 | 3.286 |
+| Student Architect 1 (samples 1-7) | Prompting | 3.571 | 4.143 |
+| Student Architect 1 (samples 1-7) | RAFG | 3.571 | 3.857 |
+| Student Architect 1 (samples 1-7) | Finetuning | 3.143 | 3.429 |
+| Student Architect 1 (samples 1-7) | DRAFT | 3.571 | 3.286 |
+| Student Architect 2 (samples 8-14) | Prompting | 2.714 | 3.286 |
+| Student Architect 2 (samples 8-14) | RAFG | 2.857 | 3.0 |
+| Student Architect 2 (samples 8-14) | Finetuning | 2.714 | 2.714 |
+| Student Architect 2 (samples 8-14) | DRAFT | 3.0 | 3.286 |
+| Combined | Prompting | 2.964 | 3.464 |
+| Combined | RAFG | 3.393 | 3.821 |
+| Combined | Finetuning | 2.75 | 2.929 |
+| Combined | DRAFT | 2.679 | 2.821 |
+
+## Pairwise Inter-Rater Agreement (Weighted Cohen's Kappa)
+*(Uses raw Likert scores. Quadratic weights applied to penalize severe disagreements.)*
+
+**Closeness Pairwise:**
+  * Senior Architect vs Student Architect: 0.569 (n=56)
+
+**Correctness Pairwise:**
+  * Senior Architect vs Student Architect: 0.472 (n=56)
+
+*(Note for Kappa: <0=Poor, .01-.20=Slight, .21-.40=Fair, .41-.60=Moderate, .61-.80=Substantial, .81-1=Almost Perfect)*
+
+## Statistical Significance: Closeness
+* **Matched Sample Size:** 14
+* **Friedman Test (Omnibus):** p = 0.1694
+* *Conclusion:* No statistically significant difference found among the 4 approaches (p >= 0.05). Pairwise tests omitted.
+
+## Statistical Significance: Correctness
+* **Matched Sample Size:** 14
+* **Friedman Test (Omnibus):** p = 0.0312
+* *Conclusion:* Significant difference detected. Proceeding to pairwise tests against DRAFT.
+
+### Pairwise Wilcoxon Tests vs. DRAFT (Holm-Bonferroni Corrected)
+  * **DRAFT vs. Prompting:** p = 0.4573 (Not Significant) | *Higher Mean: Prompting*
+  * **DRAFT vs. RAFG:** p = 0.0745 (Not Significant) | *Higher Mean: RAFG*
+  * **DRAFT vs. Finetuning:** p = 0.8740 (Not Significant) | *Higher Mean: Finetuning*

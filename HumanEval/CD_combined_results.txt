@@ -1,0 +1,152 @@
+# A. Authors on the 14 expert samples
+
+## Performance Means
+| Evaluator | Approach | Closeness | Correctness |
+|---|---|---:|---:|
+| Evaluator 1 (adyanshkakran@gmail.com) | Prompting | 3.571 | 3.214 |
+| Evaluator 1 (adyanshkakran@gmail.com) | RAFG | 3.571 | 2.857 |
+| Evaluator 1 (adyanshkakran@gmail.com) | Finetuning | 3.5 | 3.571 |
+| Evaluator 1 (adyanshkakran@gmail.com) | DRAFT | 3.786 | 3.929 |
+| Evaluator 2 (rudra.dhar@research.iiit.ac.in) | Prompting | 2.071 | 3.286 |
+| Evaluator 2 (rudra.dhar@research.iiit.ac.in) | RAFG | 2.786 | 4.071 |
+| Evaluator 2 (rudra.dhar@research.iiit.ac.in) | Finetuning | 2.571 | 3.5 |
+| Evaluator 2 (rudra.dhar@research.iiit.ac.in) | DRAFT | 2.714 | 3.643 |
+| Combined | Prompting | 2.821 | 3.25 |
+| Combined | RAFG | 3.179 | 3.464 |
+| Combined | Finetuning | 3.036 | 3.536 |
+| Combined | DRAFT | 3.25 | 3.786 |
+
+## Pairwise Inter-Rater Agreement (Weighted Cohen's Kappa)
+*(Uses raw Likert scores. Quadratic weights applied to penalize severe disagreements.)*
+
+**Closeness Pairwise:**
+  * Evaluator 1 vs Evaluator 2: 0.200 (n=56)
+
+**Correctness Pairwise:**
+  * Evaluator 1 vs Evaluator 2: 0.206 (n=56)
+
+*(Note for Kappa: <0=Poor, .01-.20=Slight, .21-.40=Fair, .41-.60=Moderate, .61-.80=Substantial, .81-1=Almost Perfect)*
+
+## Statistical Significance: Closeness
+* **Matched Sample Size:** 14
+* **Friedman Test (Omnibus):** p = 0.4084
+* *Conclusion:* No statistically significant difference found among the 4 approaches (p >= 0.05). Pairwise tests omitted.
+
+## Statistical Significance: Correctness
+* **Matched Sample Size:** 14
+* **Friedman Test (Omnibus):** p = 0.1624
+* *Conclusion:* No statistically significant difference found among the 4 approaches (p >= 0.05). Pairwise tests omitted.
+
+# B. All raters (2 authors + senior + student architect) on the 14 expert samples
+
+## Performance Means
+| Evaluator | Approach | Closeness | Correctness |
+|---|---|---:|---:|
+| Evaluator 1 (adyanshkakran@gmail.com) | Prompting | 3.571 | 3.214 |
+| Evaluator 1 (adyanshkakran@gmail.com) | RAFG | 3.571 | 2.857 |
+| Evaluator 1 (adyanshkakran@gmail.com) | Finetuning | 3.5 | 3.571 |
+| Evaluator 1 (adyanshkakran@gmail.com) | DRAFT | 3.786 | 3.929 |
+| Evaluator 2 (rudra.dhar@research.iiit.ac.in) | Prompting | 2.071 | 3.286 |
+| Evaluator 2 (rudra.dhar@research.iiit.ac.in) | RAFG | 2.786 | 4.071 |
+| Evaluator 2 (rudra.dhar@research.iiit.ac.in) | Finetuning | 2.571 | 3.5 |
+| Evaluator 2 (rudra.dhar@research.iiit.ac.in) | DRAFT | 2.714 | 3.643 |
+| Senior Architect | Prompting | 2.786 | 3.214 |
+| Senior Architect | RAFG | 3.571 | 4.214 |
+| Senior Architect | Finetuning | 2.571 | 2.786 |
+| Senior Architect | DRAFT | 2.071 | 2.357 |
+| Student Architect | Prompting | 3.143 | 3.714 |
+| Student Architect | RAFG | 3.214 | 3.429 |
+| Student Architect | Finetuning | 2.929 | 3.071 |
+| Student Architect | DRAFT | 3.286 | 3.286 |
+| Combined | Prompting | 2.893 | 3.357 |
+| Combined | RAFG | 3.286 | 3.643 |
+| Combined | Finetuning | 2.893 | 3.232 |
+| Combined | DRAFT | 2.964 | 3.304 |
+
+## Pairwise Inter-Rater Agreement (Weighted Cohen's Kappa)
+*(Uses raw Likert scores. Quadratic weights applied to penalize severe disagreements.)*
+
+**Closeness Pairwise:**
+  * Evaluator 1 vs Evaluator 2: 0.200 (n=56)
+  * Evaluator 1 vs Senior Architect: 0.285 (n=56)
+  * Evaluator 1 vs Student Architect: 0.210 (n=56)
+  * Evaluator 2 vs Senior Architect: 0.446 (n=56)
+  * Evaluator 2 vs Student Architect: 0.498 (n=56)
+  * Senior Architect vs Student Architect: 0.569 (n=56)
+
+**Correctness Pairwise:**
+  * Evaluator 1 vs Evaluator 2: 0.206 (n=56)
+  * Evaluator 1 vs Senior Architect: -0.012 (n=56)
+  * Evaluator 1 vs Student Architect: 0.095 (n=56)
+  * Evaluator 2 vs Senior Architect: 0.422 (n=56)
+  * Evaluator 2 vs Student Architect: 0.420 (n=56)
+  * Senior Architect vs Student Architect: 0.472 (n=56)
+
+*(Note for Kappa: <0=Poor, .01-.20=Slight, .21-.40=Fair, .41-.60=Moderate, .61-.80=Substantial, .81-1=Almost Perfect)*
+
+## Statistical Significance: Closeness
+* **Matched Sample Size:** 14
+* **Friedman Test (Omnibus):** p = 0.1957
+* *Conclusion:* No statistically significant difference found among the 4 approaches (p >= 0.05). Pairwise tests omitted.
+
+## Statistical Significance: Correctness
+* **Matched Sample Size:** 14
+* **Friedman Test (Omnibus):** p = 0.1505
+* *Conclusion:* No statistically significant difference found among the 4 approaches (p >= 0.05). Pairwise tests omitted.
+
+# C. All raters pooled over all author samples (per-sample mean of available raters)
+
+## Performance Means
+| Evaluator | Approach | Closeness | Correctness |
+|---|---|---:|---:|
+| Evaluator 1 (adyanshkakran@gmail.com) | Prompting | 3.406 | 2.969 |
+| Evaluator 1 (adyanshkakran@gmail.com) | RAFG | 3.469 | 3.062 |
+| Evaluator 1 (adyanshkakran@gmail.com) | Finetuning | 3.453 | 3.484 |
+| Evaluator 1 (adyanshkakran@gmail.com) | DRAFT | 3.703 | 3.625 |
+| Evaluator 2 (rudra.dhar@research.iiit.ac.in) | Prompting | 2.375 | 3.781 |
+| Evaluator 2 (rudra.dhar@research.iiit.ac.in) | RAFG | 2.516 | 4.031 |
+| Evaluator 2 (rudra.dhar@research.iiit.ac.in) | Finetuning | 2.438 | 3.469 |
+| Evaluator 2 (rudra.dhar@research.iiit.ac.in) | DRAFT | 2.688 | 3.734 |
+| Senior Architect | Prompting | 2.786 | 3.214 |
+| Senior Architect | RAFG | 3.571 | 4.214 |
+| Senior Architect | Finetuning | 2.571 | 2.786 |
+| Senior Architect | DRAFT | 2.071 | 2.357 |
+| Student Architect | Prompting | 3.143 | 3.714 |
+| Student Architect | RAFG | 3.214 | 3.429 |
+| Student Architect | Finetuning | 2.929 | 3.071 |
+| Student Architect | DRAFT | 3.286 | 3.286 |
+| Combined | Prompting | 2.904 | 3.391 |
+| Combined | RAFG | 3.064 | 3.596 |
+| Combined | Finetuning | 2.91 | 3.378 |
+| Combined | DRAFT | 3.103 | 3.526 |
+
+## Pairwise Inter-Rater Agreement (Weighted Cohen's Kappa)
+*(Uses raw Likert scores. Quadratic weights applied to penalize severe disagreements.)*
+
+**Closeness Pairwise:**
+  * Evaluator 1 vs Evaluator 2: 0.352 (n=256)
+  * Evaluator 1 vs Senior Architect: 0.285 (n=56)
+  * Evaluator 1 vs Student Architect: 0.210 (n=56)
+  * Evaluator 2 vs Senior Architect: 0.446 (n=56)
+  * Evaluator 2 vs Student Architect: 0.498 (n=56)
+  * Senior Architect vs Student Architect: 0.569 (n=56)
+
+**Correctness Pairwise:**
+  * Evaluator 1 vs Evaluator 2: 0.205 (n=256)
+  * Evaluator 1 vs Senior Architect: -0.012 (n=56)
+  * Evaluator 1 vs Student Architect: 0.095 (n=56)
+  * Evaluator 2 vs Senior Architect: 0.422 (n=56)
+  * Evaluator 2 vs Student Architect: 0.420 (n=56)
+  * Senior Architect vs Student Architect: 0.472 (n=56)
+
+*(Note for Kappa: <0=Poor, .01-.20=Slight, .21-.40=Fair, .41-.60=Moderate, .61-.80=Substantial, .81-1=Almost Perfect)*
+
+## Statistical Significance: Closeness
+* **Matched Sample Size:** 64
+* **Friedman Test (Omnibus):** p = 0.1984
+* *Conclusion:* No statistically significant difference found among the 4 approaches (p >= 0.05). Pairwise tests omitted.
+
+## Statistical Significance: Correctness
+* **Matched Sample Size:** 64
+* **Friedman Test (Omnibus):** p = 0.1588
+* *Conclusion:* No statistically significant difference found among the 4 approaches (p >= 0.05). Pairwise tests omitted.

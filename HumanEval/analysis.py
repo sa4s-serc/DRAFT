@@ -312,16 +312,16 @@ def combined_mean(
     return combined
 
 
-def get_averaged_author_scores(evaluators: dict[str, list[dict[str, Any]]], metric: str) -> dict[str, list[float]]:
-    """Averages scores for the two authors across identical samples for statistical testing."""
-    author_keys = [k for k in evaluators.keys() if "Evaluator" in k]
-    if len(author_keys) != 2:
+def get_averaged_scores(evaluators: dict[str, list[dict[str, Any]]], metric: str) -> dict[str, list[float]]:
+    """Averages scores of all raters who rated a sample, per sample, for statistical testing."""
+    rater_keys = list(evaluators.keys())
+    if not rater_keys:
         return {}
 
     decision_scores = defaultdict(lambda: defaultdict(list))
 
-    for author in author_keys:
-        for row in evaluators[author]:
+    for rater in rater_keys:
+        for row in evaluators[rater]:
             dec_id = row.get("Decision_ID")
             if not dec_id or math.isnan(dec_id):
                 continue
@@ -347,7 +347,7 @@ def run_statistical_tests(evaluators: dict[str, list[dict[str, Any]]], target: s
 
     for metric in METRICS:
         lines.append(f"\n## Statistical Significance: {metric.capitalize()}")
-        data = get_averaged_author_scores(evaluators, metric)
+        data = get_averaged_scores(evaluators, metric)
 
         if not data or not all(len(v) > 0 for v in data.values()):
             lines.append("*Not enough perfectly paired data to run statistical tests across all 4 approaches.*")
@@ -424,13 +424,78 @@ def find_evaluator_sheets(
     }
 
 
+def load_single_sheet(path: Path) -> list[dict[str, Any]]:
+    """Load the rows of a workbook expected to hold exactly one evaluation sheet."""
+    sheets = {name: rows for name, rows in load_evaluator_rows(path).items() if rows}
+
+    if len(sheets) != 1:
+        raise ValueError(
+            f"Expected exactly one non-empty evaluation sheet in {path.name}, found {len(sheets)}.")
+
+    return next(iter(sheets.values()))
+
+
+def get_sample_ids(rows: list[dict[str, Any]]) -> set[float]:
+    """Return the set of valid Decision_IDs in a list of rows."""
+    return {
+        row["Decision_ID"]
+        for row in rows
+        if row.get("Decision_ID") is not None and not math.isnan(row["Decision_ID"])
+    }
+
+
+def find_expert_sheets(
+    base_dir: Path,
+    task: str
+) -> tuple[dict[str, list[dict[str, Any]]], dict[str, list[dict[str, Any]]]]:
+    """
+    Load the expert evaluators.
+
+    The senior architect rated all 14 architect samples. Two student architects
+    each rated a disjoint half (samples 1-7 and 8-14), so they are merged into a
+    single "Student Architect" rater, giving every sample one senior and one
+    student rating. Returns (raters used for kappa/statistics, individual
+    students reported for means only).
+    """
+    senior = load_single_sheet(base_dir / f"{task} Expert.xlsx")
+    student_1 = load_single_sheet(base_dir / f"{task} Expert 1to7.xlsx")
+    student_2 = load_single_sheet(base_dir / f"{task} Expert 8to14.xlsx")
+
+    senior_ids = get_sample_ids(senior)
+    student_1_ids = get_sample_ids(student_1)
+    student_2_ids = get_sample_ids(student_2)
+
+    if student_1_ids & student_2_ids:
+        raise ValueError(
+            f"Student architect samples overlap: {sorted(student_1_ids & student_2_ids)}")
+    if senior_ids != student_1_ids | student_2_ids:
+        raise ValueError(
+            "Senior architect samples do not match the union of student architect samples.")
+
+    raters = {
+        "Senior Architect": senior,
+        "Student Architect": student_1 + student_2,
+    }
+    sub_raters = {
+        "Student Architect 1 (samples 1-7)": student_1,
+        "Student Architect 2 (samples 8-14)": student_2,
+    }
+
+    return raters, sub_raters
+
+
 def format_results(
     evaluators: dict[str, list[dict[str, Any]]],
+    sub_raters: dict[str, list[dict[str, Any]]] | None = None,
 ) -> str:
-    """Generate the complete evaluation report."""
+    """Generate the complete evaluation report.
+
+    sub_raters are partial raters whose means are reported for information only;
+    they are not used for agreement or significance tests.
+    """
     summaries = {
         name: summarize_rows(rows)["mean_per_approach"]
-        for name, rows in evaluators.items()
+        for name, rows in {**evaluators, **(sub_raters or {})}.items()
     }
 
     all_rows = [row for rows in evaluators.values() for row in rows]
@@ -524,7 +589,7 @@ def visualize_raw_matrix(
 
 def main(task: str) -> None:
     base_dir = Path(__file__).resolve().parent
-    output_file = base_dir / f"{task}_results.txt"
+    output_file = base_dir / f"{task}_author_results.txt"
 
     try:
         evaluators = find_evaluator_sheets(base_dir, task)
@@ -549,6 +614,92 @@ def main(task: str) -> None:
         print(f"[{task}] Failed to process: {e}")
 
 
+def main_expert(task: str) -> None:
+    base_dir = Path(__file__).resolve().parent
+    output_file = base_dir / f"{task}_expert_results.txt"
+
+    try:
+        raters, sub_raters = find_expert_sheets(base_dir, task)
+        report = format_results(raters, sub_raters)
+
+        output_file.write_text(
+            report,
+            encoding="utf-8",
+        )
+        print(f"[{task} Expert] Results written to: {output_file}")
+
+    except Exception as e:
+        print(f"[{task} Expert] Failed to process: {e}")
+
+
+def filter_rows(rows: list[dict[str, Any]], sample_ids: set[float]) -> list[dict[str, Any]]:
+    """Keep only rows whose Decision_ID is in sample_ids."""
+    return [row for row in rows if row.get("Decision_ID") in sample_ids]
+
+
+def main_combined(task: str) -> None:
+    """
+    Combine the author and expert studies:
+      A. Authors restricted to the 14 expert samples (like-for-like with experts)
+      B. All four raters (2 authors, senior, student) on the 14 expert samples
+      C. All raters pooled over the 64 author samples; each sample's score is the
+         mean of all raters who rated it (4 for the 14 expert samples, 2 otherwise)
+    """
+    base_dir = Path(__file__).resolve().parent
+    output_file = base_dir / f"{task}_combined_results.txt"
+
+    try:
+        authors = find_evaluator_sheets(base_dir, task)
+        experts, _ = find_expert_sheets(base_dir, task)
+
+        expert_ids = get_sample_ids(experts["Senior Architect"])
+        authors_on_expert_samples = {
+            name: filter_rows(rows, expert_ids)
+            for name, rows in authors.items()
+        }
+
+        for name, rows in authors_on_expert_samples.items():
+            if get_sample_ids(rows) != expert_ids:
+                raise ValueError(f"{name} did not rate all expert samples.")
+
+        sections = [
+            (
+                f"# A. Authors on the {len(expert_ids)} expert samples",
+                authors_on_expert_samples,
+            ),
+            (
+                f"# B. All raters (2 authors + senior + student architect) on the {len(expert_ids)} expert samples",
+                {**authors_on_expert_samples, **experts},
+            ),
+            (
+                "# C. All raters pooled over all author samples "
+                "(per-sample mean of available raters)",
+                {**authors, **experts},
+            ),
+        ]
+
+        report = "\n\n".join(
+            f"{title}\n\n{format_results(raters)}"
+            for title, raters in sections
+        )
+
+        output_file.write_text(
+            report,
+            encoding="utf-8",
+        )
+        print(f"[{task} Combined] Results written to: {output_file}")
+
+    except Exception as e:
+        print(f"[{task} Combined] Failed to process: {e}")
+
+
 if __name__ == "__main__":
+    # Author study (64 samples, 2 author raters)
     main("CD")
     main("TB")
+    # Expert study (14 samples, senior + student architect raters)
+    main_expert("CD")
+    main_expert("TB")
+    # Authors + experts combined
+    main_combined("CD")
+    main_combined("TB")
