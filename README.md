@@ -9,7 +9,7 @@
 
 ## Overview
 
-Architectural Decision Records (ADRs) are a lightweight mechanism for capturing key architectural decisions in software projects, yet their adoption remains limited due to the manual effort involved in writing them. This repository contains the full implementation and evaluation for **DRAFT** (Domain-specific Retrieval Augmented Few-shot Tuning), a novel approach that integrates Retrieval-Augmented Few-shot Generation (RAFG) with Fine-tuning to assist architects in generating ADR artifacts.
+Architectural Decision Records (ADRs) capture key architectural decisions, but their adoption is limited by the manual effort of writing them. This repository contains the implementation and evaluation of **DRAFT** (Domain-specific Retrieval Augmented Few-shot Tuning), an approach that combines Retrieval Augmented Few-shot Generation (RAFG) with Fine-tuning to assist architects in drafting ADRs.
 
 DRAFT is evaluated on two complementary tasks:
 
@@ -18,7 +18,7 @@ DRAFT is evaluated on two complementary tasks:
 | **Task 1 — Decision Making Support** | Decision Context (C) | Design Decision (D) |
 | **Task 2 — Complete ADR Generation** | ADR Title (T) | ADR Body (B) |
 
-Evaluated on **4,911 ADRs** across **4 LLMs** (GPT-5, Gemini-2.5-Flash, Qwen3-30B, Gemma-3-4B), DRAFT consistently outperforms prompting, RAFG, and Fine-tuning alone in alignment with real-world ADR documentation.
+Evaluated on **4,344 ADRs** with **4 LLMs** (GPT-5, Gemini-2.5-Flash, Qwen3-30B, Gemma-3-4B), DRAFT produces outputs most closely aligned with real-world ADRs on automated metrics. A human evaluation by the authors and external architects shows no uniformly preferred approach.
 
 ---
 
@@ -62,7 +62,7 @@ See [DRAFT/Readme.md](DRAFT/Readme.md) for full implementation details.
 
 ## Data
 
-The dataset comprises **4,911 ADRs** sourced from open-source GitHub repositories via a Mining Software Repositories (MSR) study. The pipeline collects, processes, and prepares Context–Decision (C-D) pairs for Task 1 and Title–Body (T-B) pairs for Task 2.
+The dataset comprises **4,344 ADRs** from open-source GitHub repositories, sourced from a Mining Software Repositories (MSR) study of 921 ADR-using repositories. The pipeline collects, processes, and prepares Context–Decision (C-D) pairs for Task 1 and Title–Body (T-B) pairs for Task 2.
 
 **Pipeline stages:**
 
@@ -71,7 +71,7 @@ The dataset comprises **4,911 ADRs** sourced from open-source GitHub repositorie
 3. **Dataset Creation** — Parse markdown into structured JSONL (title, body, context, decision, token counts)
 4. **Filter** — Remove ADRs outside token limits (body: 10–1000 tokens), non-English content (<90% ASCII), and high URL density (>20%)
 5. **De-duplicate** — Remove near-identical ADRs using `all-MiniLM-L6-v2` cosine similarity (threshold ≥ 0.98)
-6. **Split** — Randomly shuffle and partition into train / val / test at 70% / 10% / 20% (3,438 / 491 / 982 ADRs)
+6. **Split** — Randomly shuffle and partition into train / val / test at 70% / 10% / 20% (3,040 / 434 / 870 ADRs)
 
 See [Data/README.md](Data/README.md) for full details.
 
@@ -96,7 +96,7 @@ All four approaches are evaluated on both tasks across all models.
 | Approach | Description | Directory |
 |---|---|---|
 | **Prompting** | Zero-shot: model receives only the input (C or T) with a system prompt | [Prompting/](Prompting/) |
-| **RAFG** | Few-shot with top-5 retrieved examples from a VDB; no model training | [RAFG/](RAFG/) |
+| **RAFG** | Few-shot with top-2 retrieved examples from a VDB; no model training | [RAFG/](RAFG/) |
 | **Fine-tuning** | Model trained on C-D or T-B pairs; zero-shot at inference | [Finetune/](Finetune/) |
 | **DRAFT** | Model trained on retrieval-augmented prompts; same retrieval at inference | [DRAFT/](DRAFT/) |
 
@@ -126,26 +126,31 @@ Each module (`Prompting/`, `RAFG/`, `Finetune/`, `DRAFT/`) contains a `Code/` di
 
 ## Results
 
-Evaluated on the held-out test set of **982 ADRs** using ROUGE-1, BLEU, METEOR, and BERTScore F1 (primary metric — semantic similarity correlating best with human judgement) for effectiveness, and token counts and response time for efficiency.
+Evaluated on the held-out test set of **870 ADRs** using ROUGE-1, BLEU, METEOR, and BERTScore F1 (primary metric — semantic similarity correlating best with human judgement) for effectiveness, and token counts and response time for efficiency.
 
 The `Results/` directory contains scripts (`score.py`, `efficiency.py`, `input_tokens.py`) to compute all metrics from the prediction JSONL files produced by each approach, and a notebook (`Results/Plots/plots.ipynb`) to reproduce all paper figures. See [Results/Readme.md](Results/Readme.md) for the full tables and workflow.
 
 ### Human Evaluation
 
-To complement automated metrics, **2 domain-expert evaluators** independently rated outputs across **64 sampled ADRs** (CD and TB) on Closeness to Ground Truth and Architectural Correctness (5-point Likert), with approaches blinded and randomly shuffled. DRAFT achieved the highest combined means on both tasks and both metrics; on CD Correctness, DRAFT vs. Prompting is statistically significant (Wilcoxon, Holm-Bonferroni corrected, p = 0.0238).
+Outputs were rated blind on Closeness to Ground Truth and Architectural Correctness (5-point scale) by two authors (64 test ADRs) and by external experts (14-sample subset; one senior architect, two PhD students in software architecture).
 
-See [HumanEval/README.md](HumanEval/README.md) for the full study design, scores, inter-rater agreement, and significance tests.
+| Raters | Result |
+|---|---|
+| Authors | DRAFT highest on both tasks and criteria; DRAFT > Prompting on CD Correctness (p = 0.024) |
+| Experts | RAFG highest; RAFG > DRAFT on TB Correctness (p = 0.011), driven by the senior architect |
+| All raters | No significant differences |
+
+See [HumanEval/README.md](HumanEval/README.md) for scores, inter-rater agreement, and significance tests.
 
 ---
 
 ## Key Findings
 
-- **DRAFT achieves the highest BERTScore F1** for Qwen3-30B and Gemini-2.5-Flash on both tasks, outperforming prompting, RAFG, and fine-tuning individually.
-- **DRAFT's benefit scales with model capacity.** For Gemma-3-4B (the smallest model), RAFG peaks on Task 1 while DRAFT leads on Task 2. For larger models (Gemini, Qwen), DRAFT consistently leads.
-- **Absolute scores are higher for Task 2** (Title → Body), reflecting the longer, richer nature of ADR bodies — and DRAFT's improvement over baseline is more pronounced for Task 2.
-- **DRAFT-ed models generate concisely**, producing outputs close to ground truth length (61–140 tokens for Task 1 vs. 147–672 for prompting). This directly reduces response latency, since output length is the primary driver of inference cost.
-- **Open-source models with DRAFT** (Qwen3-30B, Gemma-3-4B) can match or approach proprietary model quality while being deployable on-premises, addressing organizational privacy and cost concerns.
-- **Human evaluators confirm DRAFT's superiority**, rating it highest on both Closeness and Correctness across CD and TB tasks; the advantage on CD Correctness over Prompting is statistically significant (p = 0.0238).
+- **Automated metrics:** DRAFT achieves the highest BERTScore F1 for Qwen3-30B and Gemini-2.5-Flash on both tasks. For Gemma-3-4B, RAFG leads on Task 1 and DRAFT on Task 2.
+- **Task dependence:** DRAFT's gains over all baselines are significant for every model on Task 2, but model-dependent on Task 1.
+- **Output length:** DRAFT-ed models produce outputs close to ground-truth length (61–140 tokens on Task 1 vs. 147–672 for prompting); output length is the main driver of response time.
+- **Deployment:** DRAFT-ed open-source models (Qwen3-30B, Gemma-3-4B) achieve performance comparable to larger proprietary models and can be hosted on-premises.
+- **Human evaluation:** Similarity to real ADRs does not imply higher perceived quality. Authors preferred DRAFT, the senior architect preferred the more elaborate RAFG outputs, and junior architects found little difference, noting that DRAFT outputs often omit rationale.
 
 
 ---

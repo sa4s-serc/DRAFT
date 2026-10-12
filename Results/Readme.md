@@ -1,6 +1,6 @@
 # Results
 
-This directory contains all evaluation outputs, scores, and plots for the DRAFT paper. Results cover two tasks across four models and four approaches, evaluated on 982 held-out test ADRs.
+This directory contains all evaluation outputs, scores, and plots for the DRAFT paper. Results cover two tasks across four models and four approaches, evaluated on 870 held-out test ADRs.
 
 ---
 
@@ -40,7 +40,7 @@ Results/
 | Task 1 : Context → Decision (CD) | Decision Context | Design Decision | `Decision` |
 | Task 2 : Title → Body (TB) | ADR Title | Complete ADR Body | `Body` |
 
-**Test set**: 982 ADRs (held-out 20% split, consistent across all approaches and both tasks).
+**Test set**: 870 ADRs (held-out 20% split, consistent across all approaches and both tasks).
 
 **Approaches evaluated**: Prompting (zero-shot), RAFG, Fine-tuning, DRAFT.
 
@@ -149,16 +149,16 @@ Ground truth mean Body length: **275 tokens**.
 **Effectiveness**
 
 - DRAFT achieves the highest BERTScore F1 for Qwen3-30B and Gemini-2.5-Flash on both tasks. For Gemma-3-4b, RAFG peaks on Task 1 while DRAFT leads on Task 2, suggesting that DRAFT's benefit scales with model capacity.
-- Fine-tuning and DRAFT consistently outperform prompting and RAFG alone across both tasks. The gap is especially large for Task 2, where domain-specific training on structured ADR bodies provides a stronger signal.
-- DRAFT produces higher absolute metric scores for Task 2 (Title → Body) than Task 1 (Context → Decision), reflecting the longer, more information-rich nature of ADR bodies — which give more lexical and semantic surface for metrics to match against.
-- RAFG improves over prompting for Task 1 consistently, but is more variable on Task 2: Gemini-2.5-Flash and Qwen3-30B show negligible RAFG gains, suggesting that retrieved full-body examples can occasionally introduce conflicting style patterns for longer generations.
+- Fine-tuning and DRAFT generally outperform prompting and RAFG alone across both tasks, with larger gains on Task 2.
+- Absolute metric scores are higher for Task 2 (Title → Body) than Task 1 (Context → Decision), reflecting the longer ADR bodies.
+- RAFG improves over prompting consistently on Task 1, but not on Task 2: Qwen3-30B is unchanged (BERTScore F1 0.817) and Gemini-2.5-Flash decreases slightly (0.815 → 0.813).
 
 **Efficiency**
 
 - RAFG and DRAFT use ~4–5× more input tokens than prompting for Task 1 (due to 2 retrieved C-D pairs), and ~100× more for Task 2 (due to 2 retrieved full ADR bodies prepended to a very short title input).
-- Despite the additional input, DRAFT response times are comparable to or faster than RAFG and fine-tuning in most configurations, because the fine-tuned model generates shorter, more focused outputs.
-- Fine-tuned and DRAFT-ed models produce outputs much closer to ground truth length than prompting. Prompting generates 3–9× more tokens than necessary (e.g., 395 tokens for Gemma vs. 73 token ground truth on Task 1). Shorter outputs directly reduce response time, since output length is the primary driver of latency.
-- Response time is highly model-dependent. Qwen3-30B on local GPU is consistently the slowest (up to 177s for RAFG on Task 2), while Gemini-2.5-Flash via API is the fastest (under 7s across all approaches).
+- Despite the additional input, DRAFT maintains competitive response times, as it generates shorter outputs.
+- Fine-tuned and DRAFT-ed models produce outputs much closer to ground truth length than prompting. Prompting generates up to 9× more tokens than the ground truth on Task 1 (147–672 vs. 73 tokens). Output length is the primary driver of response time.
+- Response time is highly model-dependent. Qwen3-30B on local GPU is consistently the slowest (up to 177s for RAFG on Task 2), while Gemini-2.5-Flash via API is the fastest (at most 7.55s).
 
 ---
 
