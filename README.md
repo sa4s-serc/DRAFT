@@ -16,9 +16,9 @@ DRAFT is evaluated on two complementary tasks:
 | Task | Input | Output |
 |---|---|---|
 | **Task 1 — Decision Making Support** | Decision Context (C) | Design Decision (D) |
-| **Task 2 — Complete ADR Generation** | ADR Title (T) | ADR Body (B) |
+| **Task 2 — Complete ADR Generation** | ADR Title (T) | Complete ADR (B) |
 
-Evaluated on **4,344 ADRs** with **4 LLMs** (GPT-5, Gemini-2.5-Flash, Qwen3-30B, Gemma-3-4B), DRAFT produces outputs most closely aligned with real-world ADRs on automated metrics. A human evaluation by the authors and external architects shows no uniformly preferred approach.
+Evaluated on **4,344 ADRs** with **4 LLMs** (GPT-5, Gemini-2.5-Flash, Qwen3-30B, Gemma-3-4B), DRAFT produces outputs most closely aligned with real-world ADRs on automated metrics.
 
 ---
 
@@ -26,7 +26,7 @@ Evaluated on **4,344 ADRs** with **4 LLMs** (GPT-5, Gemini-2.5-Flash, Qwen3-30B,
 
 DRAFT operates in two phases:
 
-**Offline Phase** — A foundational LLM is fine-tuned on retrieval-augmented prompts. For each training ADR, the top-k most semantically similar ADR pairs are retrieved from a vector database and prepended to the anchor input, forming a few-shot prompt. The model is trained on these augmented prompts so it learns to exploit retrieved examples.
+**Offline Phase** — A foundational LLM is fine-tuned on retrieval-augmented few-shot prompts. For each training ADR, the top-k most semantically similar ADR pairs are retrieved from a vector database and prepended to the anchor input, forming a few-shot prompt. The model is trained on these augmented prompts so it learns to exploit retrieved examples.
 
 **Online Phase** — At inference time, the same retrieval step is applied to the user's input. The DRAFT-ed model receives a few-shot prompt (retrieved examples + query) in the same format it was trained on, combining internalized domain knowledge with dynamic contextual grounding.
 
@@ -81,7 +81,7 @@ See [Data/README.md](Data/README.md) for full details.
 
 ## Models
 
-Generative models were selected from the [LM Arena text leaderboard](https://lmarena.ai/leaderboard/text) (as of Sep 8, 2025): **GPT-5-high** and **Gemini-2.5-Flash** (proprietary), and **Qwen3-30B-A3B-Instruct-2507** and **Gemma-3-4B-it** (open source). GPT-5 was evaluated with Prompting and RAFG only — not available for fine-tuning at the time of the study.
+Generative models were selected from the [LM Arena text leaderboard](https://lmarena.ai/leaderboard/text) (as of Sep 8, 2025): **GPT-5-high** and **Gemini-2.5-Flash** (proprietary), and **Qwen3-30B-A3B-Instruct-2507** and **Gemma-3-4B-it** (open source). GPT-5 was evaluated with Prompting and RAFG only as it was not available for fine-tuning at the time of the study.
 
 Embedding models follow a vendor-alignment strategy: proprietary LLMs are paired with their provider's embedding model (OpenAI / Google), while both open-source models use **Qwen3-Embedding-8B** (MTEB Retrieval #1, open source).
 
@@ -150,7 +150,7 @@ See [HumanEval/README.md](HumanEval/README.md) for scores, inter-rater agreement
 - **Task dependence:** DRAFT's gains over all baselines are significant for every model on Task 2, but model-dependent on Task 1.
 - **Output length:** DRAFT-ed models produce outputs close to ground-truth length (61–140 tokens on Task 1 vs. 147–672 for prompting); output length is the main driver of response time.
 - **Deployment:** DRAFT-ed open-source models (Qwen3-30B, Gemma-3-4B) achieve performance comparable to larger proprietary models and can be hosted on-premises.
-- **Human evaluation:** Similarity to real ADRs does not imply higher perceived quality. Authors preferred DRAFT, the senior architect preferred the more elaborate RAFG outputs, and junior architects found little difference, noting that DRAFT outputs often omit rationale.
+- **Human evaluation:** Similarity to real ADRs does not imply higher perceived quality. Authors preferred DRAFT, the senior architect preferred the more elaborate RAFG outputs, and junior architects found little difference, noting automated metrics often doesn't correspond to real world appreciation.
 
 
 ---
